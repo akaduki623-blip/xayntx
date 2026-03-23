@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雄安与你同行| AI视觉实验室</title>
+  <meta name="description" content="专业广告视频制作、电商服务、AI客服、自媒体代运营和网站建设服务">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Three.js for 3D effects -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+    
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      background-color: #050505;
+      color: #e0e0e0;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(150, 0, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(0, 200, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 100, 200, 0.1) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+    
+    .tech-font {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+    }
+    
+    /* 科技感按钮样式 */
+    .tech-button {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      font-size: 1.1rem; /* 增加字体大小约10% */
+    }
+    
+    .tech-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    }
+    
+    .tech-button:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .tech-button:hover::before {
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    }
+    
+    /* 1px半透明高光边框 */
+    .high-glass {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      background: inherit;
+    }
+    
+    .high-glass::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    }
+    
+    .high-glass::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    }
+    
+    /* 确保high-glass元素悬停时背景不变蓝 */
+    .high-glass:hover {
+      background: inherit !important;
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, #050505 0%, #0a0a15 50%, #1a003f 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(120, 0, 255, 0.3) 0%, rgba(5, 5, 5, 0) 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+      }
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(120, 0, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      background: rgba(18, 18, 30, 0.7);
+    }
+    
+    .card-hover::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(120, 0, 255, 0.1), transparent);
+      transform: rotate(45deg);
+      animation: shimmer 3s infinite;
+      opacity: 0;
+    }
+    
+    .card-hover:hover::before {
+      opacity: 1;
+    }
+    
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(100%) rotate(45deg);
+      }
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(120, 0, 255, 0.3), 0 10px 10px -5px rgba(0, 200, 255, 0.1);
+      border-color: rgba(120, 0, 255, 0.5);
+      background: rgba(18, 18, 30, 0.8);
+    }
+    
+    .process-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #7800ff, #00c8ff, #7800ff);
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px rgba(120, 0, 255, 0.5);
+    }
+    
+    @media (max-width: 768px) {
+      .process-line {
+        display: none;
+      }
+    }
+    
+    .tech-border {
+      position: relative;
+      border: 1px solid rgba(120, 0, 255, 0.3);
+      box-shadow: 0 0 20px rgba(120, 0, 255, 0.1);
+      backdrop-filter: blur(10px);
+      background: rgba(18, 18, 30, 0.7);
+    }
+    
+    .tech-border::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #7800ff, #00c8ff, #7800ff, #00c8ff);
+      border-radius: inherit;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .tech-border:hover::before {
+      opacity: 1;
+      animation: borderAnimation 3s linear infinite;
+    }
+    
+    /* 确保服务卡片悬停时背景不变蓝 */
+    .card-hover.tech-border:hover {
+      background: rgba(18, 18, 30, 0.8) !important;
+    }
+    
+    @keyframes borderAnimation {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: 300% 0%;
+      }
+    }
+    
+    .glow-text {
+      text-shadow: 0 0 10px rgba(120, 0, 255, 0.5), 0 0 20px rgba(0, 200, 255, 0.3);
+    }
+    
+    .btn-tech {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    
+    .btn-tech::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn-tech:hover::before {
+      left: 100%;
+    }
+    
+    .btn-tech:hover {
+      box-shadow: 0 0 20px rgba(150, 0, 255, 0.5), 0 0 30px rgba(0, 200, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .btn-tech::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(45deg, #9600ff, #00d4ff, #9600ff);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .btn-tech:hover::after {
+      opacity: 1;
+    }
+    
+    #particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .service-icon {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .service-icon::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(120, 0, 255, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #7800ff, #00c8ff);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link:hover {
+      color: #e0e0e0;
+    }
+    
+    /* 赛博朋克风格的玻璃态效果 */
+    .glass-effect {
+      backdrop-filter: blur(15px);
+      background: rgba(18, 18, 30, 0.6);
+      border: 1px solid rgba(120, 0, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* 霓虹文本效果 */
+    .neon-text {
+      text-shadow: 0 0 5px rgba(120, 0, 255, 0.7), 0 0 10px rgba(120, 0, 255, 0.5), 0 0 15px rgba(120, 0, 255, 0.3);
+    }
+    
+    /* 渐变按钮效果 */
+    .gradient-btn {
+      background: linear-gradient(90deg, #9600ff, #00d4ff);
+      transition: all 0.3s ease;
+    }
+    
+    .gradient-btn:hover {
+      background: linear-gradient(90deg, #00d4ff, #9600ff);
+      box-shadow: 0 0 25px rgba(150, 0, 255, 0.7);
+    }
+    
+    /* 瀑布流布局 */
+    .masonry-container {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+    }
+    
+    .masonry-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* 案例项目样式 */
+    .case-item {
+      transition: all 0.3s ease;
+    }
+    
+    .case-item:hover {
+      z-index: 10;
+      box-shadow: 0 20px 40px rgba(120, 0, 255, 0.3);
+      background: rgba(18, 18, 30, 0.8);
+    }
+    
+    /* 滚动触发效果 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#6366f1',
+            accent: '#10b981',
+            dark: '#0f172a',
+            light: '#f8fafc',
+          },
+        },
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="glass-effect sticky top-0 z-50 border-b border-purple-500/20">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <span class="text-2xl font-bold text-white tech-font">雄安与你同行</span>
+        <span class="text-sm text-gray-400">| AI视觉实验室</span>
+      </div>
+      
+      <!-- 桌面导航 -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#home" class="text-gray-300 hover:text-purple-400 font-medium nav-link">首页</a>
+        <a href="#services" class="text-gray-300 hover:text-purple-400 font-medium nav-link">服务内容</a>
+        <a href="#cases" class="text-gray-300 hover:text-purple-400 font-medium nav-link">案例展示</a>
+        <a href="#process" class="text-gray-300 hover:text-purple-400 font-medium nav-link">服务流程</a>
+        <a href="#about" class="text-gray-300 hover:text-purple-400 font-medium nav-link">关于我们</a>
+        <a href="#contact" class="text-gray-300 hover:text-purple-400 font-medium nav-link">联系方式</a>
+      </div>
+      
+      <!-- 移动端菜单按钮 -->
+      <div class="md:hidden">
+        <button id="menu-toggle" class="text-gray-300 focus:outline-none">
+          <i class="fa fa-bars text-2xl"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="md:hidden glass-effect border-t border-purple-500/20 hidden">
+      <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+        <a href="#home" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">首页</a>
+        <a href="#services" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">服务内容</a>
+        <a href="#cases" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">案例展示</a>
+        <a href="#process" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">服务流程</a>
+        <a href="#about" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">关于我们</a>
+        <a href="#contact" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">联系方式</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 首页英雄区 -->
+  <section id="home" class="hero-gradient text-white min-h-screen flex items-center relative overflow-hidden">
+    <!-- 高质量AI生成背景图 -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cyberpunk%20robot%20hand%20touching%20glowing%20particles%20with%20neon%20lights%20and%20dark%20background&image_size=landscape_16_9" 
+        class="w-full h-full object-cover"
+        alt="AI Technology Background"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30"></div>
+    </div>
+    
+    <!-- 粒子效果画布 -->
+    <canvas id="particles-canvas" class="absolute inset-0 z-10"></canvas>
+    
+    <div class="container mx-auto px-4 relative z-20">
+      <div class="max-w-2xl">
+        <h1 class="text-6xl md:text-8xl font-black mb-6 leading-tight" style="font-family: 'Orbitron', 'Microsoft YaHei Black', 'Alibaba PuHuiTi Heavy', sans-serif; letter-spacing: 2px;">
+          AI驱动的<br>
+          <span style="color: #ffffff;">创意解决方案</span>
+        </h1>
+        <p class="text-xl md:text-2xl mb-10 text-gray-300">
+          打破物理边界，重塑视觉营销
+        </p>
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+          <a href="#services" class="glass-effect text-white font-bold py-4 px-8 rounded-lg hover:bg-white/10 transition btn-tech text-lg border border-white/20 shadow-lg shadow-white/10">
+            了解服务
+          </a>
+          <a href="#contact" class="glass-effect text-white font-bold py-4 px-8 rounded-lg hover:bg-white/10 transition btn-tech text-lg border border-white/20 shadow-lg shadow-white/10">
+            联系我们
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 服务内容展示 -->
+  <section id="services" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">我们的服务</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          利用人工智能技术，为您提供高质量、高效率的创意解决方案
+        </p>
+      </div>
+      
+      <!-- 服务卡片网格 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- 服务卡片 2 -->
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-video-camera text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-2xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">AIGC广告视频制作</h3>
+          <p class="text-gray-300 relative z-10">通过AI生成创意广告视频，成本相较传统广告视频大幅降低，高效产出优质创意视频，提升品牌曝光</p>
+        </div>
+        
+        <!-- 服务卡片 3 -->
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-shopping-bag text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-2xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">AIGC电商服务</h3>
+          <p class="text-gray-300 relative z-10">制作UGC风格电商带货短视频，生成高质量电商产品图片，提供 AI海报设计服务，提升产品转化率与销售业绩。</p>
+        </div>
+        
+        <!-- 服务卡片 4 -->
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-comments text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-2xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">AI客服</h3>
+          <p class="text-gray-300 relative z-10">部署智能AI客服系统，24小时在线解答客户问题，提高客户满意度和服务效率。</p>
+        </div>
+        
+        <!-- 服务卡片 5 -->
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-users text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-2xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">自媒体代运营</h3>
+          <p class="text-gray-300 relative z-10">提供专业的自媒体账号代运营服务，包括内容创作、粉丝增长、数据分析，提升品牌影响力。</p>
+        </div>
+        
+        <!-- 服务卡片 6 -->
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-globe text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-2xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">网站建设</h3>
+          <p class="text-gray-300 relative z-10">专业的网站建设服务，从设计到开发，为您打造响应式、用户友好的企业网站。</p>
+        </div>
+        
+        <!-- 服务卡片 7 -->
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-graduation-cap text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-2xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">AI技术培训</h3>
+          <p class="text-gray-300 relative z-10">提供专业的AI技术培训服务，包括AI基础、AIGC应用、AI工具使用等，帮助企业和个人掌握AI技术。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 案例展示 -->
+  <section id="cases" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-5xl md:text-6xl font-bold text-white mb-4" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">案例展示</h2>
+        <p class="text-gray-300 max-w-2xl mx-auto">
+          查看我们的成功案例，了解我们如何为客户创造价值
+        </p>
+      </div>
+      
+      <!-- 案例分类标签 -->
+      <div class="flex flex-wrap justify-between mb-10 gap-4 reveal">
+        <button class="case-tab px-6 py-3 rounded-full font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="广告">
+          <i class="fa fa-video-camera mr-2"></i>AIGC 广告视频
+        </button>
+        <button class="case-tab px-6 py-3 rounded-full font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="电商">
+          <i class="fa fa-shopping-bag mr-2"></i> AIGC 电商带货
+        </button>
+
+        <button class="case-tab px-6 py-3 rounded-full font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="自媒体">
+          <i class="fa fa-users mr-2"></i> 自媒体代运营
+        </button>
+        <button class="case-tab px-6 py-3 rounded-full font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="网站">
+          <i class="fa fa-globe mr-2"></i> 网站建设
+        </button>
+        <button class="case-tab px-6 py-3 rounded-full font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="培训">
+          <i class="fa fa-graduation-cap mr-2"></i> AI技术培训
+        </button>
+      </div>
+      
+      <!-- 紧凑的三列网格布局 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 案例 2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116275820960686&bvid=BV1gFQRBYE4u&cid=36900900464&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">广告视频案例1</h3>
+            <p class="text-gray-300">雄安与你同行|AI视觉实验室简介</p>
+          </div>
+        </div>
+        
+        <!-- 案例 3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116254681601530&bvid=BV17mwkzMEQk&cid=36810787201&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">广告视频案例2</h3>
+            <p class="text-gray-300">为邯郸广府古城“水韵太极”白酒制作的产品推广广告，提高了产品点击率75%。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 4 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116254681603433&bvid=BV17mwkzME79&cid=36810719675&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">广告视频案例3</h3>
+            <p class="text-gray-300">为某地产品牌制作的创意广告，提升了品牌知名度30%。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 5 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116260436188965&bvid=BV1yZA7z7ELP&cid=36835495001&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">广告视频案例4</h3>
+            <p class="text-gray-300">为某少儿编程培训班制作的广告视频，大大提高了招生率。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 6 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116260419473456&bvid=BV1TXA7zQEeH&cid=36835364773&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">广告视频案例5</h3>
+            <p class="text-gray-300">为雄安新区制作的数字人导游视频，提升了城市的宣传力和科技感，降低宣传成本70%。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 7 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116260436189032&bvid=BV1yZA7z7EV2&cid=36835557837&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">广告视频案例6</h3>
+            <p class="text-gray-300">为城市交通部门制作的交通宣传科普视频。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 8 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116266727644129&bvid=BV1UJAczuEwQ&cid=36863083309&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">广告视频案例7</h3>
+            <p class="text-gray-300">为某知名品牌制作的广告视频，获行业大佬点赞。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 9 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116266711061576&bvid=BV1mnAczzEQo&cid=36862887168&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">广告视频案例8</h3>
+            <p class="text-gray-300">改变传统探店模式，新的探店视频大大的提高了门店的食客数量。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 10 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116233290653142&bvid=BV1A5wuzQEhN&cid=36720217765&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">广告视频案例9</h3>
+            <p class="text-gray-300">为某红酒品牌制作的系列广告，提升了品牌销售额45%。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116254664826225&bvid=BV1jUwkzqEvK&cid=36810592088&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">电商带货视频案例1</h3>
+            <p class="text-gray-300">为某电商平台制作的耳环带货视频，转化率提升了30%。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 4 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116254698380187&bvid=BV1uPwCz4ESG&cid=36810851933&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">电商带货视频案例2</h3>
+            <p class="text-gray-300">为某时尚品牌制作的电商带货视频，提升了产品销售额25%。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 5 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <iframe 
+                src="https://player.bilibili.com/player.html?isOutside=true&aid=116271475662703&bvid=BV1k4AgzxEQn&cid=36883271553&p=1&autoplay=0&loop=0&muted=0" 
+                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                frameborder="0"
+                allow="fullscreen"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">电商带货视频案例3</h3>
+            <p class="text-gray-300">为某Tiktok化妆品品牌制作的短视频带货内容，获得了10万+点赞。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 6 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <img 
+                src="./images/product1.jpg" 
+                alt="电商产品图1" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">电商产品图1</h3>
+            <p class="text-gray-300">为某美妆品牌制作的AI生成产品对比图片，提升了产品点击率40%。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 7 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <img 
+                src="./images/product2.jpg" 
+                alt="电商产品图2" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">电商产品图2</h3>
+            <p class="text-gray-300">为某智能手表品牌制作的AI生成产品图片，提升了品牌形象和产品销量。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 8 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
+              <img 
+                src="./images/product3.jpg" 
+                alt="电商产品图3" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">电商产品图3</h3>
+            <p class="text-gray-300">为某运动品牌制作的AI生成产品图片，提升了转化率35%。</p>
+          </div>
+        </div>
+        
+
+        
+        <!-- 案例 5 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="自媒体">
+          <div class="relative overflow-hidden">
+            <video 
+              src="https://example.com/video5.mp4" 
+              poster="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cyberpunk%20AI%20technology%20video%20placeholder%20with%20neon%20glows&image_size=landscape_16_9" 
+              class="w-full h-auto object-cover"
+              controls
+              style="height: 250px; z-index: 1;"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">自媒体代运营案例</h3>
+            <p class="text-gray-300">为某品牌提供的自媒体账号代运营服务，粉丝增长300%，品牌影响力显著提升。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 6 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="网站">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
+              <img 
+                src="./images/product4.jpg" 
+                alt="网站建设案例1" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">网站建设案例1</h3>
+            <p class="text-gray-300">为某企业设计开发的响应式网站，提升了品牌形象和用户体验。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 7 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="网站">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
+              <img 
+                src="./images/product5.jpg" 
+                alt="网站建设案例2" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">网站建设案例2</h3>
+            <p class="text-gray-300">为某求职者设计的个人网站，形式新颖，能展示个人作品集，提高面试通过率75%。</p>
+          </div>
+        </div>
+        
+        <!-- 案例 8 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="网站">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
+              <img 
+                src="./images/product6.jpg" 
+                alt="网站建设案例3" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">网站建设案例3</h3>
+            <p class="text-gray-300">雄安与你同行智能科技有限公司官方网站，采用赛博朋克风格设计，集成AI驱动的创意解决方案，展示公司核心服务和成功案例。</p>
+          </div>
+        </div>
+        
+        <!-- AI技术培训案例 1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="培训">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
+              <img 
+                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20technology%20training%20workshop%20with%20neon%20lights%20and%20cyberpunk%20style&image_size=landscape_16_9" 
+                alt="AI技术培训案例1" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">AI技术培训案例1</h3>
+            <p class="text-gray-300">为某企业提供的AI基础培训课程，帮助员工掌握AI技术基础知识和应用方法。</p>
+          </div>
+        </div>
+        
+        <!-- AI技术培训案例 2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="培训">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
+              <img 
+                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AIGC%20application%20training%20course%20with%20digital%20interface%20and%20neon%20elements&image_size=landscape_16_9" 
+                alt="AI技术培训案例2" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">AI技术培训案例2</h3>
+            <p class="text-gray-300">为创意行业从业者提供的AIGC应用培训，教授如何使用AI工具进行内容创作。</p>
+          </div>
+        </div>
+        
+        <!-- AI技术培训案例 3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="培训">
+          <div class="relative overflow-hidden">
+            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
+              <img 
+                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20tools%20workshop%20with%20participants%20using%20laptops%20in%20cyberpunk%20setting&image_size=landscape_16_9" 
+                alt="AI技术培训案例3" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
+            <h3 class="text-xl font-bold mb-2 text-white tech-font glow-text">AI技术培训案例3</h3>
+            <p class="text-gray-300">为企业管理层提供的AI战略培训，帮助制定AI技术应用规划和实施方案。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 服务流程 -->
+  <section id="process" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-5xl md:text-6xl font-bold text-white mb-4" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">服务流程</h2>
+        <p class="text-gray-300 max-w-2xl mx-auto">
+          从沟通到交付，我们为您提供专业、高效的服务流程
+        </p>
+      </div>
+      
+      <!-- 横向流程卡片 -->
+      <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+        <!-- 流程步骤 1 -->
+        <div class="flex-1 rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+          <!-- 背景数字 -->
+          <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">01</div>
+          
+          <!-- 图片 -->
+          <div class="h-64 overflow-visible relative">
+            <div class="w-full h-full rounded-t-2xl overflow-hidden">
+              <img 
+                src="images/step1.jpg" 
+                alt="需求沟通" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style="border-radius: 16px 16px 0 0;"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <div class="p-6 relative z-10">
+            <h3 class="text-xl font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">需求沟通</h3>
+            <p class="text-gray-300">了解客户需求，制定详细的项目计划和方案。</p>
+          </div>
+        </div>
+        
+        <!-- 流程步骤 2 -->
+        <div class="flex-1 rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+          <!-- 背景数字 -->
+          <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">02</div>
+          
+          <!-- 图片 -->
+          <div class="h-64 overflow-visible relative">
+            <div class="w-full h-full rounded-t-2xl overflow-hidden">
+              <img 
+                src="images/step2.jpg" 
+                alt="创意设计" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style="border-radius: 16px 16px 0 0;"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <div class="p-6 relative z-10">
+            <h3 class="text-xl font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">创意设计</h3>
+            <p class="text-gray-300">根据需求进行创意设计，提供初步方案和概念。</p>
+          </div>
+        </div>
+        
+        <!-- 流程步骤 3 -->
+        <div class="flex-1 rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+          <!-- 背景数字 -->
+          <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">03</div>
+          
+          <!-- 图片 -->
+          <div class="h-64 overflow-visible relative">
+            <div class="w-full h-full rounded-t-2xl overflow-hidden">
+              <img 
+                src="images/step3.jpg" 
+                alt="制作执行" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style="border-radius: 16px 16px 0 0;"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <div class="p-6 relative z-10">
+            <h3 class="text-xl font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">制作执行</h3>
+            <p class="text-gray-300">专业团队进行制作，确保质量和效率。</p>
+          </div>
+        </div>
+        
+        <!-- 流程步骤 4 -->
+        <div class="flex-1 rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+          <!-- 背景数字 -->
+          <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">04</div>
+          
+          <!-- 图片 -->
+          <div class="h-64 overflow-visible relative">
+            <div class="w-full h-full rounded-t-2xl overflow-hidden">
+              <img 
+                src="images/step4.jpg" 
+                alt="质量检查" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style="border-radius: 16px 16px 0 0;"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <div class="p-6 relative z-10">
+            <h3 class="text-xl font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">质量检查</h3>
+            <p class="text-gray-300">严格的质量控制，确保最终产品符合要求。</p>
+          </div>
+        </div>
+        
+        <!-- 流程步骤 5 -->
+        <div class="flex-1 rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+          <!-- 背景数字 -->
+          <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">05</div>
+          
+          <!-- 图片 -->
+          <div class="h-64 overflow-visible relative">
+            <div class="w-full h-full rounded-t-2xl overflow-hidden">
+              <img 
+                src="images/step5.jpg" 
+                alt="交付验收" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style="border-radius: 16px 16px 0 0;"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <div class="p-6 relative z-10">
+            <h3 class="text-xl font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">交付验收</h3>
+            <p class="text-gray-300">按时交付成果，确保客户满意。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于我们 -->
+  <section id="about" class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">关于我们</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          雄安与你同行AI视觉实验室致力于利用AI技术为企业提供创新的数字解决方案
+        </p>
+      </div>
+      
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0 reveal">
+          <div class="tech-border rounded-lg overflow-hidden high-glass">
+            <img 
+              src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cyberpunk%20AI%20technology%20team%20working%20in%20futuristic%20office%20with%20neon%20lights&image_size=square_hd" 
+              alt="关于我们" 
+              class="w-full"
+            />
+          </div>
+        </div>
+        <div class="md:w-1/2 md:pl-12 reveal">
+          <h3 class="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">公司简介</h3>
+          <p class="text-gray-400 mb-6 text-lg">
+            雄安与你同行AI视觉实验室成立于2024年，是一家专注于AI技术应用的创新企业。我们拥有一支专业的团队，致力于为客户提供高质量的广告视频制作、电商服务、AI客服、自媒体代运营和网站建设服务。
+          </p>
+          <p class="text-gray-400 mb-6 text-lg">
+            我们的使命是通过AI技术赋能企业，帮助客户在数字时代获得竞争优势。我们相信，人工智能技术将为创意产业带来革命性的变化，我们愿意与客户一起探索这一领域的无限可能。
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">50+</div>
+              <div class="text-gray-400">成功案例</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">20+</div>
+              <div class="text-gray-400">企业客户</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">98%</div>
+              <div class="text-gray-400">客户满意度</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section id="contact" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">联系方式</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">
+          如有任何疑问或合作意向，请随时与我们联系
+        </p>
+      </div>
+      
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0 reveal">
+          <div class="glass-effect p-8 rounded-lg shadow-md tech-border high-glass">
+            <h3 class="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">联系我们</h3>
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 text-xl mr-4"><i class="fa fa-map-marker"></i></div>
+                <div>
+                  <h4 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-1">公司地址</h4>
+                  <p class="text-gray-400">河北省雄安新区</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 text-xl mr-4"><i class="fa fa-phone"></i></div>
+                <div>
+                  <h4 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-1">联系电话</h4>
+                  <p class="text-gray-400">198-3360-9806</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 text-xl mr-4"><i class="fa fa-envelope"></i></div>
+                <div>
+                  <h4 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-1">电子邮箱</h4>
+                  <p class="text-gray-400">xayntxai@outlook.com</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 text-xl mr-4"><i class="fa fa-weixin"></i></div>
+                <div>
+                  <h4 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-1">微信客服</h4>
+                  <div class="mt-4 tech-border rounded-lg p-2 inline-block">
+                    <img 
+                      src="images/wechat-qr-code.png" 
+                      alt="微信二维码" 
+                      class="w-32 h-32"
+                    />
+                    <p class="text-gray-400 mt-2 text-center">扫码添加微信</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2 md:pl-12 reveal">
+          <div class="glass-effect p-8 rounded-lg shadow-md tech-border high-glass">
+            <h3 class="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">留言咨询</h3>
+            <form class="space-y-4">
+              <div>
+                <label class="block text-gray-400 mb-2">姓名</label>
+                <input 
+                  type="text" 
+                  class="w-full px-4 py-2 border border-purple-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50 bg-gray-900/50 text-white"
+                  placeholder="请输入您的姓名"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-2">电话</label>
+                <input 
+                  type="tel" 
+                  class="w-full px-4 py-2 border border-purple-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50 bg-gray-900/50 text-white"
+                  placeholder="请输入您的电话"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-2">邮箱</label>
+                <input 
+                  type="email" 
+                  class="w-full px-4 py-2 border border-purple-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50 bg-gray-900/50 text-white"
+                  placeholder="请输入您的邮箱"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-400 mb-2">留言内容</label>
+                <textarea 
+                  rows="4" 
+                  class="w-full px-4 py-2 border border-purple-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500/50 bg-gray-900/50 text-white"
+                  placeholder="请输入您的留言内容"
+                ></textarea>
+              </div>
+              <button 
+                type="submit" 
+                class="w-full gradient-btn text-white font-bold py-3 px-6 rounded-lg hover:bg-gradient-to-r from-cyan-400 to-purple-500 transition btn-tech"
+              >
+                提交留言
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="glass-effect py-12 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font glow-text">雄安与你同行| AI视觉实验室</h3>
+          <p class="text-gray-400">
+            专业的AI创意解决方案提供商
+          </p>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">服务内容</h3>
+          <ul class="space-y-2 text-gray-400">
+            
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">AIGC广告视频制作</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">AIGC电商服务</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">AI客服</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">自媒体代运营</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">网站建设</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">AI技术培训</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">快速链接</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#home" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">首页</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">服务内容</a></li>
+            <li><a href="#cases" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">案例展示</a></li>
+            <li><a href="#process" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">服务流程</a></li>
+            <li><a href="#about" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">关于我们</a></li>
+            <li><a href="#contact" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">联系方式</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">联系方式</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><i class="fa fa-map-marker mr-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400"></i> 河北省雄安新区</li>
+            <li><i class="fa fa-phone mr-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400"></i> 198-3360-9806</li>
+            <li><i class="fa fa-envelope mr-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400"></i> xayntxai@outlook.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-purple-500/20 mt-8 pt-8 text-center text-gray-400">
+        <p class="tech-font">© 2024 雄安与你同行| AI视觉实验室. 保留所有权利.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 移动端菜单切换
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 案例分类切换
+    document.querySelectorAll('.case-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // 移除所有标签的active状态
+        document.querySelectorAll('.case-tab').forEach(t => {
+          t.classList.remove('bg-primary', 'text-white');
+          t.classList.remove('bg-gray-200', 'text-gray-800');
+        });
+        
+        // 添加当前标签的active状态
+        this.classList.add('bg-primary', 'text-white');
+        
+        const tabId = this.getAttribute('data-tab');
+        
+        // 显示或隐藏案例
+        document.querySelectorAll('.case-item').forEach(item => {
+          if (item.getAttribute('data-category') === tabId) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 默认显示第一个分类的案例
+    document.addEventListener('DOMContentLoaded', function() {
+      const firstTab = document.querySelector('.case-tab');
+      if (firstTab) {
+        const firstTabId = firstTab.getAttribute('data-tab');
+        document.querySelectorAll('.case-item').forEach(item => {
+          if (item.getAttribute('data-category') === firstTabId) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // 粒子效果 - 随鼠标互动
+    document.addEventListener('DOMContentLoaded', function() {
+      const canvas = document.getElementById('particles-canvas');
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      const particles = [];
+      const particleCount = 120; // 增加粒子数量，保持效果可见
+      let mouseX = canvas.width / 2;
+      let mouseY = canvas.height / 2;
+      
+      // 鼠标移动事件 - 使用节流优化
+      let lastMouseMove = 0;
+      window.addEventListener('mousemove', function(e) {
+        const now = Date.now();
+        if (now - lastMouseMove > 50) { // 每50ms更新一次
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          lastMouseMove = now;
+        }
+      });
+      
+      // 创建粒子
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 2 + 0.5, // 减小粒子大小
+          speedX: Math.random() * 0.6 - 0.3, // 减小速度
+          speedY: Math.random() * 0.6 - 0.3,
+          color: `rgba(255, 255, 255, ${Math.random() * 0.6 + 0.2})` // 改为白色
+        });
+      }
+      
+      // 动画循环
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          
+          // 鼠标互动效果
+          const dx = mouseX - p.x;
+          const dy = mouseY - p.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 120) { // 减小互动距离
+            const forceDirectionX = dx / distance;
+            const forceDirectionY = dy / distance;
+            const force = (120 - distance) / 120;
+            p.x -= forceDirectionX * force * 0.3; // 减小力的影响
+            p.y -= forceDirectionY * force * 0.3;
+          }
+          
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+          
+          p.x += p.speedX;
+          p.y += p.speedY;
+          
+          if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+          
+          // 连接粒子
+          for (let j = i; j < particles.length; j++) {
+            const p2 = particles[j];
+            const dx = p.x - p2.x;
+            const dy = p.y - p2.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 80) { // 减小连线距离
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 * (1 - distance / 80)})`;
+              ctx.lineWidth = 0.3; // 减小线宽
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          }
+        }
+        
+        requestAnimationFrame(animate);
+      }
+      
+      // 延迟启动粒子效果，优先加载其他内容
+      setTimeout(animate, 1000);
+      
+      // 响应窗口大小 - 使用节流优化
+      let lastResize = 0;
+      window.addEventListener('resize', function() {
+        const now = Date.now();
+        if (now - lastResize > 200) { // 每200ms更新一次
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          lastResize = now;
+        }
+      });
+    });
+    
+
+    
+    // 视频悬停播放
+    document.addEventListener('DOMContentLoaded', function() {
+      const caseItems = document.querySelectorAll('.case-item');
+      caseItems.forEach(item => {
+        const video = item.querySelector('video');
+        if (video) {
+          item.addEventListener('mouseenter', function() {
+            video.play();
+          });
+          item.addEventListener('mouseleave', function() {
+            video.pause();
+            video.currentTime = 0;
+          });
+        }
+      });
+    });
+    
+    // 滚动触发效果
+    window.addEventListener('scroll', function() {
+      const reveals = document.querySelectorAll('.reveal');
+      const windowHeight = window.innerHeight;
+      
+      reveals.forEach(reveal => {
+        const revealTop = reveal.getBoundingClientRect().top;
+        const revealPoint = 150;
+        
+        if (revealTop < windowHeight - revealPoint) {
+          reveal.classList.add('active');
+        }
+      });
+    });
+    
+    // 页面加载时检查
+    window.addEventListener('load', function() {
+      const reveals = document.querySelectorAll('.reveal');
+      reveals.forEach(reveal => {
+        const revealTop = reveal.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        const revealPoint = 150;
+        
+        if (revealTop < windowHeight - revealPoint) {
+          reveal.classList.add('active');
+        }
+      });
+    });
+
+    // 轮播视频
+    document.addEventListener('DOMContentLoaded', function() {
+      const carouselItems = document.querySelectorAll('.carousel-item');
+      const indicators = document.querySelectorAll('.carousel-indicator');
+      let currentIndex = 0;
+      const totalItems = carouselItems.length;
+
+      // 自动轮播
+      function startCarousel() {
+        setInterval(() => {
+          goToNextSlide();
+        }, 5000); // 每5秒切换一次
+      }
+
+      // 切换到下一张
+      function goToNextSlide() {
+        carouselItems[currentIndex].classList.remove('opacity-100');
+        carouselItems[currentIndex].classList.add('opacity-0');
+        indicators[currentIndex].classList.remove('bg-white/50');
+        indicators[currentIndex].classList.add('bg-white/30');
+
+        currentIndex = (currentIndex + 1) % totalItems;
+
+        carouselItems[currentIndex].classList.remove('opacity-0');
+        carouselItems[currentIndex].classList.add('opacity-100');
+        indicators[currentIndex].classList.remove('bg-white/30');
+        indicators[currentIndex].classList.add('bg-white/50');
+      }
+
+      // 点击指示器切换
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+          carouselItems[currentIndex].classList.remove('opacity-100');
+          carouselItems[currentIndex].classList.add('opacity-0');
+          indicators[currentIndex].classList.remove('bg-white/50');
+          indicators[currentIndex].classList.add('bg-white/30');
+
+          currentIndex = index;
+
+          carouselItems[currentIndex].classList.remove('opacity-0');
+          carouselItems[currentIndex].classList.add('opacity-100');
+          indicators[currentIndex].classList.remove('bg-white/30');
+          indicators[currentIndex].classList.add('bg-white/50');
+        });
+      });
+
+      // 开始轮播
+      startCarousel();
+    });
+  </script>
+</body>
+</html>
