@@ -416,24 +416,26 @@
 
   </style>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#3b82f6',
-            secondary: '#6366f1',
-            accent: '#10b981',
-            dark: '#0f172a',
-            light: '#f8fafc',
+    if (typeof tailwind !== 'undefined') {
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#3b82f6',
+              secondary: '#6366f1',
+              accent: '#10b981',
+              dark: '#0f172a',
+              light: '#f8fafc',
+            },
           },
-        },
+        }
       }
     }
   </script>
 </head>
 <body>
   <!-- 导航栏 -->
-  <nav class="glass-effect sticky top-0 z-50 border-b border-purple-500/30">
+  <nav class="glass-effect sticky top-0 z-500 border-b border-purple-500/30">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center space-x-2">
         <span class="text-lg md:text-3xl font-black text-white tech-font glow-text">雄安与你同行</span>
@@ -521,7 +523,7 @@
       <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- 服务卡片 2 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -539,7 +541,7 @@
         </div>
         
         <!-- 服务卡片 3 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -557,7 +559,7 @@
         </div>
         
         <!-- 服务卡片 4 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -575,7 +577,7 @@
         </div>
         
         <!-- 服务卡片 5 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -593,7 +595,7 @@
         </div>
         
         <!-- 服务卡片 6 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -611,7 +613,7 @@
         </div>
         
         <!-- 服务卡片 7 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
+        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -665,7 +667,7 @@
       <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- 案例 2 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -684,7 +686,7 @@
         </div>
         
         <!-- 案例 3 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -703,7 +705,7 @@
         </div>
         
         <!-- 案例 4 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -722,7 +724,7 @@
         </div>
         
         <!-- 案例 5 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -741,7 +743,7 @@
         </div>
         
         <!-- 案例 6 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -760,7 +762,7 @@
         </div>
         
         <!-- 案例 7 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -779,7 +781,7 @@
         </div>
         
         <!-- 案例 8 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -798,7 +800,7 @@
         </div>
         
         <!-- 案例 9 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -817,7 +819,7 @@
         </div>
         
         <!-- 案例 10 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -836,7 +838,7 @@
         </div>
         
         <!-- 案例 3 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -855,7 +857,7 @@
         </div>
         
         <!-- 案例 4 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -874,7 +876,7 @@
         </div>
         
         <!-- 案例 5 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <iframe 
@@ -893,7 +895,7 @@
         </div>
         
         <!-- 案例 6 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <img 
@@ -910,7 +912,7 @@
         </div>
         
         <!-- 案例 7 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <img 
@@ -927,7 +929,7 @@
         </div>
         
         <!-- 案例 8 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="电商">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
               <img 
@@ -946,7 +948,7 @@
 
         
         <!-- 案例 5 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="自媒体">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="自媒体">
           <div class="relative overflow-hidden">
             <video 
               src="https://example.com/video5.mp4" 
@@ -964,7 +966,7 @@
         </div>
         
         <!-- 案例 6 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="网站">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="网站">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
               <img 
@@ -981,7 +983,7 @@
         </div>
         
         <!-- 案例 7 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="网站">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="网站">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
               <img 
@@ -998,7 +1000,7 @@
         </div>
         
         <!-- 案例 8 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="网站">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="网站">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
               <img 
@@ -1015,7 +1017,7 @@
         </div>
         
         <!-- AI技术培训案例 1 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="培训">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="培训">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
               <img 
@@ -1032,7 +1034,7 @@
         </div>
         
         <!-- AI技术培训案例 2 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="培训">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="培训">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
               <img 
@@ -1049,7 +1051,7 @@
         </div>
         
         <!-- AI技术培训案例 3 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="培训">
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="培训">
           <div class="relative overflow-hidden">
             <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
               <img 
@@ -1081,7 +1083,7 @@
       <!-- 横向流程卡片 -->
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8">
         <!-- 流程步骤 1 -->
-        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">01</div>
           
@@ -1106,7 +1108,7 @@
         </div>
         
         <!-- 流程步骤 2 -->
-        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">02</div>
           
@@ -1131,7 +1133,7 @@
         </div>
         
         <!-- 流程步骤 3 -->
-        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">03</div>
           
@@ -1156,7 +1158,7 @@
         </div>
         
         <!-- 流程步骤 4 -->
-        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">04</div>
           
@@ -1181,7 +1183,7 @@
         </div>
         
         <!-- 流程步骤 5 -->
-        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">05</div>
           
@@ -1593,50 +1595,62 @@
       document.addEventListener('DOMContentLoaded', function() {
         const carouselItems = document.querySelectorAll('.carousel-item');
         const indicators = document.querySelectorAll('.carousel-indicator');
-        let currentIndex = 0;
-        const totalItems = carouselItems.length;
+        
+        // 只有当轮播项存在时才执行
+        if (carouselItems.length > 0 && indicators.length > 0) {
+          let currentIndex = 0;
+          const totalItems = carouselItems.length;
 
-        // 自动轮播
-        function startCarousel() {
-          setInterval(() => {
-            goToNextSlide();
-          }, 5000); // 每5秒切换一次
-        }
+          // 自动轮播
+          function startCarousel() {
+            setInterval(() => {
+              goToNextSlide();
+            }, 5000); // 每5秒切换一次
+          }
 
-        // 切换到下一张
-        function goToNextSlide() {
-          carouselItems[currentIndex].classList.remove('opacity-100');
-          carouselItems[currentIndex].classList.add('opacity-0');
-          indicators[currentIndex].classList.remove('bg-white/50');
-          indicators[currentIndex].classList.add('bg-white/30');
+          // 切换到下一张
+          function goToNextSlide() {
+            if (currentIndex < carouselItems.length && currentIndex < indicators.length) {
+              carouselItems[currentIndex].classList.remove('opacity-100');
+              carouselItems[currentIndex].classList.add('opacity-0');
+              indicators[currentIndex].classList.remove('bg-white/50');
+              indicators[currentIndex].classList.add('bg-white/30');
 
-          currentIndex = (currentIndex + 1) % totalItems;
+              currentIndex = (currentIndex + 1) % totalItems;
 
-          carouselItems[currentIndex].classList.remove('opacity-0');
-          carouselItems[currentIndex].classList.add('opacity-100');
-          indicators[currentIndex].classList.remove('bg-white/30');
-          indicators[currentIndex].classList.add('bg-white/50');
-        }
+              if (currentIndex < carouselItems.length && currentIndex < indicators.length) {
+                carouselItems[currentIndex].classList.remove('opacity-0');
+                carouselItems[currentIndex].classList.add('opacity-100');
+                indicators[currentIndex].classList.remove('bg-white/30');
+                indicators[currentIndex].classList.add('bg-white/50');
+              }
+            }
+          }
 
-        // 点击指示器切换
-        indicators.forEach((indicator, index) => {
-          indicator.addEventListener('click', () => {
-            carouselItems[currentIndex].classList.remove('opacity-100');
-            carouselItems[currentIndex].classList.add('opacity-0');
-            indicators[currentIndex].classList.remove('bg-white/50');
-            indicators[currentIndex].classList.add('bg-white/30');
+          // 点击指示器切换
+          indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+              if (currentIndex < carouselItems.length && currentIndex < indicators.length) {
+                carouselItems[currentIndex].classList.remove('opacity-100');
+                carouselItems[currentIndex].classList.add('opacity-0');
+                indicators[currentIndex].classList.remove('bg-white/50');
+                indicators[currentIndex].classList.add('bg-white/30');
+              }
 
-            currentIndex = index;
+              currentIndex = index;
 
-            carouselItems[currentIndex].classList.remove('opacity-0');
-            carouselItems[currentIndex].classList.add('opacity-100');
-            indicators[currentIndex].classList.remove('bg-white/30');
-            indicators[currentIndex].classList.add('bg-white/50');
+              if (currentIndex < carouselItems.length && currentIndex < indicators.length) {
+                carouselItems[currentIndex].classList.remove('opacity-0');
+                carouselItems[currentIndex].classList.add('opacity-100');
+                indicators[currentIndex].classList.remove('bg-white/30');
+                indicators[currentIndex].classList.add('bg-white/50');
+              }
+            });
           });
-        });
 
-        // 开始轮播
-        startCarousel();
+          // 开始轮播
+          startCarousel();
+        }
       });
     }
   </script>
