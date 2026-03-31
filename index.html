@@ -355,10 +355,16 @@
     
     /* 赛博朋克风格的玻璃态效果 */
     .glass-effect {
-      backdrop-filter: blur(15px);
-      background: rgba(18, 18, 30, 0.6);
+      background: rgba(18, 18, 30, 0.8);
       border: 1px solid rgba(120, 0, 255, 0.2);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* 在非移动设备上使用backdrop-filter */
+    @media (min-width: 769px) {
+      .glass-effect {
+        backdrop-filter: blur(15px);
+      }
     }
     
     /* 霓虹文本效果 */
@@ -1399,7 +1405,7 @@
     });
 
     // 默认显示第一个分类的案例
-    document.addEventListener('DOMContentLoaded', function() {
+    function showFirstCategory() {
       const firstTab = document.querySelector('.case-tab');
       if (firstTab) {
         const firstTabId = firstTab.getAttribute('data-tab');
@@ -1411,7 +1417,13 @@
           }
         });
       }
-    });
+    }
+    
+    // 在DOM加载完成时执行
+    document.addEventListener('DOMContentLoaded', showFirstCategory);
+    
+    // 在窗口大小改变时重新执行，确保在移动设备上也能正确显示
+    window.addEventListener('resize', showFirstCategory);
 
     // 平滑滚动
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
