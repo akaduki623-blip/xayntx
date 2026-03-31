@@ -28,7 +28,7 @@
   }
   </script>
   <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <!-- Three.js for 3D effects -->
@@ -47,6 +47,18 @@
         radial-gradient(circle at 75% 75%, rgba(0, 200, 255, 0.2) 0%, transparent 50%),
         radial-gradient(circle at 50% 50%, rgba(255, 100, 200, 0.1) 0%, transparent 50%);
       background-attachment: fixed;
+    }
+
+    /* iOS Safari 不支持 background-attachment: fixed，手机端降级 */
+    @supports (-webkit-overflow-scrolling: touch) {
+      body {
+        background-attachment: scroll;
+      }
+    }
+    @media (max-width: 768px) {
+      body {
+        background-attachment: scroll;
+      }
     }
     
     .tech-font {
@@ -418,30 +430,50 @@
       opacity: 1;
       transform: translateY(0);
     }
-    
 
+    /* 多行文字截断 */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* 手机端触摸友好 */
+    @media (max-width: 640px) {
+      .case-tab {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.75rem;
+      }
+    }
+
+    /* Tab 激活状态 */
+    .active-tab {
+      border-color: rgba(167, 139, 250, 0.6) !important;
+      background: rgba(120, 0, 255, 0.25) !important;
+      color: #fff !important;
+      box-shadow: 0 0 12px rgba(120, 0, 255, 0.4);
+    }
   </style>
   <script>
-    if (typeof tailwind !== 'undefined') {
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: '#3b82f6',
-              secondary: '#6366f1',
-              accent: '#10b981',
-              dark: '#0f172a',
-              light: '#f8fafc',
-            },
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#6366f1',
+            accent: '#10b981',
+            dark: '#0f172a',
+            light: '#f8fafc',
           },
-        }
+        },
       }
     }
   </script>
 </head>
 <body>
   <!-- 导航栏 -->
-  <nav class="glass-effect sticky top-0 z-500 border-b border-purple-500/30">
+  <nav class="glass-effect sticky top-0 z-50 border-b border-purple-500/30">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <div class="flex items-center space-x-2">
         <span class="text-lg md:text-3xl font-black text-white tech-font glow-text">雄安与你同行</span>
@@ -449,11 +481,11 @@
       </div>
       
       <!-- 桌面导航 -->
-      <div class="hidden md:flex items-center space-x-10">
+      <div class="hidden md:flex items-center space-x-8">
         <a href="#home" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">首页</a>
         <a href="#services" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">服务内容</a>
         <a href="#cases" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">案例展示</a>
-        <a href="#process" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">服务流程</a>
+        <a href="#pricing" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">服务套餐</a>
         <a href="#about" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">关于我们</a>
         <a href="#contact" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">联系方式</a>
       </div>
@@ -473,6 +505,8 @@
         <a href="#services" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">服务内容</a>
         <a href="#cases" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">案例展示</a>
         <a href="#process" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">服务流程</a>
+        <a href="#pricing" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">服务套餐</a>
+        <a href="#faq" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">常见问题</a>
         <a href="#about" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">关于我们</a>
         <a href="#contact" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">联系方式</a>
       </div>
@@ -503,11 +537,12 @@
         <p class="text-sm md:text-xl mb-8 text-gray-300">
           打破物理边界，重塑视觉营销
         </p>
-        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-          <a href="#services" class="glass-effect text-white font-bold py-3 px-6 rounded-lg hover:bg-white/10 transition btn-tech text-sm md:text-lg border border-white/20 shadow-lg shadow-white/10">
+        <!-- 手机端按钮：全宽、字体加大、间距更舒适 -->
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+          <a href="#services" class="glass-effect text-white font-bold py-4 px-8 rounded-lg hover:bg-white/10 transition btn-tech text-base md:text-lg border border-white/20 shadow-lg shadow-white/10 text-center w-full sm:w-auto">
             了解服务
           </a>
-          <a href="#contact" class="glass-effect text-white font-bold py-3 px-6 rounded-lg hover:bg-white/10 transition btn-tech text-sm md:text-lg border border-white/20 shadow-lg shadow-white/10">
+          <a href="#contact" class="glass-effect text-white font-bold py-4 px-8 rounded-lg hover:bg-white/10 transition btn-tech text-base md:text-lg border border-white/20 shadow-lg shadow-white/10 text-center w-full sm:w-auto">
             联系我们
           </a>
         </div>
@@ -520,16 +555,16 @@
     <div class="container mx-auto px-4">
       <div class="text-center mb-16 reveal">
         <h2 class="text-2xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">我们的服务</h2>
-        <p class="text-xs md:text-gray-400 max-w-2xl mx-auto">
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">
           利用人工智能技术，为您提供高质量、高效率的创意解决方案
         </p>
       </div>
       
       <!-- 服务卡片网格 -->
-      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- 服务卡片 2 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -547,7 +582,7 @@
         </div>
         
         <!-- 服务卡片 3 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -565,7 +600,7 @@
         </div>
         
         <!-- 服务卡片 4 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -583,7 +618,7 @@
         </div>
         
         <!-- 服务卡片 5 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -601,7 +636,7 @@
         </div>
         
         <!-- 服务卡片 6 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -619,7 +654,7 @@
         </div>
         
         <!-- 服务卡片 7 -->
-        <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
           <!-- 弥散光背景 -->
           <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
           <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
@@ -644,33 +679,34 @@
     <div class="container mx-auto px-4">
       <div class="text-center mb-16 reveal">
         <h2 class="text-3xl md:text-6xl font-bold text-white mb-4" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">案例展示</h2>
-        <p class="text-sm md:text-gray-300 max-w-2xl mx-auto">
+        <p class="text-sm text-gray-300 max-w-2xl mx-auto">
           查看我们的成功案例，了解我们如何为客户创造价值
         </p>
       </div>
       
-      <!-- 案例分类标签 -->
-      <div class="flex flex-wrap justify-center mb-10 gap-4 reveal">
-        <button class="case-tab px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="广告">
-          <i class="fa fa-video-camera mr-1"></i>AIGC 广告视频
-        </button>
-        <button class="case-tab px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="电商">
-          <i class="fa fa-shopping-bag mr-1"></i> AIGC 电商带货
-        </button>
-
-        <button class="case-tab px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="自媒体">
-          <i class="fa fa-users mr-1"></i> 自媒体代运营
-        </button>
-        <button class="case-tab px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="网站">
-          <i class="fa fa-globe mr-1"></i> 网站建设
-        </button>
-        <button class="case-tab px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="培训">
-          <i class="fa fa-graduation-cap mr-1"></i> AI技术培训
-        </button>
+      <!-- 案例分类标签（横向可滚动，手机端左右滑动） -->
+      <div class="mb-10 reveal">
+        <div class="flex overflow-x-auto pb-2 gap-3 snap-x snap-mandatory scrollbar-hide justify-start md:justify-center" style="-webkit-overflow-scrolling: touch; scrollbar-width: none;">
+          <button class="case-tab active-tab flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-white hover:bg-gray-900/50 btn-tech tech-button border-purple-400/60 bg-purple-500/20 whitespace-nowrap" data-tab="广告">
+            <i class="fa fa-video-camera mr-1"></i>AIGC 广告视频
+          </button>
+          <button class="case-tab flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button whitespace-nowrap" data-tab="电商">
+            <i class="fa fa-shopping-bag mr-1"></i> AIGC 电商带货
+          </button>
+          <button class="case-tab flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button whitespace-nowrap" data-tab="自媒体">
+            <i class="fa fa-users mr-1"></i> 自媒体代运营
+          </button>
+          <button class="case-tab flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button whitespace-nowrap" data-tab="网站">
+            <i class="fa fa-globe mr-1"></i> 网站建设
+          </button>
+          <button class="case-tab flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button whitespace-nowrap" data-tab="培训">
+            <i class="fa fa-graduation-cap mr-1"></i> AI技术培训
+          </button>
+        </div>
       </div>
       
       <!-- 紧凑的网格布局 -->
-      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- 案例 2 -->
         <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
@@ -686,8 +722,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广告视频案例1</h3>
-            <p class="text-xs text-gray-300 truncate">雄安与你同行|AI视觉实验室简介</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">实验室·AI数字人简介视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">雄安与你同行|AI视觉实验室简介</p>
           </div>
         </div>
         
@@ -705,8 +741,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广告视频案例2</h3>
-            <p class="text-xs text-gray-300 truncate">为邯郸广府古城“水韵太极”白酒制作的产品推广广告，提高了产品点击率75%。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广府古城·水韵太极白酒推广视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为邯郸广府古城"水韵太极"白酒制作的产品推广广告，据客户反馈产品点击率提升75%。</p>
           </div>
         </div>
         
@@ -724,8 +760,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广告视频案例3</h3>
-            <p class="text-xs text-gray-300 truncate">为某地产品牌制作的创意广告，提升了品牌知名度30%。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">地产品牌·创意形象广告</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某地产品牌制作的创意广告，据客户反馈品牌知名度提升30%。</p>
           </div>
         </div>
         
@@ -743,8 +779,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广告视频案例4</h3>
-            <p class="text-xs text-gray-300 truncate">为某少儿编程培训班制作的广告视频，大大提高了招生率。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">少儿编程·AI招生宣传片</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某少儿编程培训班制作的AI广告视频，据客户反馈招生率大幅提高。</p>
           </div>
         </div>
         
@@ -762,8 +798,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广告视频案例5</h3>
-            <p class="text-xs text-gray-300 truncate">为雄安新区制作的数字人导游视频，提升了城市的宣传力和科技感，降低宣传成本70%。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">雄安新区·数字人AI导游宣传</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为雄安新区制作的数字人导游视频，提升城市科技感，据客户反馈宣传成本降低70%。</p>
           </div>
         </div>
         
@@ -781,8 +817,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广告视频案例6</h3>
-            <p class="text-xs text-gray-300 truncate">为城市交通部门制作的交通宣传科普视频。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">城市交通·AI数字人科普视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为城市交通部门制作的交通安全宣传科普视频，AI数字人主播，形式新颖易传播。</p>
           </div>
         </div>
         
@@ -800,8 +836,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广告视频案例7</h3>
-            <p class="text-xs text-gray-300 truncate">为某知名品牌制作的广告视频，获行业大佬点赞。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">知名品牌·AIGC创意广告片</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某知名品牌制作的AIGC广告视频，获行业大佬点赞转发，引发业内广泛关注。</p>
           </div>
         </div>
         
@@ -819,8 +855,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广告视频案例8</h3>
-            <p class="text-xs text-gray-300 truncate">改变传统探店模式，新的探店视频大大的提高了门店的食客数量。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">餐饮门店·AI数字人探店视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">改变传统探店模式，AI数字人探店新形式，据客户反馈门店食客数量大幅提升。</p>
           </div>
         </div>
         
@@ -838,8 +874,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广告视频案例9</h3>
-            <p class="text-xs text-gray-300 truncate">为某红酒品牌制作的系列广告，提升了品牌销售额45%。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">红酒品牌·AI系列广告片</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某红酒品牌制作的系列AIGC广告，据客户反馈品牌销售额提升45%。</p>
           </div>
         </div>
         
@@ -857,8 +893,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">电商带货视频案例1</h3>
-            <p class="text-xs text-gray-300 truncate">为某电商平台制作的耳环带货视频，转化率提升了30%。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">饰品类目·AI数字人带货视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某电商平台制作的耳环带货视频，据客户反馈转化率提升30%。</p>
           </div>
         </div>
         
@@ -876,8 +912,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">电商带货视频案例2</h3>
-            <p class="text-xs text-gray-300 truncate">为某时尚品牌制作的电商带货视频，提升了产品销售额25%。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">时尚品牌·AI换装带货视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某时尚品牌制作的电商带货视频，据客户反馈产品销售额提升25%。</p>
           </div>
         </div>
         
@@ -895,8 +931,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">电商带货视频案例3</h3>
-            <p class="text-xs text-gray-300 truncate">为某Tiktok化妆品品牌制作的短视频带货内容，获得了10万+点赞。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">美妆品牌·TikTok爆款带货内容</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某TikTok化妆品品牌制作的短视频带货内容，获得10万+点赞，成功出海爆单。</p>
           </div>
         </div>
         
@@ -912,8 +948,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">电商产品图1</h3>
-            <p class="text-xs text-gray-300 truncate">为某美妆品牌制作的AI生成产品对比图片，提升了产品点击率40%。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">美妆品牌·AI产品对比图</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某美妆品牌生成的AI产品对比图片，据客户反馈产品点击率提升40%。</p>
           </div>
         </div>
         
@@ -929,8 +965,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">电商产品图2</h3>
-            <p class="text-xs text-gray-300 truncate">为某智能手表品牌制作的AI生成产品图片，提升了品牌形象和产品销量。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">智能手表·AI场景产品图</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某智能手表品牌制作的AI场景产品图，大幅提升品牌形象和产品销量。</p>
           </div>
         </div>
         
@@ -946,8 +982,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">电商产品图3</h3>
-            <p class="text-xs text-gray-300 truncate">为某运动品牌制作的AI生成产品图片，提升了转化率35%。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">运动品牌·AI创意主图设计</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某运动品牌制作的AI生成产品主图，据客户反馈转化率提升35%。</p>
           </div>
         </div>
         
@@ -956,18 +992,22 @@
         <!-- 案例 5 -->
         <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="自媒体">
           <div class="relative overflow-hidden">
-            <video 
-              src="https://example.com/video5.mp4" 
-              poster="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cyberpunk%20AI%20technology%20video%20placeholder%20with%20neon%20glows&image_size=landscape_16_9" 
-              class="w-full h-auto object-cover"
-              controls
-              style="height: 250px; z-index: 1;"
-              loading="lazy"
-            />
+            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
+              <img 
+                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Social%20media%20content%20creation%20cyberpunk%20neon%20digital%20influencer&image_size=landscape_16_9" 
+                alt="自媒体代运营案例" 
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="bg-black/50 rounded-full p-4 backdrop-blur-sm">
+                  <i class="fa fa-play text-white text-2xl"></i>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">自媒体代运营案例</h3>
-            <p class="text-xs text-gray-300 truncate">为某品牌提供的自媒体账号代运营服务，粉丝增长300%，品牌影响力显著提升。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">品牌自媒体·AI全案代运营</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某品牌提供的自媒体账号全案代运营，据客户反馈粉丝增长300%，品牌影响力显著提升。</p>
           </div>
         </div>
         
@@ -983,8 +1023,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">网站建设案例1</h3>
-            <p class="text-xs text-gray-300 truncate">为某企业设计开发的响应式网站，提升了品牌形象和用户体验。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">企业官网·响应式全栈开发</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某企业设计开发的响应式官方网站，全面提升品牌形象和用户体验。</p>
           </div>
         </div>
         
@@ -1000,8 +1040,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">网站建设案例2</h3>
-            <p class="text-xs text-gray-300 truncate">为某求职者设计的个人网站，形式新颖，能展示个人作品集，提高面试通过率75%。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">个人作品集·创意求职网站</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某求职者设计的个人网站，形式新颖，展示个人作品集，据客户反馈面试通过率提升75%。</p>
           </div>
         </div>
         
@@ -1017,8 +1057,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">网站建设案例3</h3>
-            <p class="text-xs text-gray-300 truncate">雄安与你同行智能科技有限公司官方网站，采用赛博朋克风格设计，集成AI驱动的创意解决方案，展示公司核心服务和成功案例。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">雄安与你同行·赛博朋克官网</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">雄安与你同行AI视觉实验室官方网站，赛博朋克风格设计，集成AI驱动创意解决方案展示。</p>
           </div>
         </div>
         
@@ -1034,8 +1074,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">AI技术培训案例1</h3>
-            <p class="text-xs text-gray-300 truncate">为某企业提供的AI基础培训课程，帮助员工掌握AI技术基础知识和应用方法。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">企业AI入门·全员赋能培训</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为某企业提供的AI基础培训课程，帮助全员掌握AI技术基础知识和实操应用方法。</p>
           </div>
         </div>
         
@@ -1051,8 +1091,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">AI技术培训案例2</h3>
-            <p class="text-xs text-gray-300 truncate">为创意行业从业者提供的AIGC应用培训，教授如何使用AI工具进行内容创作。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">创意从业者·AIGC实战工作坊</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为创意行业从业者提供的AIGC应用培训，手把手教授如何用AI工具高效产出优质内容。</p>
           </div>
         </div>
         
@@ -1068,8 +1108,8 @@
             </div>
           </div>
           <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">AI技术培训案例3</h3>
-            <p class="text-xs text-gray-300 truncate">为企业管理层提供的AI战略培训，帮助制定AI技术应用规划和实施方案。</p>
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">管理层AI战略·高管专属培训</h3>
+            <p class="text-xs text-gray-300 line-clamp-2">为企业管理层量身定制AI战略培训，帮助制定AI应用规划、识别降本增效机会。</p>
           </div>
         </div>
       </div>
@@ -1081,20 +1121,21 @@
     <div class="container mx-auto px-4">
       <div class="text-center mb-16 reveal">
         <h2 class="text-3xl md:text-6xl font-bold text-white mb-4" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">服务流程</h2>
-        <p class="text-sm md:text-gray-300 max-w-2xl mx-auto">
+        <p class="text-sm text-gray-300 max-w-2xl mx-auto">
           从沟通到交付，我们为您提供专业、高效的服务流程
         </p>
       </div>
       
-      <!-- 横向流程卡片 -->
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8">
+      <!-- 横向流程卡片（手机端横向滑动，桌面端5列网格） -->
+      <div class="flex md:grid md:grid-cols-5 gap-4 md:gap-8 overflow-x-auto pb-4 md:pb-0 snap-x snap-mandatory md:overflow-visible" style="-webkit-overflow-scrolling: touch; scrollbar-width: none;"
+           id="process-scroll">
         <!-- 流程步骤 1 -->
-        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
+        <div class="flex-shrink-0 w-64 md:w-auto snap-start rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">01</div>
           
           <!-- 图片 -->
-          <div class="h-64 overflow-visible relative">
+          <div class="h-40 md:h-64 overflow-visible relative">
             <div class="w-full h-full rounded-t-2xl overflow-hidden">
               <img 
                 src="images/step1.jpg" 
@@ -1109,17 +1150,17 @@
           <!-- 内容 -->
           <div class="p-6 relative z-10">
             <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">需求沟通</h3>
-            <p class="text-xs text-gray-300 truncate">了解客户需求，制定详细的项目计划和方案。</p>
+            <p class="text-xs text-gray-300 line-clamp-2">了解客户需求，制定详细的项目计划和方案。</p>
           </div>
         </div>
         
         <!-- 流程步骤 2 -->
-        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
+        <div class="flex-shrink-0 w-64 md:w-auto snap-start rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">02</div>
           
           <!-- 图片 -->
-          <div class="h-64 overflow-visible relative">
+          <div class="h-40 md:h-64 overflow-visible relative">
             <div class="w-full h-full rounded-t-2xl overflow-hidden">
               <img 
                 src="images/step2.jpg" 
@@ -1134,17 +1175,17 @@
           <!-- 内容 -->
           <div class="p-6 relative z-10">
             <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">创意设计</h3>
-            <p class="text-xs text-gray-300 truncate">根据需求进行创意设计，提供初步方案和概念。</p>
+            <p class="text-xs text-gray-300 line-clamp-2">根据需求进行创意设计，提供初步方案和概念。</p>
           </div>
         </div>
         
         <!-- 流程步骤 3 -->
-        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
+        <div class="flex-shrink-0 w-64 md:w-auto snap-start rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">03</div>
           
           <!-- 图片 -->
-          <div class="h-64 overflow-visible relative">
+          <div class="h-40 md:h-64 overflow-visible relative">
             <div class="w-full h-full rounded-t-2xl overflow-hidden">
               <img 
                 src="images/step3.jpg" 
@@ -1159,17 +1200,17 @@
           <!-- 内容 -->
           <div class="p-6 relative z-10">
             <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">制作执行</h3>
-            <p class="text-xs text-gray-300 truncate">专业团队进行制作，确保质量和效率。</p>
+            <p class="text-xs text-gray-300 line-clamp-2">专业团队进行制作，确保质量和效率。</p>
           </div>
         </div>
         
         <!-- 流程步骤 4 -->
-        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
+        <div class="flex-shrink-0 w-64 md:w-auto snap-start rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">04</div>
           
           <!-- 图片 -->
-          <div class="h-64 overflow-visible relative">
+          <div class="h-40 md:h-64 overflow-visible relative">
             <div class="w-full h-full rounded-t-2xl overflow-hidden">
               <img 
                 src="images/step4.jpg" 
@@ -1184,17 +1225,17 @@
           <!-- 内容 -->
           <div class="p-6 relative z-10">
             <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">质量检查</h3>
-            <p class="text-xs text-gray-300 truncate">严格的质量控制，确保最终产品符合要求。</p>
+            <p class="text-xs text-gray-300 line-clamp-2">严格的质量控制，确保最终产品符合要求。</p>
           </div>
         </div>
         
         <!-- 流程步骤 5 -->
-        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
+        <div class="flex-shrink-0 w-64 md:w-auto snap-start rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">05</div>
           
           <!-- 图片 -->
-          <div class="h-64 overflow-visible relative">
+          <div class="h-40 md:h-64 overflow-visible relative">
             <div class="w-full h-full rounded-t-2xl overflow-hidden">
               <img 
                 src="images/step5.jpg" 
@@ -1209,7 +1250,7 @@
           <!-- 内容 -->
           <div class="p-6 relative z-10">
             <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">交付验收</h3>
-            <p class="text-xs text-gray-300 truncate">按时交付成果，确保客户满意。</p>
+            <p class="text-xs text-gray-300 line-clamp-2">按时交付成果，确保客户满意。</p>
           </div>
         </div>
       </div>
@@ -1221,7 +1262,7 @@
     <div class="container mx-auto px-4 relative z-10">
       <div class="text-center mb-16 reveal">
         <h2 class="text-3xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">关于我们</h2>
-        <p class="text-sm md:text-gray-400 max-w-2xl mx-auto">
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">
           雄安与你同行AI视觉实验室致力于利用AI技术为企业提供创新的数字解决方案
         </p>
       </div>
@@ -1246,17 +1287,202 @@
           </p>
           <div class="flex flex-wrap gap-4">
             <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">成本↓80%</div>
+              <div class="text-sm text-gray-400">对比传统制作</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">48h</div>
+              <div class="text-sm text-gray-400">极速出片交付</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">10+</div>
+              <div class="text-sm text-gray-400">AI工具矩阵</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
               <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">50+</div>
-              <div class="text-sm text-gray-400">成功案例</div>
+              <div class="text-sm text-gray-400">服务企业客户</div>
             </div>
-            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
-              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">20+</div>
-              <div class="text-sm text-gray-400">企业客户</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 客户评价 -->
+  <section id="testimonials" class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">客户口碑</h2>
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">真实客户的声音，是我们最好的名片</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- 评价1 -->
+        <div class="glass-effect p-6 rounded-xl tech-border high-glass reveal">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 flex items-center justify-center text-white font-bold text-lg mr-4 flex-shrink-0">张</div>
+            <div>
+              <div class="text-white font-bold">张总 · 某餐饮品牌主理人</div>
+              <div class="text-yellow-400 text-sm mt-1">
+                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+              </div>
             </div>
-            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
-              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">98%</div>
-              <div class="text-sm text-gray-400">客户满意度</div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">"以前拍一条广告要花好几千，现在用AI制作不仅成本低了很多，效果还更好！数字人探店视频发出去之后，门店咨询量明显增加，强烈推荐！"</p>
+        </div>
+        <!-- 评价2 -->
+        <div class="glass-effect p-6 rounded-xl tech-border high-glass reveal">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg mr-4 flex-shrink-0">李</div>
+            <div>
+              <div class="text-white font-bold">李经理 · 某电商运营负责人</div>
+              <div class="text-yellow-400 text-sm mt-1">
+                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+              </div>
             </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">"电商带货视频交付很快，48小时就拿到成片了，质量超出预期。AI生成的产品图也很有创意，和之前的传统摄影棚拍摄完全不同的感觉，客户都说好看。"</p>
+        </div>
+        <!-- 评价3 -->
+        <div class="glass-effect p-6 rounded-xl tech-border high-glass reveal">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white font-bold text-lg mr-4 flex-shrink-0">王</div>
+            <div>
+              <div class="text-white font-bold">王老师 · 某培训机构负责人</div>
+              <div class="text-yellow-400 text-sm mt-1">
+                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">"给我们机构拍了招生宣传视频，孩子们看了都很喜欢那种科技感风格。今年招生季用上这个视频，效果比去年好很多，以后还会继续合作！"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 价格套餐 -->
+  <section id="pricing" class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">服务套餐</h2>
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">灵活的套餐方案，满足不同规模需求，所有套餐均支持定制</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <!-- 基础套餐 -->
+        <div class="glass-effect p-8 rounded-2xl tech-border high-glass reveal flex flex-col">
+          <div class="text-center mb-6">
+            <div class="text-gray-400 text-sm font-medium mb-2 tech-font">单次项目</div>
+            <div class="text-4xl font-black text-white tech-font">¥<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">1299</span></div>
+            <div class="text-gray-400 text-xs mt-1">起 / 项目</div>
+          </div>
+          <ul class="space-y-3 mb-8 flex-grow">
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>1条AI广告视频（60s内）</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>5款AI产品图/主图设计</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>48小时极速交付</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>2次免费修改</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>商业授权文件</li>
+            <li class="flex items-center text-gray-400 text-sm"><i class="fa fa-times-circle text-gray-600 mr-3 flex-shrink-0"></i>数字人定制</li>
+          </ul>
+          <a href="#contact" class="block text-center py-3 px-6 rounded-lg border border-purple-500/50 text-purple-300 font-semibold hover:bg-purple-500/20 transition text-sm">立即咨询</a>
+        </div>
+        <!-- 进阶套餐（推荐） -->
+        <div class="relative p-8 rounded-2xl flex flex-col reveal" style="background: linear-gradient(135deg, rgba(120,0,255,0.2), rgba(0,200,255,0.1)); border: 1px solid rgba(120,0,255,0.5); box-shadow: 0 0 30px rgba(120,0,255,0.2);">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-cyan-500 text-white text-xs font-bold px-4 py-1 rounded-full tech-font">最受欢迎</div>
+          <div class="text-center mb-6">
+            <div class="text-cyan-300 text-sm font-medium mb-2 tech-font">月度托管</div>
+            <div class="text-4xl font-black text-white tech-font">¥<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">4999</span></div>
+            <div class="text-gray-400 text-xs mt-1">起 / 月</div>
+          </div>
+          <ul class="space-y-3 mb-8 flex-grow">
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>4条AI视频（含1条数字人）</li>
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>15款AI产品图/营销海报</li>
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>双平台自媒体代运营</li>
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>每周数据分析报告</li>
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>专属1对1对接服务</li>
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>月度内容策略规划</li>
+          </ul>
+          <a href="#contact" class="block text-center py-3 px-6 rounded-lg gradient-btn text-white font-bold transition text-sm">立即咨询</a>
+        </div>
+        <!-- 企业套餐 -->
+        <div class="glass-effect p-8 rounded-2xl tech-border high-glass reveal flex flex-col">
+          <div class="text-center mb-6">
+            <div class="text-gray-400 text-sm font-medium mb-2 tech-font">企业定制</div>
+            <div class="flex items-baseline justify-center gap-1 mt-1">
+              <span class="text-2xl font-black text-white tech-font">¥<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">9999</span></span>
+              <span class="text-gray-400 text-xs">起</span>
+            </div>
+            <div class="text-gray-400 text-xs mt-1">/ 月 · 联系获取专属方案</div>
+          </div>
+          <ul class="space-y-3 mb-8 flex-grow">
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>不限量AI视频制作</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>专属数字人IP形象定制</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>全平台多账号矩阵运营</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>AI客服系统部署</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>企业AI工具培训赋能</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>专属商务合同保障</li>
+          </ul>
+          <a href="#contact" class="block text-center py-3 px-6 rounded-lg border border-cyan-500/50 text-cyan-300 font-semibold hover:bg-cyan-500/20 transition text-sm">联系我们</a>
+        </div>
+      </div>
+      <p class="text-center text-gray-500 text-xs mt-8 reveal">* 以上价格仅供参考，实际以项目需求为准，欢迎咨询获取精准报价</p>
+    </div>
+  </section>
+
+  <!-- FAQ 常见问题 -->
+  <section id="faq" class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">常见问题</h2>
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">解答您最关心的问题</p>
+      </div>
+      <div class="max-w-3xl mx-auto space-y-4">
+        <!-- FAQ 1 -->
+        <div class="glass-effect rounded-xl tech-border high-glass overflow-hidden reveal">
+          <button class="faq-btn w-full flex justify-between items-center p-6 text-left" onclick="toggleFaq(this)">
+            <span class="text-white font-semibold text-sm md:text-base">AI广告视频大概多少钱？需要多久出片？</span>
+            <i class="fa fa-chevron-down text-purple-400 transition-transform duration-300 flex-shrink-0 ml-4"></i>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6">
+            <p class="text-gray-300 text-sm leading-relaxed">单次项目套餐（含1条60秒AI广告视频+5款产品图）从 <strong class="text-purple-300">1299元</strong> 起，包含数字人定制的版本另议。正常情况下 <strong class="text-cyan-300">48小时</strong> 内交付，加急项目可协商。具体价格根据视频时长、特效复杂度、配音方案等因素定制报价，欢迎咨询。</p>
+          </div>
+        </div>
+        <!-- FAQ 2 -->
+        <div class="glass-effect rounded-xl tech-border high-glass overflow-hidden reveal">
+          <button class="faq-btn w-full flex justify-between items-center p-6 text-left" onclick="toggleFaq(this)">
+            <span class="text-white font-semibold text-sm md:text-base">制作出来的AI视频效果能保证质量吗？</span>
+            <i class="fa fa-chevron-down text-purple-400 transition-transform duration-300 flex-shrink-0 ml-4"></i>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6">
+            <p class="text-gray-300 text-sm leading-relaxed">可以查看我们案例展示区的真实作品，均为已上线投放的项目。我们使用国内外顶级AI工具矩阵（Sora、可灵、即梦等10+工具），结合专业后期制作，所有作品在交付前经过严格质量审核，不满意可免费修改。</p>
+          </div>
+        </div>
+        <!-- FAQ 3 -->
+        <div class="glass-effect rounded-xl tech-border high-glass overflow-hidden reveal">
+          <button class="faq-btn w-full flex justify-between items-center p-6 text-left" onclick="toggleFaq(this)">
+            <span class="text-white font-semibold text-sm md:text-base">可以制作哪些平台的内容？</span>
+            <i class="fa fa-chevron-down text-purple-400 transition-transform duration-300 flex-shrink-0 ml-4"></i>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6">
+            <p class="text-gray-300 text-sm leading-relaxed">支持抖音、快手、小红书、微信视频号、微博、B站、TikTok（海外）、淘宝/拼多多/京东电商平台等主流渠道，针对不同平台的尺寸、时长、风格进行专项优化。</p>
+          </div>
+        </div>
+        <!-- FAQ 4 -->
+        <div class="glass-effect rounded-xl tech-border high-glass overflow-hidden reveal">
+          <button class="faq-btn w-full flex justify-between items-center p-6 text-left" onclick="toggleFaq(this)">
+            <span class="text-white font-semibold text-sm md:text-base">网站建设需要多久？能做小程序吗？</span>
+            <i class="fa fa-chevron-down text-purple-400 transition-transform duration-300 flex-shrink-0 ml-4"></i>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6">
+            <p class="text-gray-300 text-sm leading-relaxed">普通展示型网站通常 <strong class="text-cyan-300">3-7天</strong> 完成，功能复杂的项目根据需求另议。我们也承接微信小程序开发，欢迎与我们详细沟通需求。</p>
+          </div>
+        </div>
+        <!-- FAQ 5 -->
+        <div class="glass-effect rounded-xl tech-border high-glass overflow-hidden reveal">
+          <button class="faq-btn w-full flex justify-between items-center p-6 text-left" onclick="toggleFaq(this)">
+            <span class="text-white font-semibold text-sm md:text-base">如何开始合作？需要提供哪些材料？</span>
+            <i class="fa fa-chevron-down text-purple-400 transition-transform duration-300 flex-shrink-0 ml-4"></i>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6">
+            <p class="text-gray-300 text-sm leading-relaxed">添加微信或拨打电话，告诉我们您的需求（产品/服务介绍、目标受众、参考风格）即可开始。我们会在沟通后免费出一版方案供您参考，确认后再正式签约制作，零门槛启动。</p>
           </div>
         </div>
       </div>
@@ -1268,7 +1494,7 @@
     <div class="container mx-auto px-4">
       <div class="text-center mb-16 reveal">
         <h2 class="text-3xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">联系方式</h2>
-        <p class="text-sm md:text-gray-400 max-w-2xl mx-auto">
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">
           如有任何疑问或合作意向，请随时与我们联系
         </p>
       </div>
@@ -1299,6 +1525,14 @@
                   <p class="text-gray-400">xayntxai@outlook.com</p>
                 </div>
               </div>
+              <div class="flex items-start">
+                <div class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 text-xl mr-4"><i class="fa fa-clock-o"></i></div>
+                <div>
+                  <h4 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-1">服务时间</h4>
+                  <p class="text-gray-400">周一至周六 9:00 - 18:00</p>
+                  <p class="text-gray-500 text-xs mt-1">节假日可微信留言，24h内回复</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1309,7 +1543,7 @@
               <img 
                 src="images/wechat-qr-code.png" 
                 alt="微信二维码" 
-                class="w-40 h-40"
+                class="w-52 h-52"
               />
               <p class="text-gray-400 mt-4 text-center">扫码添加微信<br>获取更多服务信息</p>
             </div>
@@ -1347,7 +1581,8 @@
             <li><a href="#home" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">首页</a></li>
             <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">服务内容</a></li>
             <li><a href="#cases" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">案例展示</a></li>
-            <li><a href="#process" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">服务流程</a></li>
+            <li><a href="#pricing" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">服务套餐</a></li>
+            <li><a href="#faq" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">常见问题</a></li>
             <li><a href="#about" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">关于我们</a></li>
             <li><a href="#contact" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">联系方式</a></li>
           </ul>
@@ -1362,10 +1597,27 @@
         </div>
       </div>
       <div class="border-t border-purple-500/20 mt-8 pt-8 text-center text-gray-400">
-        <p class="tech-font">© 2024 雄安与你同行| AI视觉实验室. 保留所有权利.</p>
+        <p class="tech-font">© <span id="copyright-year">2024</span> 雄安与你同行| AI视觉实验室. 保留所有权利.</p>
       </div>
     </div>
   </footer>
+
+  <!-- 悬浮联系按钮 + 返回顶部 -->
+  <div class="fixed bottom-6 right-4 z-50 flex flex-col items-center gap-3">
+    <!-- 返回顶部 -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+      class="w-11 h-11 rounded-full glass-effect border border-white/20 flex items-center justify-center text-gray-300 hover:text-white hover:border-purple-400 transition-all duration-300 opacity-0 pointer-events-none shadow-lg"
+      title="返回顶部">
+      <i class="fa fa-chevron-up text-sm"></i>
+    </button>
+    <!-- 微信快速联系 -->
+    <a href="#contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;"
+      class="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110"
+      style="background: linear-gradient(135deg, #7800ff, #00c8ff); box-shadow: 0 0 20px rgba(120,0,255,0.5);"
+      title="联系我们">
+      <i class="fa fa-wechat text-white text-xl"></i>
+    </a>
+  </div>
 
   <script>
     // 检测是否为移动设备
@@ -1379,17 +1631,27 @@
       mobileMenu.classList.toggle('hidden');
     });
 
+    // 移动端菜单点击链接后自动关闭
+    document.querySelectorAll('#mobile-menu a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.getElementById('mobile-menu').classList.add('hidden');
+      });
+    });
+
     // 案例分类切换
     document.querySelectorAll('.case-tab').forEach(tab => {
       tab.addEventListener('click', function() {
         // 移除所有标签的active状态
         document.querySelectorAll('.case-tab').forEach(t => {
-          t.classList.remove('bg-primary', 'text-white');
-          t.classList.remove('bg-gray-200', 'text-gray-800');
+          t.classList.remove('active-tab');
+          t.classList.add('text-gray-300');
+          t.classList.remove('text-white');
         });
         
         // 添加当前标签的active状态
-        this.classList.add('bg-primary', 'text-white');
+        this.classList.add('active-tab');
+        this.classList.remove('text-gray-300');
+        this.classList.add('text-white');
         
         const tabId = this.getAttribute('data-tab');
         
@@ -1664,6 +1926,34 @@
           startCarousel();
         }
       });
+    }
+
+    // 动态版权年份
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+    // 返回顶部按钮显示/隐藏
+    var backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) {
+        backToTop.classList.remove('opacity-0', 'pointer-events-none');
+        backToTop.classList.add('opacity-100');
+      } else {
+        backToTop.classList.add('opacity-0', 'pointer-events-none');
+        backToTop.classList.remove('opacity-100');
+      }
+    });
+
+    // FAQ 折叠展开
+    function toggleFaq(btn) {
+      var answer = btn.nextElementSibling;
+      var icon = btn.querySelector('.fa-chevron-down');
+      if (answer.classList.contains('hidden')) {
+        answer.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        answer.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      }
     }
   </script>
 </body>
