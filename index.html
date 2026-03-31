@@ -433,40 +433,40 @@
 </head>
 <body>
   <!-- 导航栏 -->
-  <nav class="glass-effect sticky top-0 z-50 border-b border-purple-500/20">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <span class="text-2xl font-bold text-white tech-font">雄安与你同行</span>
-        <span class="text-sm text-gray-400">| AI视觉实验室</span>
+  <nav class="glass-effect sticky top-0 z-50 border-b border-purple-500/30">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <span class="text-3xl md:text-4xl font-black text-white tech-font glow-text">雄安与你同行</span>
+        <span class="text-base text-gray-300">| AI视觉实验室</span>
       </div>
       
       <!-- 桌面导航 -->
-      <div class="hidden md:flex items-center space-x-8">
-        <a href="#home" class="text-gray-300 hover:text-purple-400 font-medium nav-link">首页</a>
-        <a href="#services" class="text-gray-300 hover:text-purple-400 font-medium nav-link">服务内容</a>
-        <a href="#cases" class="text-gray-300 hover:text-purple-400 font-medium nav-link">案例展示</a>
-        <a href="#process" class="text-gray-300 hover:text-purple-400 font-medium nav-link">服务流程</a>
-        <a href="#about" class="text-gray-300 hover:text-purple-400 font-medium nav-link">关于我们</a>
-        <a href="#contact" class="text-gray-300 hover:text-purple-400 font-medium nav-link">联系方式</a>
+      <div class="hidden md:flex items-center space-x-10">
+        <a href="#home" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">首页</a>
+        <a href="#services" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">服务内容</a>
+        <a href="#cases" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">案例展示</a>
+        <a href="#process" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">服务流程</a>
+        <a href="#about" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">关于我们</a>
+        <a href="#contact" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">联系方式</a>
       </div>
       
       <!-- 移动端菜单按钮 -->
       <div class="md:hidden">
-        <button id="menu-toggle" class="text-gray-300 focus:outline-none">
-          <i class="fa fa-bars text-2xl"></i>
+        <button id="menu-toggle" class="text-gray-200 focus:outline-none">
+          <i class="fa fa-bars text-3xl"></i>
         </button>
       </div>
     </div>
     
     <!-- 移动端导航菜单 -->
-    <div id="mobile-menu" class="md:hidden glass-effect border-t border-purple-500/20 hidden">
-      <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
-        <a href="#home" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">首页</a>
-        <a href="#services" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">服务内容</a>
-        <a href="#cases" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">案例展示</a>
-        <a href="#process" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">服务流程</a>
-        <a href="#about" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">关于我们</a>
-        <a href="#contact" class="text-gray-300 hover:text-purple-400 font-medium py-2 nav-link">联系方式</a>
+    <div id="mobile-menu" class="md:hidden glass-effect border-t border-purple-500/30 hidden">
+      <div class="container mx-auto px-6 py-3 flex flex-col space-y-4">
+        <a href="#home" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">首页</a>
+        <a href="#services" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">服务内容</a>
+        <a href="#cases" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">案例展示</a>
+        <a href="#process" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">服务流程</a>
+        <a href="#about" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">关于我们</a>
+        <a href="#contact" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">联系方式</a>
       </div>
     </div>
   </nav>
@@ -642,7 +642,7 @@
       </div>
       
       <!-- 案例分类标签 -->
-      <div class="flex flex-wrap justify-between mb-10 gap-4 reveal">
+      <div class="flex flex-wrap justify-center mb-10 gap-4 reveal">
         <button class="case-tab px-6 py-3 rounded-full font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button" data-tab="广告">
           <i class="fa fa-video-camera mr-2"></i>AIGC 广告视频
         </button>
@@ -661,8 +661,8 @@
         </button>
       </div>
       
-      <!-- 紧凑的三列网格布局 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 紧凑的网格布局 -->
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- 案例 2 -->
         <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal" data-category="广告">
