@@ -518,7 +518,7 @@
       </div>
       
       <!-- 服务卡片网格 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- 服务卡片 2 -->
         <div class="rounded-xl p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect">
@@ -1079,9 +1079,9 @@
       </div>
       
       <!-- 横向流程卡片 -->
-      <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-8">
         <!-- 流程步骤 1 -->
-        <div class="flex-1 rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">01</div>
           
@@ -1106,7 +1106,7 @@
         </div>
         
         <!-- 流程步骤 2 -->
-        <div class="flex-1 rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">02</div>
           
@@ -1131,7 +1131,7 @@
         </div>
         
         <!-- 流程步骤 3 -->
-        <div class="flex-1 rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">03</div>
           
@@ -1156,7 +1156,7 @@
         </div>
         
         <!-- 流程步骤 4 -->
-        <div class="flex-1 rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">04</div>
           
@@ -1181,7 +1181,7 @@
         </div>
         
         <!-- 流程步骤 5 -->
-        <div class="flex-1 rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
+        <div class="rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect">
           <!-- 背景数字 -->
           <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">05</div>
           
@@ -1360,6 +1360,11 @@
   </footer>
 
   <script>
+    // 检测是否为移动设备
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+    
     // 移动端菜单切换
     document.getElementById('menu-toggle').addEventListener('click', function() {
       const mobileMenu = document.getElementById('mobile-menu');
@@ -1420,108 +1425,110 @@
       });
     });
 
-    // 粒子效果 - 随鼠标互动
-    document.addEventListener('DOMContentLoaded', function() {
-      const canvas = document.getElementById('particles-canvas');
-      if (!canvas) return;
-      
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      
-      const particles = [];
-      const particleCount = 120; // 增加粒子数量，保持效果可见
-      let mouseX = canvas.width / 2;
-      let mouseY = canvas.height / 2;
-      
-      // 鼠标移动事件 - 使用节流优化
-      let lastMouseMove = 0;
-      window.addEventListener('mousemove', function(e) {
-        const now = Date.now();
-        if (now - lastMouseMove > 50) { // 每50ms更新一次
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          lastMouseMove = now;
-        }
-      });
-      
-      // 创建粒子
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 2 + 0.5, // 减小粒子大小
-          speedX: Math.random() * 0.6 - 0.3, // 减小速度
-          speedY: Math.random() * 0.6 - 0.3,
-          color: `rgba(255, 255, 255, ${Math.random() * 0.6 + 0.2})` // 改为白色
-        });
-      }
-      
-      // 动画循环
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // 粒子效果 - 随鼠标互动 (仅在非移动设备上运行)
+    if (!isMobile()) {
+      document.addEventListener('DOMContentLoaded', function() {
+        const canvas = document.getElementById('particles-canvas');
+        if (!canvas) return;
         
-        for (let i = 0; i < particles.length; i++) {
-          const p = particles[i];
-          
-          // 鼠标互动效果
-          const dx = mouseX - p.x;
-          const dy = mouseY - p.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 120) { // 减小互动距离
-            const forceDirectionX = dx / distance;
-            const forceDirectionY = dy / distance;
-            const force = (120 - distance) / 120;
-            p.x -= forceDirectionX * force * 0.3; // 减小力的影响
-            p.y -= forceDirectionY * force * 0.3;
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const particles = [];
+        const particleCount = 120; // 增加粒子数量，保持效果可见
+        let mouseX = canvas.width / 2;
+        let mouseY = canvas.height / 2;
+        
+        // 鼠标移动事件 - 使用节流优化
+        let lastMouseMove = 0;
+        window.addEventListener('mousemove', function(e) {
+          const now = Date.now();
+          if (now - lastMouseMove > 50) { // 每50ms更新一次
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            lastMouseMove = now;
           }
+        });
+        
+        // 创建粒子
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 0.5, // 减小粒子大小
+            speedX: Math.random() * 0.6 - 0.3, // 减小速度
+            speedY: Math.random() * 0.6 - 0.3,
+            color: `rgba(255, 255, 255, ${Math.random() * 0.6 + 0.2})` // 改为白色
+          });
+        }
+        
+        // 动画循环
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
           
-          ctx.fillStyle = p.color;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fill();
-          
-          p.x += p.speedX;
-          p.y += p.speedY;
-          
-          if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-          if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-          
-          // 连接粒子
-          for (let j = i; j < particles.length; j++) {
-            const p2 = particles[j];
-            const dx = p.x - p2.x;
-            const dy = p.y - p2.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
             
-            if (distance < 80) { // 减小连线距离
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 * (1 - distance / 80)})`;
-              ctx.lineWidth = 0.3; // 减小线宽
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(p2.x, p2.y);
-              ctx.stroke();
+            // 鼠标互动效果
+            const dx = mouseX - p.x;
+            const dy = mouseY - p.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 120) { // 减小互动距离
+              const forceDirectionX = dx / distance;
+              const forceDirectionY = dy / distance;
+              const force = (120 - distance) / 120;
+              p.x -= forceDirectionX * force * 0.3; // 减小力的影响
+              p.y -= forceDirectionY * force * 0.3;
+            }
+            
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+            
+            p.x += p.speedX;
+            p.y += p.speedY;
+            
+            if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+            
+            // 连接粒子
+            for (let j = i; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dx = p.x - p2.x;
+              const dy = p.y - p2.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              
+              if (distance < 80) { // 减小连线距离
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 * (1 - distance / 80)})`;
+                ctx.lineWidth = 0.3; // 减小线宽
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+              }
             }
           }
+          
+          requestAnimationFrame(animate);
         }
         
-        requestAnimationFrame(animate);
-      }
-      
-      // 延迟启动粒子效果，优先加载其他内容
-      setTimeout(animate, 1000);
-      
-      // 响应窗口大小 - 使用节流优化
-      let lastResize = 0;
-      window.addEventListener('resize', function() {
-        const now = Date.now();
-        if (now - lastResize > 200) { // 每200ms更新一次
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          lastResize = now;
-        }
+        // 延迟启动粒子效果，优先加载其他内容
+        setTimeout(animate, 1000);
+        
+        // 响应窗口大小 - 使用节流优化
+        let lastResize = 0;
+        window.addEventListener('resize', function() {
+          const now = Date.now();
+          if (now - lastResize > 200) { // 每200ms更新一次
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            lastResize = now;
+          }
+        });
       });
-    });
+    }
     
 
     
@@ -1542,84 +1549,96 @@
       });
     });
     
-    // 滚动触发效果
-    window.addEventListener('scroll', function() {
-      const reveals = document.querySelectorAll('.reveal');
-      const windowHeight = window.innerHeight;
-      
-      reveals.forEach(reveal => {
-        const revealTop = reveal.getBoundingClientRect().top;
-        const revealPoint = 150;
-        
-        if (revealTop < windowHeight - revealPoint) {
-          reveal.classList.add('active');
-        }
-      });
-    });
-    
-    // 页面加载时检查
-    window.addEventListener('load', function() {
-      const reveals = document.querySelectorAll('.reveal');
-      reveals.forEach(reveal => {
-        const revealTop = reveal.getBoundingClientRect().top;
+    // 滚动触发效果 (仅在非移动设备上运行)
+    if (!isMobile()) {
+      window.addEventListener('scroll', function() {
+        const reveals = document.querySelectorAll('.reveal');
         const windowHeight = window.innerHeight;
-        const revealPoint = 150;
         
-        if (revealTop < windowHeight - revealPoint) {
-          reveal.classList.add('active');
-        }
+        reveals.forEach(reveal => {
+          const revealTop = reveal.getBoundingClientRect().top;
+          const revealPoint = 150;
+          
+          if (revealTop < windowHeight - revealPoint) {
+            reveal.classList.add('active');
+          }
+        });
       });
-    });
+      
+      // 页面加载时检查
+      window.addEventListener('load', function() {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(reveal => {
+          const revealTop = reveal.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          const revealPoint = 150;
+          
+          if (revealTop < windowHeight - revealPoint) {
+            reveal.classList.add('active');
+          }
+        });
+      });
+    } else {
+      // 移动设备上直接添加active类，避免性能问题
+      window.addEventListener('load', function() {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(reveal => {
+          reveal.classList.add('active');
+        });
+      });
+    }
 
-    // 轮播视频
-    document.addEventListener('DOMContentLoaded', function() {
-      const carouselItems = document.querySelectorAll('.carousel-item');
-      const indicators = document.querySelectorAll('.carousel-indicator');
-      let currentIndex = 0;
-      const totalItems = carouselItems.length;
+    // 轮播视频 (仅在非移动设备上运行)
+    if (!isMobile()) {
+      document.addEventListener('DOMContentLoaded', function() {
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        let currentIndex = 0;
+        const totalItems = carouselItems.length;
 
-      // 自动轮播
-      function startCarousel() {
-        setInterval(() => {
-          goToNextSlide();
-        }, 5000); // 每5秒切换一次
-      }
+        // 自动轮播
+        function startCarousel() {
+          setInterval(() => {
+            goToNextSlide();
+          }, 5000); // 每5秒切换一次
+        }
 
-      // 切换到下一张
-      function goToNextSlide() {
-        carouselItems[currentIndex].classList.remove('opacity-100');
-        carouselItems[currentIndex].classList.add('opacity-0');
-        indicators[currentIndex].classList.remove('bg-white/50');
-        indicators[currentIndex].classList.add('bg-white/30');
-
-        currentIndex = (currentIndex + 1) % totalItems;
-
-        carouselItems[currentIndex].classList.remove('opacity-0');
-        carouselItems[currentIndex].classList.add('opacity-100');
-        indicators[currentIndex].classList.remove('bg-white/30');
-        indicators[currentIndex].classList.add('bg-white/50');
-      }
-
-      // 点击指示器切换
-      indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
+        // 切换到下一张
+        function goToNextSlide() {
           carouselItems[currentIndex].classList.remove('opacity-100');
           carouselItems[currentIndex].classList.add('opacity-0');
           indicators[currentIndex].classList.remove('bg-white/50');
           indicators[currentIndex].classList.add('bg-white/30');
 
-          currentIndex = index;
+          currentIndex = (currentIndex + 1) % totalItems;
 
           carouselItems[currentIndex].classList.remove('opacity-0');
           carouselItems[currentIndex].classList.add('opacity-100');
           indicators[currentIndex].classList.remove('bg-white/30');
           indicators[currentIndex].classList.add('bg-white/50');
-        });
-      });
+        }
 
-      // 开始轮播
-      startCarousel();
-    });
+        // 点击指示器切换
+        indicators.forEach((indicator, index) => {
+          indicator.addEventListener('click', () => {
+            carouselItems[currentIndex].classList.remove('opacity-100');
+            carouselItems[currentIndex].classList.add('opacity-0');
+            indicators[currentIndex].classList.remove('bg-white/50');
+            indicators[currentIndex].classList.add('bg-white/30');
+
+            currentIndex = index;
+
+            carouselItems[currentIndex].classList.remove('opacity-0');
+            carouselItems[currentIndex].classList.add('opacity-100');
+            indicators[currentIndex].classList.remove('bg-white/30');
+            indicators[currentIndex].classList.add('bg-white/50');
+          });
+        });
+
+        // 开始轮播
+        startCarousel();
+      });
+    }
   </script>
 </body>
 </html>
