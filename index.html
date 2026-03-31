@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -74,7 +74,6 @@
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
       transition: all 0.3s ease;
-      font-size: 1.1rem; /* 增加字体大小约10% */
     }
     
     .tech-button::before {
@@ -301,13 +300,14 @@
       right: 0;
       bottom: 0;
       border-radius: inherit;
-      padding: 1px;
-      background: linear-gradient(45deg, #9600ff, #00d4ff, #9600ff);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
+      border: 1px solid transparent;
+      background: linear-gradient(45deg, #9600ff, #00d4ff, #9600ff) border-box;
+      -webkit-mask: none;
+      mask: none;
+      pointer-events: none;
       opacity: 0;
       transition: opacity 0.3s ease;
+      z-index: 0;
     }
     
     .btn-tech:hover::after {
@@ -418,6 +418,26 @@
       box-shadow: 0 20px 40px rgba(120, 0, 255, 0.3);
       background: rgba(18, 18, 30, 0.8);
     }
+
+    /* 手机端双列瀑布流：收紧卡片内容区域 */
+    @media (max-width: 639px) {
+      .case-item .case-info {
+        padding: 0.45rem 0.55rem 0.55rem;
+      }
+      .case-item .case-title {
+        font-size: 0.68rem;
+        line-height: 1.3;
+        margin-bottom: 0.2rem;
+      }
+      .case-item .case-info p {
+        font-size: 0.58rem;
+        line-height: 1.3;
+      }
+      /* 手机端隐藏描述文字，节省空间 */
+      .case-item .case-info .case-desc-text {
+        display: none;
+      }
+    }
     
     /* 滚动触发效果 */
     .reveal {
@@ -439,11 +459,105 @@
       overflow: hidden;
     }
 
-    /* 手机端触摸友好 */
+    /* =============================================
+       手机端全站优化 (≤640px)
+       ============================================= */
     @media (max-width: 640px) {
+
+      /* --- 1. 案例分类标签：更小更紧凑，像小红书频道栏 --- */
       .case-tab {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.65rem;
+        border-radius: 999px;
+        letter-spacing: 0;
+      }
+      /* 隐藏标签内图标，节省空间，文字更紧凑 */
+      .case-tab i {
+        display: none;
+      }
+
+      /* --- 2. Section 标题：手机端缩小，不占太多屏幕 --- */
+      section h2 {
+        font-size: 1.4rem !important;
+        margin-bottom: 0.5rem !important;
+      }
+      section .text-center > p {
         font-size: 0.75rem;
-        padding: 0.4rem 0.75rem;
+      }
+      /* Section 上下间距收紧 */
+      section.py-20 {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+      }
+      section .mb-16 {
+        margin-bottom: 1.5rem !important;
+      }
+      section .mb-10 {
+        margin-bottom: 0.75rem !important;
+      }
+
+      /* --- 3. 服务卡片：手机端双列，更紧凑 --- */
+      #services .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+      }
+      #services .grid > div {
+        padding: 0.75rem !important;
+      }
+      /* 服务卡片图标缩小 */
+      #services .service-icon .w-16 {
+        width: 2rem;
+        height: 2rem;
+      }
+      #services .service-icon i {
+        font-size: 0.9rem;
+      }
+      #services .service-icon {
+        margin-bottom: 0.5rem !important;
+      }
+      /* 服务卡片标题和描述 */
+      #services h3 {
+        font-size: 0.8rem !important;
+        margin-bottom: 0.3rem !important;
+        line-height: 1.3;
+      }
+      #services p {
+        font-size: 0.68rem;
+        line-height: 1.4;
+        color: rgba(209,213,219,0.85);
+      }
+      /* 关掉卡片背景弥散光，减少渲染压力 */
+      #services .absolute.rounded-full.blur-3xl {
+        display: none;
+      }
+
+      /* --- 4. 首页Hero：标题和按钮更紧凑 --- */
+      #home h1 {
+        font-size: 1.6rem !important;
+        line-height: 1.2;
+        margin-bottom: 0.6rem !important;
+      }
+      #home > div > div > div > p {
+        font-size: 0.8rem;
+        margin-bottom: 1rem !important;
+      }
+      #home .flex.flex-col a {
+        padding: 0.65rem 1.25rem;
+        font-size: 0.85rem;
+      }
+
+      /* --- 5. 导航栏紧凑 --- */
+      nav .text-lg.md\:text-3xl {
+        font-size: 1rem !important;
+      }
+      nav .text-sm.md\:text-base {
+        font-size: 0.65rem;
+      }
+
+      /* --- 6. 容器内边距收紧 --- */
+      .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
       }
     }
 
@@ -684,29 +798,29 @@
         </p>
       </div>
       
-      <!-- 案例分类标签（横向可滚动，手机端左右滑动） -->
+      <!-- 案例分类标签（横向可滚动，手机端左右滑动，类小红书频道栏） -->
       <div class="mb-10 reveal">
-        <div class="flex overflow-x-auto pb-2 gap-3 snap-x snap-mandatory scrollbar-hide justify-start md:justify-center" style="-webkit-overflow-scrolling: touch; scrollbar-width: none;">
-          <button class="case-tab active-tab flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-white hover:bg-gray-900/50 btn-tech tech-button border-purple-400/60 bg-purple-500/20 whitespace-nowrap" data-tab="广告">
+        <div class="flex overflow-x-auto pb-1 gap-2 scrollbar-hide justify-start md:justify-center px-1 md:px-0" style="-webkit-overflow-scrolling: touch; scrollbar-width: none;">
+          <button class="case-tab active-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-white hover:bg-gray-900/50 tech-button border-purple-400/60 bg-purple-500/20 whitespace-nowrap" data-tab="广告">
             <i class="fa fa-video-camera mr-1"></i>AIGC 广告视频
           </button>
-          <button class="case-tab flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button whitespace-nowrap" data-tab="电商">
+          <button class="case-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 tech-button whitespace-nowrap" data-tab="电商">
             <i class="fa fa-shopping-bag mr-1"></i> AIGC 电商带货
           </button>
-          <button class="case-tab flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button whitespace-nowrap" data-tab="自媒体">
+          <button class="case-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 tech-button whitespace-nowrap" data-tab="自媒体">
             <i class="fa fa-users mr-1"></i> 自媒体代运营
           </button>
-          <button class="case-tab flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button whitespace-nowrap" data-tab="网站">
+          <button class="case-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 tech-button whitespace-nowrap" data-tab="网站">
             <i class="fa fa-globe mr-1"></i> 网站建设
           </button>
-          <button class="case-tab flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 btn-tech tech-button whitespace-nowrap" data-tab="培训">
+          <button class="case-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 tech-button whitespace-nowrap" data-tab="培训">
             <i class="fa fa-graduation-cap mr-1"></i> AI技术培训
           </button>
         </div>
       </div>
       
-      <!-- 紧凑的网格布局 -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 紧凑的网格布局：手机端双列，平板2列，桌面3列 -->
+      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6" id="cases-grid">
 
         <!-- 案例 2 -->
         <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
@@ -721,9 +835,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">实验室·AI数字人简介视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">雄安与你同行|AI视觉实验室简介</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">实验室·AI数字人简介视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">雄安与你同行|AI视觉实验室简介</p>
           </div>
         </div>
         
@@ -740,9 +854,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">广府古城·水韵太极白酒推广视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为邯郸广府古城"水韵太极"白酒制作的产品推广广告，据客户反馈产品点击率提升75%。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">广府古城·水韵太极白酒推广视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为邯郸广府古城"水韵太极"白酒制作的产品推广广告，据客户反馈产品点击率提升75%。</p>
           </div>
         </div>
         
@@ -759,9 +873,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">地产品牌·创意形象广告</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某地产品牌制作的创意广告，据客户反馈品牌知名度提升30%。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">地产品牌·创意形象广告</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某地产品牌制作的创意广告，据客户反馈品牌知名度提升30%。</p>
           </div>
         </div>
         
@@ -778,9 +892,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">少儿编程·AI招生宣传片</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某少儿编程培训班制作的AI广告视频，据客户反馈招生率大幅提高。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">少儿编程·AI招生宣传片</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某少儿编程培训班制作的AI广告视频，据客户反馈招生率大幅提高。</p>
           </div>
         </div>
         
@@ -797,9 +911,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">雄安新区·数字人AI导游宣传</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为雄安新区制作的数字人导游视频，提升城市科技感，据客户反馈宣传成本降低70%。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">雄安新区·数字人AI导游宣传</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为雄安新区制作的数字人导游视频，提升城市科技感，据客户反馈宣传成本降低70%。</p>
           </div>
         </div>
         
@@ -816,9 +930,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">城市交通·AI数字人科普视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为城市交通部门制作的交通安全宣传科普视频，AI数字人主播，形式新颖易传播。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">城市交通·AI数字人科普视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为城市交通部门制作的交通安全宣传科普视频，AI数字人主播，形式新颖易传播。</p>
           </div>
         </div>
         
@@ -835,9 +949,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">知名品牌·AIGC创意广告片</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某知名品牌制作的AIGC广告视频，获行业大佬点赞转发，引发业内广泛关注。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">知名品牌·AIGC创意广告片</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某知名品牌制作的AIGC广告视频，获行业大佬点赞转发，引发业内广泛关注。</p>
           </div>
         </div>
         
@@ -854,9 +968,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">餐饮门店·AI数字人探店视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">改变传统探店模式，AI数字人探店新形式，据客户反馈门店食客数量大幅提升。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">餐饮门店·AI数字人探店视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">改变传统探店模式，AI数字人探店新形式，据客户反馈门店食客数量大幅提升。</p>
           </div>
         </div>
         
@@ -873,9 +987,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">红酒品牌·AI系列广告片</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某红酒品牌制作的系列AIGC广告，据客户反馈品牌销售额提升45%。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">红酒品牌·AI系列广告片</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某红酒品牌制作的系列AIGC广告，据客户反馈品牌销售额提升45%。</p>
           </div>
         </div>
         
@@ -892,9 +1006,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">饰品类目·AI数字人带货视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某电商平台制作的耳环带货视频，据客户反馈转化率提升30%。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">饰品类目·AI数字人带货视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某电商平台制作的耳环带货视频，据客户反馈转化率提升30%。</p>
           </div>
         </div>
         
@@ -911,9 +1025,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">时尚品牌·AI换装带货视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某时尚品牌制作的电商带货视频，据客户反馈产品销售额提升25%。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">时尚品牌·AI换装带货视频</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某时尚品牌制作的电商带货视频，据客户反馈产品销售额提升25%。</p>
           </div>
         </div>
         
@@ -930,9 +1044,9 @@
               ></iframe>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">美妆品牌·TikTok爆款带货内容</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某TikTok化妆品品牌制作的短视频带货内容，获得10万+点赞，成功出海爆单。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">美妆品牌·TikTok爆款带货内容</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某TikTok化妆品品牌制作的短视频带货内容，获得10万+点赞，成功出海爆单。</p>
           </div>
         </div>
         
@@ -947,9 +1061,9 @@
               />
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">美妆品牌·AI产品对比图</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某美妆品牌生成的AI产品对比图片，据客户反馈产品点击率提升40%。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">美妆品牌·AI产品对比图</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某美妆品牌生成的AI产品对比图片，据客户反馈产品点击率提升40%。</p>
           </div>
         </div>
         
@@ -964,9 +1078,9 @@
               />
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">智能手表·AI场景产品图</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某智能手表品牌制作的AI场景产品图，大幅提升品牌形象和产品销量。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">智能手表·AI场景产品图</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某智能手表品牌制作的AI场景产品图，大幅提升品牌形象和产品销量。</p>
           </div>
         </div>
         
@@ -981,9 +1095,9 @@
               />
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">运动品牌·AI创意主图设计</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某运动品牌制作的AI生成产品主图，据客户反馈转化率提升35%。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">运动品牌·AI创意主图设计</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某运动品牌制作的AI生成产品主图，据客户反馈转化率提升35%。</p>
           </div>
         </div>
         
@@ -1005,9 +1119,9 @@
               </div>
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">品牌自媒体·AI全案代运营</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某品牌提供的自媒体账号全案代运营，据客户反馈粉丝增长300%，品牌影响力显著提升。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">品牌自媒体·AI全案代运营</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某品牌提供的自媒体账号全案代运营，据客户反馈粉丝增长300%，品牌影响力显著提升。</p>
           </div>
         </div>
         
@@ -1022,9 +1136,9 @@
               />
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">企业官网·响应式全栈开发</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某企业设计开发的响应式官方网站，全面提升品牌形象和用户体验。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">企业官网·响应式全栈开发</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某企业设计开发的响应式官方网站，全面提升品牌形象和用户体验。</p>
           </div>
         </div>
         
@@ -1039,9 +1153,9 @@
               />
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">个人作品集·创意求职网站</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某求职者设计的个人网站，形式新颖，展示个人作品集，据客户反馈面试通过率提升75%。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">个人作品集·创意求职网站</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某求职者设计的个人网站，形式新颖，展示个人作品集，据客户反馈面试通过率提升75%。</p>
           </div>
         </div>
         
@@ -1056,9 +1170,9 @@
               />
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">雄安与你同行·赛博朋克官网</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">雄安与你同行AI视觉实验室官方网站，赛博朋克风格设计，集成AI驱动创意解决方案展示。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">雄安与你同行·赛博朋克官网</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">雄安与你同行AI视觉实验室官方网站，赛博朋克风格设计，集成AI驱动创意解决方案展示。</p>
           </div>
         </div>
         
@@ -1073,9 +1187,9 @@
               />
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">企业AI入门·全员赋能培训</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为某企业提供的AI基础培训课程，帮助全员掌握AI技术基础知识和实操应用方法。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">企业AI入门·全员赋能培训</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某企业提供的AI基础培训课程，帮助全员掌握AI技术基础知识和实操应用方法。</p>
           </div>
         </div>
         
@@ -1090,9 +1204,9 @@
               />
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">创意从业者·AIGC实战工作坊</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为创意行业从业者提供的AIGC应用培训，手把手教授如何用AI工具高效产出优质内容。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">创意从业者·AIGC实战工作坊</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为创意行业从业者提供的AIGC应用培训，手把手教授如何用AI工具高效产出优质内容。</p>
           </div>
         </div>
         
@@ -1107,9 +1221,9 @@
               />
             </div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text">管理层AI战略·高管专属培训</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">为企业管理层量身定制AI战略培训，帮助制定AI应用规划、识别降本增效机会。</p>
+          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
+            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">管理层AI战略·高管专属培训</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为企业管理层量身定制AI战略培训，帮助制定AI应用规划、识别降本增效机会。</p>
           </div>
         </div>
       </div>
@@ -1150,7 +1264,7 @@
           <!-- 内容 -->
           <div class="p-6 relative z-10">
             <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">需求沟通</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">了解客户需求，制定详细的项目计划和方案。</p>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">了解客户需求，制定详细的项目计划和方案。</p>
           </div>
         </div>
         
@@ -1175,7 +1289,7 @@
           <!-- 内容 -->
           <div class="p-6 relative z-10">
             <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">创意设计</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">根据需求进行创意设计，提供初步方案和概念。</p>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">根据需求进行创意设计，提供初步方案和概念。</p>
           </div>
         </div>
         
@@ -1200,7 +1314,7 @@
           <!-- 内容 -->
           <div class="p-6 relative z-10">
             <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">制作执行</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">专业团队进行制作，确保质量和效率。</p>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">专业团队进行制作，确保质量和效率。</p>
           </div>
         </div>
         
@@ -1225,7 +1339,7 @@
           <!-- 内容 -->
           <div class="p-6 relative z-10">
             <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">质量检查</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">严格的质量控制，确保最终产品符合要求。</p>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">严格的质量控制，确保最终产品符合要求。</p>
           </div>
         </div>
         
@@ -1250,58 +1364,7 @@
           <!-- 内容 -->
           <div class="p-6 relative z-10">
             <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">交付验收</h3>
-            <p class="text-xs text-gray-300 line-clamp-2">按时交付成果，确保客户满意。</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 关于我们 -->
-  <section id="about" class="py-20 relative overflow-hidden">
-    <div class="container mx-auto px-4 relative z-10">
-      <div class="text-center mb-16 reveal">
-        <h2 class="text-3xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">关于我们</h2>
-        <p class="text-sm text-gray-400 max-w-2xl mx-auto">
-          雄安与你同行AI视觉实验室致力于利用AI技术为企业提供创新的数字解决方案
-        </p>
-      </div>
-      
-      <div class="flex flex-col md:flex-row items-center">
-        <div class="md:w-1/2 mb-10 md:mb-0 reveal">
-          <div class="tech-border rounded-lg overflow-hidden high-glass">
-            <img 
-              src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cyberpunk%20AI%20technology%20team%20working%20in%20futuristic%20office%20with%20neon%20lights&image_size=square_hd" 
-              alt="关于我们" 
-              class="w-full"
-            />
-          </div>
-        </div>
-        <div class="md:w-1/2 md:pl-12 reveal">
-          <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">公司简介</h3>
-          <p class="text-gray-400 mb-6 text-base">
-            雄安与你同行AI视觉实验室成立于2024年，是一家专注于AI技术应用的创新企业。我们拥有一支专业的团队，致力于为客户提供高质量的广告视频制作、电商服务、AI客服、自媒体代运营和网站建设服务。
-          </p>
-          <p class="text-gray-400 mb-6 text-base">
-            我们的使命是通过AI技术赋能企业，帮助客户在数字时代获得竞争优势。我们相信，人工智能技术将为创意产业带来革命性的变化，我们愿意与客户一起探索这一领域的无限可能。
-          </p>
-          <div class="flex flex-wrap gap-4">
-            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
-              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">成本↓80%</div>
-              <div class="text-sm text-gray-400">对比传统制作</div>
-            </div>
-            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
-              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">48h</div>
-              <div class="text-sm text-gray-400">极速出片交付</div>
-            </div>
-            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
-              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">10+</div>
-              <div class="text-sm text-gray-400">AI工具矩阵</div>
-            </div>
-            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
-              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">50+</div>
-              <div class="text-sm text-gray-400">服务企业客户</div>
-            </div>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">按时交付成果，确保客户满意。</p>
           </div>
         </div>
       </div>
@@ -1424,6 +1487,57 @@
         </div>
       </div>
       <p class="text-center text-gray-500 text-xs mt-8 reveal">* 以上价格仅供参考，实际以项目需求为准，欢迎咨询获取精准报价</p>
+    </div>
+  </section>
+
+  <!-- 关于我们 -->
+  <section id="about" class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">关于我们</h2>
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">
+          雄安与你同行AI视觉实验室致力于利用AI技术为企业提供创新的数字解决方案
+        </p>
+      </div>
+      
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0 reveal">
+          <div class="tech-border rounded-lg overflow-hidden high-glass">
+            <img 
+              src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cyberpunk%20AI%20technology%20team%20working%20in%20futuristic%20office%20with%20neon%20lights&image_size=square_hd" 
+              alt="关于我们" 
+              class="w-full"
+            />
+          </div>
+        </div>
+        <div class="md:w-1/2 md:pl-12 reveal">
+          <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">公司简介</h3>
+          <p class="text-gray-400 mb-6 text-base">
+            雄安与你同行AI视觉实验室成立于2024年，是一家专注于AI技术应用的创新企业。我们拥有一支专业的团队，致力于为客户提供高质量的广告视频制作、电商服务、AI客服、自媒体代运营和网站建设服务。
+          </p>
+          <p class="text-gray-400 mb-6 text-base">
+            我们的使命是通过AI技术赋能企业，帮助客户在数字时代获得竞争优势。我们相信，人工智能技术将为创意产业带来革命性的变化，我们愿意与客户一起探索这一领域的无限可能。
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">成本↓80%</div>
+              <div class="text-sm text-gray-400">对比传统制作</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">48h</div>
+              <div class="text-sm text-gray-400">极速出片交付</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">10+</div>
+              <div class="text-sm text-gray-400">AI工具矩阵</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">50+</div>
+              <div class="text-sm text-gray-400">服务企业客户</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
