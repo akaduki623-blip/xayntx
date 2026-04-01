@@ -408,34 +408,117 @@
       flex-direction: column;
     }
     
-    /* 案例项目样式 */
+    /* === 案例卡片全新样式 === */
     .case-item {
-      transition: all 0.3s ease;
+      cursor: pointer;
+      /* 桌面端保留轻微hover效果，手机端由上方媒体查询禁用 */
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
-    
-    .case-item:hover {
-      z-index: 10;
-      box-shadow: 0 20px 40px rgba(120, 0, 255, 0.3);
-      background: rgba(18, 18, 30, 0.8);
+    /* 桌面端hover时轻微上浮 */
+    @media (min-width: 769px) {
+      .case-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(120, 0, 255, 0.35);
+      }
     }
-
-    /* 手机端双列瀑布流：收紧卡片内容区域 */
+    /* 封面容器：3:4比例，和B站横版封面图裁剪更自然 */
+    .video-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #0a0a14;
+    }
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    /* 渐变色封面背景 */
+    .video-thumb-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .video-thumb-icon {
+      font-size: 2rem;
+      color: rgba(255,255,255,0.7);
+      filter: drop-shadow(0 0 8px rgba(120,0,255,0.8));
+    }
+    .video-thumb-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.05em;
+      background: rgba(0,0,0,0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+    /* 播放按钮覆盖层 */
+    .video-play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+    .video-play-btn i {
+      width: 2.8rem;
+      height: 2.8rem;
+      background: rgba(120,0,255,0.75);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #fff;
+      box-shadow: 0 0 16px rgba(120,0,255,0.6);
+      padding-left: 3px;
+    }
+    .case-item:hover .video-play-btn {
+      background: rgba(0,0,0,0.35);
+    }
+    /* 卡片信息区 */
+    .case-info {
+      padding: 0.6rem 0.75rem 0.75rem;
+      background: rgba(10,10,20,0.85);
+    }
+    .case-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.35;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    /* 手机端再缩小一点 */
     @media (max-width: 639px) {
-      .case-item .case-info {
-        padding: 0.45rem 0.55rem 0.55rem;
+      .case-info {
+        padding: 0.45rem 0.5rem 0.5rem;
       }
-      .case-item .case-title {
-        font-size: 0.68rem;
-        line-height: 1.3;
-        margin-bottom: 0.2rem;
+      .case-title {
+        font-size: 0.7rem;
       }
-      .case-item .case-info p {
-        font-size: 0.58rem;
-        line-height: 1.3;
+      .video-thumb-icon {
+        font-size: 1.5rem;
       }
-      /* 手机端隐藏描述文字，节省空间 */
-      .case-item .case-info .case-desc-text {
-        display: none;
+      .video-thumb-label {
+        font-size: 0.6rem;
+      }
+      .video-play-btn i {
+        width: 2.2rem;
+        height: 2.2rem;
+        font-size: 0.8rem;
       }
     }
     
@@ -451,6 +534,70 @@
       transform: translateY(0);
     }
 
+    /* ===================================================
+       手机端（≤768px）全面禁用特效动画，保持整洁观感
+       =================================================== */
+    @media (max-width: 768px) {
+      /* 1. 禁用reveal滚动动画 — 防止卡片错位/消失 */
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+
+      /* 2. 禁用card-hover的位移 — 防止卡片"乱飘" */
+      .card-hover:hover {
+        transform: none !important;
+      }
+
+      /* 3. 禁用shimmer光晕扫描动画 */
+      .card-hover::before {
+        display: none !important;
+      }
+
+      /* 4. 禁用tech-border动态彩色边框动画 */
+      .tech-border:hover::before {
+        opacity: 0 !important;
+        animation: none !important;
+      }
+
+      /* 5. 禁用service-icon圆圈pulse光晕 */
+      .service-icon::after {
+        display: none !important;
+      }
+
+      /* 6. 禁用btn-tech光扫效果 */
+      .btn-tech::before {
+        display: none !important;
+      }
+      .btn-tech:hover {
+        transform: none !important;
+        box-shadow: none !important;
+      }
+
+      /* 7. 禁用弥散光模糊球 — 减少GPU压力 */
+      .absolute.rounded-full.blur-3xl {
+        display: none !important;
+      }
+
+      /* 8. 禁用流程卡片图片的scale动画 */
+      .group-hover\:scale-110 {
+        transition: none !important;
+        transform: none !important;
+      }
+
+      /* 9. hero区域的pulse呼吸动画关掉 */
+      .hero-gradient::before {
+        animation: none !important;
+        opacity: 0.4;
+      }
+
+      /* 10. 粒子画布在手机上隐藏，节省性能 */
+      #particles-canvas {
+        display: none !important;
+      }
+    }
+
     /* 多行文字截断 */
     .line-clamp-2 {
       display: -webkit-box;
@@ -460,104 +607,142 @@
     }
 
     /* =============================================
-       手机端全站优化 (≤640px)
+       手机端全站整洁化 (≤640px) - 小红书风格
        ============================================= */
     @media (max-width: 640px) {
 
-      /* --- 1. 案例分类标签：更小更紧凑，像小红书频道栏 --- */
+      /* --- 1. 案例分类标签：小红书频道栏风格 --- */
       .case-tab {
         font-size: 0.7rem;
-        padding: 0.3rem 0.65rem;
+        padding: 0.28rem 0.6rem;
         border-radius: 999px;
         letter-spacing: 0;
       }
-      /* 隐藏标签内图标，节省空间，文字更紧凑 */
       .case-tab i {
         display: none;
       }
 
-      /* --- 2. Section 标题：手机端缩小，不占太多屏幕 --- */
+      /* --- 2. Section 标题收紧 --- */
       section h2 {
-        font-size: 1.4rem !important;
-        margin-bottom: 0.5rem !important;
+        font-size: 1.3rem !important;
+        margin-bottom: 0.4rem !important;
       }
       section .text-center > p {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
       }
-      /* Section 上下间距收紧 */
       section.py-20 {
-        padding-top: 2.5rem;
-        padding-bottom: 2.5rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
       }
       section .mb-16 {
-        margin-bottom: 1.5rem !important;
+        margin-bottom: 1.2rem !important;
       }
       section .mb-10 {
-        margin-bottom: 0.75rem !important;
+        margin-bottom: 0.6rem !important;
       }
 
-      /* --- 3. 服务卡片：手机端双列，更紧凑 --- */
+      /* --- 3. 服务卡片：手机端双列紧凑 --- */
       #services .grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 0.5rem !important;
       }
       #services .grid > div {
-        padding: 0.75rem !important;
+        padding: 0.7rem !important;
+        /* 去掉hover位移，手机端纯静态 */
+        transition: none !important;
       }
-      /* 服务卡片图标缩小 */
       #services .service-icon .w-16 {
-        width: 2rem;
-        height: 2rem;
+        width: 2rem !important;
+        height: 2rem !important;
       }
       #services .service-icon i {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
       }
       #services .service-icon {
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 0.4rem !important;
       }
-      /* 服务卡片标题和描述 */
       #services h3 {
-        font-size: 0.8rem !important;
-        margin-bottom: 0.3rem !important;
+        font-size: 0.78rem !important;
+        margin-bottom: 0.25rem !important;
         line-height: 1.3;
       }
       #services p {
-        font-size: 0.68rem;
+        font-size: 0.65rem;
         line-height: 1.4;
-        color: rgba(209,213,219,0.85);
-      }
-      /* 关掉卡片背景弥散光，减少渲染压力 */
-      #services .absolute.rounded-full.blur-3xl {
-        display: none;
+        color: rgba(209,213,219,0.8);
+        /* 最多显示3行，超出省略 */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
-      /* --- 4. 首页Hero：标题和按钮更紧凑 --- */
+      /* --- 4. 案例卡片：去掉hover位移，纯静态 --- */
+      .case-item:hover {
+        transform: none !important;
+        box-shadow: none !important;
+      }
+      /* 案例网格间距 */
+      #cases-grid {
+        gap: 0.5rem !important;
+      }
+
+      /* --- 5. 首页Hero收紧 --- */
       #home h1 {
-        font-size: 1.6rem !important;
+        font-size: 1.55rem !important;
         line-height: 1.2;
-        margin-bottom: 0.6rem !important;
+        margin-bottom: 0.5rem !important;
       }
       #home > div > div > div > p {
-        font-size: 0.8rem;
-        margin-bottom: 1rem !important;
+        font-size: 0.78rem;
+        margin-bottom: 0.9rem !important;
       }
-      #home .flex.flex-col a {
-        padding: 0.65rem 1.25rem;
-        font-size: 0.85rem;
+      #home .flex.flex-row a {
+        padding: 0.55rem 1rem;
+        font-size: 0.8rem;
       }
 
-      /* --- 5. 导航栏紧凑 --- */
+      /* --- 6. 导航栏紧凑 --- */
       nav .text-lg.md\:text-3xl {
-        font-size: 1rem !important;
+        font-size: 0.95rem !important;
       }
       nav .text-sm.md\:text-base {
-        font-size: 0.65rem;
+        font-size: 0.62rem;
       }
 
-      /* --- 6. 容器内边距收紧 --- */
+      /* --- 7. 容器内边距收紧 --- */
       .container {
-        padding-left: 0.75rem;
-        padding-right: 0.75rem;
+        padding-left: 0.6rem;
+        padding-right: 0.6rem;
+      }
+
+      /* --- 8. 服务流程区：手机端简化snap --- */
+      #process-scroll {
+        scroll-snap-type: x mandatory;
+        padding-bottom: 0.5rem;
+      }
+      #process-scroll > div {
+        /* 禁用图片scale动画 */
+        transition: none !important;
+      }
+      #process-scroll img {
+        transition: none !important;
+        transform: none !important;
+      }
+
+      /* --- 9. 客户评价区：手机端单列 --- */
+      #testimonials .grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+      }
+      #testimonials p {
+        font-size: 0.72rem;
+      }
+
+      /* --- 10. 服务套餐：手机端单列 --- */
+      #pricing .grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
       }
     }
 
@@ -651,12 +836,12 @@
         <p class="text-sm md:text-xl mb-8 text-gray-300">
           打破物理边界，重塑视觉营销
         </p>
-        <!-- 手机端按钮：全宽、字体加大、间距更舒适 -->
-        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
-          <a href="#services" class="glass-effect text-white font-bold py-4 px-8 rounded-lg hover:bg-white/10 transition btn-tech text-base md:text-lg border border-white/20 shadow-lg shadow-white/10 text-center w-full sm:w-auto">
+        <!-- 按钮组：手机端横向并排 -->
+        <div class="flex flex-row gap-3 flex-wrap">
+          <a href="#services" class="glass-effect text-white font-bold py-3 px-6 rounded-lg hover:bg-white/10 transition btn-tech text-sm border border-white/20 shadow-lg shadow-white/10 text-center">
             了解服务
           </a>
-          <a href="#contact" class="glass-effect text-white font-bold py-4 px-8 rounded-lg hover:bg-white/10 transition btn-tech text-base md:text-lg border border-white/20 shadow-lg shadow-white/10 text-center w-full sm:w-auto">
+          <a href="#contact" class="glass-effect text-white font-bold py-3 px-6 rounded-lg hover:bg-white/10 transition btn-tech text-sm border border-white/20 shadow-lg shadow-white/10 text-center">
             联系我们
           </a>
         </div>
@@ -819,416 +1004,336 @@
         </div>
       </div>
       
-      <!-- 紧凑的网格布局：手机端双列，平板2列，桌面3列 -->
+      <!-- 案例卡片网格：手机2列，桌面3列 -->
       <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6" id="cases-grid">
 
-        <!-- 案例 2 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116275820960686&bvid=BV1gFQRBYE4u&cid=36900900464&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
+        <!-- 广告案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1gFQRBYE4u&autoplay=1','实验室·AI数字人简介视频')">
+          <div class="video-thumb">
+            <img src="https://i2.hdslb.com/bfs/archive/f8421da1001c644095027424033c45f5d38db438.jpg" alt="AI数字人" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a0533 0%,#2d0a5c 50%,#0a1a40 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-robot"></i></div>
+              <div class="video-thumb-label">AI数字人</div>
             </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">实验室·AI数字人简介视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">雄安与你同行|AI视觉实验室简介</p>
+          <div class="case-info">
+            <h3 class="case-title">实验室·AI数字人简介视频</h3>
           </div>
         </div>
-        
-        <!-- 案例 3 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116254681601530&bvid=BV17mwkzMEQk&cid=36810787201&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">广府古城·水韵太极白酒推广视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为邯郸广府古城"水韵太极"白酒制作的产品推广广告，据客户反馈产品点击率提升75%。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 4 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116254681603433&bvid=BV17mwkzME79&cid=36810719675&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">地产品牌·创意形象广告</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某地产品牌制作的创意广告，据客户反馈品牌知名度提升30%。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 5 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116260436188965&bvid=BV1yZA7z7ELP&cid=36835495001&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">少儿编程·AI招生宣传片</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某少儿编程培训班制作的AI广告视频，据客户反馈招生率大幅提高。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 6 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116260419473456&bvid=BV1TXA7zQEeH&cid=36835364773&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">雄安新区·数字人AI导游宣传</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为雄安新区制作的数字人导游视频，提升城市科技感，据客户反馈宣传成本降低70%。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 7 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116260436189032&bvid=BV1yZA7z7EV2&cid=36835557837&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">城市交通·AI数字人科普视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为城市交通部门制作的交通安全宣传科普视频，AI数字人主播，形式新颖易传播。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 8 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116266727644129&bvid=BV1UJAczuEwQ&cid=36863083309&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">知名品牌·AIGC创意广告片</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某知名品牌制作的AIGC广告视频，获行业大佬点赞转发，引发业内广泛关注。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 9 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116266711061576&bvid=BV1mnAczzEQo&cid=36862887168&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">餐饮门店·AI数字人探店视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">改变传统探店模式，AI数字人探店新形式，据客户反馈门店食客数量大幅提升。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 10 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="广告">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116233290653142&bvid=BV1A5wuzQEhN&cid=36720217765&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">红酒品牌·AI系列广告片</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某红酒品牌制作的系列AIGC广告，据客户反馈品牌销售额提升45%。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 3 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116254664826225&bvid=BV1jUwkzqEvK&cid=36810592088&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">饰品类目·AI数字人带货视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某电商平台制作的耳环带货视频，据客户反馈转化率提升30%。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 4 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116254698380187&bvid=BV1uPwCz4ESG&cid=36810851933&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">时尚品牌·AI换装带货视频</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某时尚品牌制作的电商带货视频，据客户反馈产品销售额提升25%。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 5 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <iframe 
-                src="https://player.bilibili.com/player.html?isOutside=true&aid=116271475662703&bvid=BV1k4AgzxEQn&cid=36883271553&p=1&autoplay=0&loop=0&muted=0" 
-                style="border:none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
-                frameborder="0"
-                allow="fullscreen"
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">美妆品牌·TikTok爆款带货内容</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某TikTok化妆品品牌制作的短视频带货内容，获得10万+点赞，成功出海爆单。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 6 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <img 
-                src="./images/product1.jpg" 
-                alt="电商产品图1" 
-                class="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">美妆品牌·AI产品对比图</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某美妆品牌生成的AI产品对比图片，据客户反馈产品点击率提升40%。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 7 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <img 
-                src="./images/product2.jpg" 
-                alt="电商产品图2" 
-                class="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">智能手表·AI场景产品图</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某智能手表品牌制作的AI场景产品图，大幅提升品牌形象和产品销量。</p>
-          </div>
-        </div>
-        
-        <!-- 案例 8 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="电商">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 9/16; width: 100%;">
-              <img 
-                src="./images/product3.jpg" 
-                alt="电商产品图3" 
-                class="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">运动品牌·AI创意主图设计</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某运动品牌制作的AI生成产品主图，据客户反馈转化率提升35%。</p>
-          </div>
-        </div>
-        
 
-        
-        <!-- 案例 5 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="自媒体">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
-              <img 
-                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Social%20media%20content%20creation%20cyberpunk%20neon%20digital%20influencer&image_size=landscape_16_9" 
-                alt="自媒体代运营案例" 
-                class="w-full h-full object-cover"
-              />
-              <div class="absolute inset-0 flex items-center justify-center">
-                <div class="bg-black/50 rounded-full p-4 backdrop-blur-sm">
-                  <i class="fa fa-play text-white text-2xl"></i>
-                </div>
-              </div>
+        <!-- 广告案例2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV17mwkzMEQk&autoplay=1','广府古城·水韵太极白酒推广视频')">
+          <div class="video-thumb">
+            <img src="https://i0.hdslb.com/bfs/archive/3566aac0c55232258f0d86996bb35fbcd40ff53d.jpg" alt="白酒推广" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#2d1200 0%,#6b2f00 50%,#1a0d00 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-glass"></i></div>
+              <div class="video-thumb-label">白酒推广</div>
             </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">品牌自媒体·AI全案代运营</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某品牌提供的自媒体账号全案代运营，据客户反馈粉丝增长300%，品牌影响力显著提升。</p>
+          <div class="case-info">
+            <h3 class="case-title">广府古城·水韵太极白酒推广</h3>
           </div>
         </div>
-        
-        <!-- 案例 6 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="网站">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
-              <img 
-                src="./images/product4.jpg" 
-                alt="网站建设案例1" 
-                class="w-full h-full object-cover"
-              />
+
+        <!-- 广告案例3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV17mwkzME79&autoplay=1','地产品牌·创意形象广告')">
+          <div class="video-thumb">
+            <img src="https://i2.hdslb.com/bfs/archive/bfc9a62e30038260f91e75f05e7435b84e6b87c5.jpg" alt="地产广告" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a2d 0%,#003d6b 50%,#001020 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-building"></i></div>
+              <div class="video-thumb-label">地产广告</div>
             </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">企业官网·响应式全栈开发</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某企业设计开发的响应式官方网站，全面提升品牌形象和用户体验。</p>
+          <div class="case-info">
+            <h3 class="case-title">地产品牌·创意形象广告</h3>
           </div>
         </div>
-        
-        <!-- 案例 7 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="网站">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
-              <img 
-                src="./images/product5.jpg" 
-                alt="网站建设案例2" 
-                class="w-full h-full object-cover"
-              />
+
+        <!-- 广告案例4 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1yZA7z7ELP&autoplay=1','少儿编程·AI招生宣传片')">
+          <div class="video-thumb">
+            <img src="https://i0.hdslb.com/bfs/archive/561ee7b1ee25786da16eec723e654562d81e26b5.jpg" alt="少儿编程" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#0a2d00 0%,#1a6b00 50%,#051500 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-code"></i></div>
+              <div class="video-thumb-label">少儿编程</div>
             </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">个人作品集·创意求职网站</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某求职者设计的个人网站，形式新颖，展示个人作品集，据客户反馈面试通过率提升75%。</p>
+          <div class="case-info">
+            <h3 class="case-title">少儿编程·AI招生宣传片</h3>
           </div>
         </div>
-        
-        <!-- 案例 8 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="网站">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
-              <img 
-                src="./images/product6.jpg" 
-                alt="网站建设案例3" 
-                class="w-full h-full object-cover"
-              />
+
+        <!-- 广告案例5 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1TXA7zQEeH&autoplay=1','雄安新区·数字人AI导游宣传')">
+          <div class="video-thumb">
+            <img src="https://i1.hdslb.com/bfs/archive/f24f1721a24ff55ec6e67a740c72b50165fa2ba1.jpg" alt="城市宣传" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a33 0%,#004080 50%,#001a33 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-map-marker"></i></div>
+              <div class="video-thumb-label">城市宣传</div>
             </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">雄安与你同行·赛博朋克官网</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">雄安与你同行AI视觉实验室官方网站，赛博朋克风格设计，集成AI驱动创意解决方案展示。</p>
+          <div class="case-info">
+            <h3 class="case-title">雄安新区·数字人AI导游宣传</h3>
           </div>
         </div>
-        
-        <!-- AI技术培训案例 1 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="培训">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
-              <img 
-                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20technology%20training%20workshop%20with%20neon%20lights%20and%20cyberpunk%20style&image_size=landscape_16_9" 
-                alt="AI技术培训案例1" 
-                class="w-full h-full object-cover"
-              />
+
+        <!-- 广告案例6 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1yZA7z7EV2&autoplay=1','城市交通·AI数字人科普视频')">
+          <div class="video-thumb">
+            <img src="https://i2.hdslb.com/bfs/archive/8f0faa89521e8b1b5cd49e0f3add2b1e4aa5bd6b.jpg" alt="交通科普" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a1a00 0%,#4d4d00 50%,#1a1a00 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-car"></i></div>
+              <div class="video-thumb-label">交通科普</div>
             </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">企业AI入门·全员赋能培训</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为某企业提供的AI基础培训课程，帮助全员掌握AI技术基础知识和实操应用方法。</p>
+          <div class="case-info">
+            <h3 class="case-title">城市交通·AI数字人科普视频</h3>
           </div>
         </div>
-        
-        <!-- AI技术培训案例 2 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="培训">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
-              <img 
-                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AIGC%20application%20training%20course%20with%20digital%20interface%20and%20neon%20elements&image_size=landscape_16_9" 
-                alt="AI技术培训案例2" 
-                class="w-full h-full object-cover"
-              />
+
+        <!-- 广告案例7 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1UJAczuEwQ&autoplay=1','知名品牌·AIGC创意广告片')">
+          <div class="video-thumb">
+            <img src="https://i0.hdslb.com/bfs/archive/ce4d61e4bdb3a002c1f826221343264648371282.jpg" alt="品牌广告" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#2d0033 0%,#6b0080 50%,#1a0020 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-star"></i></div>
+              <div class="video-thumb-label">品牌广告</div>
             </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">创意从业者·AIGC实战工作坊</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为创意行业从业者提供的AIGC应用培训，手把手教授如何用AI工具高效产出优质内容。</p>
+          <div class="case-info">
+            <h3 class="case-title">知名品牌·AIGC创意广告片</h3>
           </div>
         </div>
-        
-        <!-- AI技术培训案例 3 -->
-        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass reveal z-10" data-category="培训">
-          <div class="relative overflow-hidden">
-            <div style="position: relative; z-index: 1; aspect-ratio: 16/9; width: 100%;">
-              <img 
-                src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=AI%20tools%20workshop%20with%20participants%20using%20laptops%20in%20cyberpunk%20setting&image_size=landscape_16_9" 
-                alt="AI技术培训案例3" 
-                class="w-full h-full object-cover"
-              />
+
+        <!-- 广告案例8 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1mnAczzEQo&autoplay=1','餐饮门店·AI数字人探店视频')">
+          <div class="video-thumb">
+            <img src="https://i1.hdslb.com/bfs/archive/b975f682a4ef98f5f9a38ad7ac3a532ad798d3b6.jpg" alt="餐饮探店" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#330a00 0%,#802000 50%,#330a00 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-cutlery"></i></div>
+              <div class="video-thumb-label">餐饮探店</div>
             </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
           </div>
-          <div class="p-6 bg-gray-900/50 backdrop-blur-sm case-info">
-            <h3 class="text-base font-bold mb-2 text-white tech-font glow-text case-title">管理层AI战略·高管专属培训</h3>
-            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">为企业管理层量身定制AI战略培训，帮助制定AI应用规划、识别降本增效机会。</p>
+          <div class="case-info">
+            <h3 class="case-title">餐饮门店·AI数字人探店视频</h3>
           </div>
         </div>
+
+        <!-- 广告案例9 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1A5wuzQEhN&autoplay=1','红酒品牌·AI系列广告片')">
+          <div class="video-thumb">
+            <img src="https://i0.hdslb.com/bfs/archive/8edfea945a33621d096130317004f684d46f6446.jpg" alt="红酒广告" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a0005 0%,#500015 50%,#1a0005 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-glass"></i></div>
+              <div class="video-thumb-label">红酒广告</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">红酒品牌·AI系列广告片</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1jUwkzqEvK&autoplay=1','饰品类目·AI数字人带货视频')">
+          <div class="video-thumb">
+            <img src="https://i2.hdslb.com/bfs/archive/afcd7c42c7f450001a5dfda30a1bfbbd959154c6.jpg" alt="饰品带货" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a002d 0%,#4d0080 50%,#1a002d 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-diamond"></i></div>
+              <div class="video-thumb-label">饰品带货</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">饰品类目·AI数字人带货</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1uPwCz4ESG&autoplay=1','时尚品牌·AI换装带货视频')">
+          <div class="video-thumb">
+            <img src="https://i0.hdslb.com/bfs/archive/2f2d8181346f5dbd28613fb3f2dd991fe9895fdd.jpg" alt="时尚带货" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#00151a 0%,#004d5e 50%,#00151a 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-shopping-bag"></i></div>
+              <div class="video-thumb-label">时尚带货</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">时尚品牌·AI换装带货视频</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1k4AgzxEQn&autoplay=1','美妆品牌·TikTok爆款带货内容')">
+          <div class="video-thumb">
+            <img src="https://i2.hdslb.com/bfs/archive/cc812553bd55ad1ccfd8a1e8ef00cfff7c77b397.jpg" alt="美妆带货" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#2d001a 0%,#800050 50%,#2d001a 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-heart"></i></div>
+              <div class="video-thumb-label">美妆带货</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">美妆品牌·TikTok爆款带货</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例4：产品图 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商">
+          <div class="video-thumb">
+            <img src="./images/product1.jpg" alt="美妆AI产品图" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a0010 0%,#4d003a 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-image"></i></div>
+              <div class="video-thumb-label">AI产品图</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">美妆品牌·AI产品对比图</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例5：产品图 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商">
+          <div class="video-thumb">
+            <img src="./images/product2.jpg" alt="手表AI场景图" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a1a 0%,#00504d 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-clock-o"></i></div>
+              <div class="video-thumb-label">场景产品图</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">智能手表·AI场景产品图</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例6：产品图 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商">
+          <div class="video-thumb">
+            <img src="./images/product3.jpg" alt="运动品牌主图" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a00 0%,#004d00 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-trophy"></i></div>
+              <div class="video-thumb-label">AI主图</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">运动品牌·AI创意主图设计</h3>
+          </div>
+        </div>
+
+        <!-- 自媒体案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="自媒体">
+          <div class="video-thumb">
+            <div class="video-thumb-bg" style="background: linear-gradient(135deg,#001533 0%,#003d80 50%,#001533 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-users"></i></div>
+              <div class="video-thumb-label">自媒体运营</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">品牌自媒体·AI全案代运营</h3>
+          </div>
+        </div>
+
+        <!-- 网站案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="网站">
+          <div class="video-thumb">
+            <img src="./images/product4.jpg" alt="企业官网" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a0d 0%,#004d26 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-globe"></i></div>
+              <div class="video-thumb-label">企业官网</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">企业官网·响应式全栈开发</h3>
+          </div>
+        </div>
+
+        <!-- 网站案例2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="网站">
+          <div class="video-thumb">
+            <img src="./images/product5.jpg" alt="作品集网站" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#0d0033 0%,#280080 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-briefcase"></i></div>
+              <div class="video-thumb-label">作品集网站</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">个人作品集·创意求职网站</h3>
+          </div>
+        </div>
+
+        <!-- 网站案例3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="网站">
+          <div class="video-thumb">
+            <img src="./images/product6.jpg" alt="赛博朋克官网" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#0d001a 0%,#330050 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-desktop"></i></div>
+              <div class="video-thumb-label">赛博朋克官网</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">雄安与你同行·赛博朋克官网</h3>
+          </div>
+        </div>
+
+        <!-- 培训案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="培训">
+          <div class="video-thumb">
+            <div class="video-thumb-bg" style="background: linear-gradient(135deg,#001a2d 0%,#005a8f 50%,#001a2d 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-graduation-cap"></i></div>
+              <div class="video-thumb-label">AI入门培训</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">企业AI入门·全员赋能培训</h3>
+          </div>
+        </div>
+
+        <!-- 培训案例2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="培训">
+          <div class="video-thumb">
+            <div class="video-thumb-bg" style="background: linear-gradient(135deg,#1a0d00 0%,#5e3000 50%,#1a0d00 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-paint-brush"></i></div>
+              <div class="video-thumb-label">AIGC实战</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">创意从业者·AIGC实战工作坊</h3>
+          </div>
+        </div>
+
+        <!-- 培训案例3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="培训">
+          <div class="video-thumb">
+            <div class="video-thumb-bg" style="background: linear-gradient(135deg,#0a001a 0%,#33005c 50%,#0a001a 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-bar-chart"></i></div>
+              <div class="video-thumb-label">高管AI战略</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">管理层AI战略·高管专属培训</h3>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
+
+  <!-- 视频播放弹窗 -->
+  <div id="video-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;" onclick="closeVideoModal(event)">
+    <div style="position:relative;width:90vw;max-width:400px;aspect-ratio:9/16;" onclick="event.stopPropagation()">
+      <button onclick="closeVideoModal()" style="position:absolute;top:-2.5rem;right:0;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;z-index:2;line-height:1;padding:0 0.3rem;">&#215;</button>
+      <iframe id="video-modal-iframe" src="" frameborder="0" allow="fullscreen;autoplay" style="width:100%;height:100%;border-radius:10px;" allowfullscreen></iframe>
+    </div>
+  </div>
 
   <!-- 服务流程 -->
   <section id="process" class="py-20">
@@ -1800,6 +1905,30 @@
     
     // 在窗口大小改变时重新执行，确保在移动设备上也能正确显示
     window.addEventListener('resize', showFirstCategory);
+
+    // ===== 视频弹窗播放 =====
+    function openVideoModal(src, title) {
+      var modal = document.getElementById('video-modal');
+      var iframe = document.getElementById('video-modal-iframe');
+      if (!modal || !iframe) return;
+      iframe.src = src;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeVideoModal(e) {
+      // 如果传入了事件对象，只有点击遮罩层本身才关闭
+      if (e && e.target && e.target !== document.getElementById('video-modal')) return;
+      var modal = document.getElementById('video-modal');
+      var iframe = document.getElementById('video-modal-iframe');
+      if (!modal || !iframe) return;
+      iframe.src = '';
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    // ESC键关闭弹窗
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVideoModal();
+    });
 
     // 平滑滚动
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
