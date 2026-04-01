@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 关闭Referrer，解决B站CDN封面图防盗链问题 -->
+  <meta name="referrer" content="no-referrer">
   <title>AIGC广告视频制作 | AI电商服务 | 雄安与你同行AI视觉实验室</title>
   <meta name="description" content="雄安与你同行AI视觉实验室，专注AIGC广告视频制作、AI电商带货视频、自媒体代运营、网站建设和AI技术培训，用AI技术帮助企业降低营销成本、提升转化率。">
   <meta name="keywords" content="AIGC广告视频,AI电商服务,自媒体代运营,AI培训,网站建设,雄安AI,数字人视频,AI营销">
@@ -566,13 +568,24 @@
         display: none !important;
       }
 
-      /* 6. 禁用btn-tech光扫效果 */
-      .btn-tech::before {
+      /* 6. 禁用btn-tech所有伪元素（防止文字被遮盖） */
+      .btn-tech::before,
+      .btn-tech::after {
         display: none !important;
       }
-      .btn-tech:hover {
+      .btn-tech:hover,
+      .btn-tech:active,
+      .btn-tech:focus {
         transform: none !important;
         box-shadow: none !important;
+        background: rgba(255,255,255,0.1) !important;
+        color: #fff !important;
+      }
+      /* 确保按钮文字始终可见 */
+      .btn-tech {
+        position: relative !important;
+        color: #fff !important;
+        -webkit-text-fill-color: #fff !important;
       }
 
       /* 7. 禁用弥散光模糊球 — 减少GPU压力 */
