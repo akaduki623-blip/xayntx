@@ -1,0 +1,2330 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 关闭Referrer，解决B站CDN封面图防盗链问题 -->
+  <meta name="referrer" content="no-referrer">
+  <title>让AI为你的品牌讲故事 | AI广告视频/漫剧制作 | 雄安与你同行AI视觉实验室</title>
+  <meta name="description" content="雄安与你同行AI视觉实验室，专注AI广告视频/漫剧制作、AI电商视觉服务、AI内容代运营、网站小程序开发和企业AI赋能培训。代表作《重生后我嫁给了前任的死对头》AI漫剧，用AI技术帮助企业低成本打造爆款内容。">
+  <meta name="keywords" content="AI广告视频,AI漫剧制作,AI电商视觉,AI内容代运营,网站小程序开发,企业AI培训,雄安AI,数字人视频,AI营销,品牌故事">
+  <!-- Open Graph标签 -->
+  <meta property="og:title" content="让AI为你的品牌讲故事 | 雄安与你同行AI视觉实验室">
+  <meta property="og:description" content="专业AI广告视频/漫剧制作、AI电商视觉服务、AI内容代运营和网站小程序开发">
+  <meta property="og:url" content="https://xayntx.eu.cc/">
+  <meta property="og:type" content="website">
+  <!-- 结构化数据 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "雄安与你同行AI视觉实验室",
+    "description": "专业AI广告视频/漫剧制作、AI电商视觉服务、AI内容代运营、网站小程序开发和企业AI赋能培训",
+    "url": "https://xayntx.eu.cc/",
+    "telephone": "198-3360-9806",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "河北省",
+      "addressLocality": "雄安新区"
+    }
+  }
+  </script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Three.js for 3D effects -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+    
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      background-color: #050505;
+      color: #e0e0e0;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(150, 0, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(0, 200, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 100, 200, 0.1) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* iOS Safari 不支持 background-attachment: fixed，手机端降级 */
+    @supports (-webkit-overflow-scrolling: touch) {
+      body {
+        background-attachment: scroll;
+      }
+    }
+    @media (max-width: 768px) {
+      body {
+        background-attachment: scroll;
+      }
+    }
+    
+    .tech-font {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+    }
+    
+    /* 科技感按钮样式 */
+    .tech-button {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .tech-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    }
+    
+    .tech-button:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .tech-button:hover::before {
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    }
+    
+    /* 1px半透明高光边框 */
+    .high-glass {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      background: inherit;
+    }
+    
+    .high-glass::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    }
+    
+    .high-glass::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    }
+    
+    /* 确保high-glass元素悬停时背景不变蓝 */
+    .high-glass:hover {
+      background: inherit !important;
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(135deg, #050505 0%, #0a0a15 50%, #1a003f 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(120, 0, 255, 0.3) 0%, rgba(5, 5, 5, 0) 70%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+      }
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(120, 0, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      background: rgba(18, 18, 30, 0.7);
+    }
+    
+    .card-hover::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(120, 0, 255, 0.1), transparent);
+      transform: rotate(45deg);
+      animation: shimmer 3s infinite;
+      opacity: 0;
+    }
+    
+    .card-hover:hover::before {
+      opacity: 1;
+    }
+    
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(100%) rotate(45deg);
+      }
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(120, 0, 255, 0.3), 0 10px 10px -5px rgba(0, 200, 255, 0.1);
+      border-color: rgba(120, 0, 255, 0.5);
+      background: rgba(18, 18, 30, 0.8);
+    }
+    
+    .process-line {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #7800ff, #00c8ff, #7800ff);
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px rgba(120, 0, 255, 0.5);
+    }
+    
+    @media (max-width: 768px) {
+      .process-line {
+        display: none;
+      }
+    }
+    
+    .tech-border {
+      position: relative;
+      border: 1px solid rgba(120, 0, 255, 0.3);
+      box-shadow: 0 0 20px rgba(120, 0, 255, 0.1);
+      backdrop-filter: blur(10px);
+      background: rgba(18, 18, 30, 0.7);
+    }
+    
+    .tech-border::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #7800ff, #00c8ff, #7800ff, #00c8ff);
+      border-radius: inherit;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .tech-border:hover::before {
+      opacity: 1;
+      animation: borderAnimation 3s linear infinite;
+    }
+    
+    /* 确保服务卡片悬停时背景不变蓝 */
+    .card-hover.tech-border:hover {
+      background: rgba(18, 18, 30, 0.8) !important;
+    }
+    
+    @keyframes borderAnimation {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: 300% 0%;
+      }
+    }
+    
+    .glow-text {
+      text-shadow: 0 0 10px rgba(120, 0, 255, 0.5), 0 0 20px rgba(0, 200, 255, 0.3);
+    }
+    
+    .btn-tech {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    
+    .btn-tech::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn-tech:hover::before {
+      left: 100%;
+    }
+    
+    .btn-tech:hover {
+      box-shadow: 0 0 20px rgba(150, 0, 255, 0.5), 0 0 30px rgba(0, 200, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .btn-tech::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: inherit;
+      border: 1px solid transparent;
+      background: linear-gradient(45deg, #9600ff, #00d4ff, #9600ff) border-box;
+      -webkit-mask: none;
+      mask: none;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+    }
+    
+    .btn-tech:hover::after {
+      opacity: 1;
+    }
+    
+    #particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .service-icon {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .service-icon::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(120, 0, 255, 0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .nav-link {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #7800ff, #00c8ff);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .nav-link:hover {
+      color: #e0e0e0;
+    }
+    
+    /* 赛博朋克风格的玻璃态效果 */
+    .glass-effect {
+      background: rgba(18, 18, 30, 0.8);
+      border: 1px solid rgba(120, 0, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* 在非移动设备上使用backdrop-filter */
+    @media (min-width: 769px) {
+      .glass-effect {
+        backdrop-filter: blur(15px);
+      }
+    }
+    
+    /* 霓虹文本效果 */
+    .neon-text {
+      text-shadow: 0 0 5px rgba(120, 0, 255, 0.7), 0 0 10px rgba(120, 0, 255, 0.5), 0 0 15px rgba(120, 0, 255, 0.3);
+    }
+    
+    /* 渐变按钮效果 */
+    .gradient-btn {
+      background: linear-gradient(90deg, #9600ff, #00d4ff);
+      transition: all 0.3s ease;
+    }
+    
+    .gradient-btn:hover {
+      background: linear-gradient(90deg, #00d4ff, #9600ff);
+      box-shadow: 0 0 25px rgba(150, 0, 255, 0.7);
+    }
+    
+    /* 瀑布流布局 */
+    .masonry-container {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+    }
+    
+    .masonry-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* === 案例卡片全新样式 === */
+    .case-item {
+      cursor: pointer;
+      /* 桌面端保留轻微hover效果，手机端由上方媒体查询禁用 */
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    /* 桌面端hover时轻微上浮 */
+    @media (min-width: 769px) {
+      .case-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(120, 0, 255, 0.35);
+      }
+    }
+    /* 封面容器：3:4比例，和B站横版封面图裁剪更自然 */
+    .video-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #0a0a14;
+    }
+    .video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+    /* 渐变色封面背景 */
+    .video-thumb-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .video-thumb-icon {
+      font-size: 2rem;
+      color: rgba(255,255,255,0.7);
+      filter: drop-shadow(0 0 8px rgba(120,0,255,0.8));
+    }
+    .video-thumb-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.05em;
+      background: rgba(0,0,0,0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+    /* 播放按钮覆盖层 */
+    .video-play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.2);
+      transition: background 0.2s;
+    }
+    .video-play-btn i {
+      width: 2.8rem;
+      height: 2.8rem;
+      background: rgba(120,0,255,0.75);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #fff;
+      box-shadow: 0 0 16px rgba(120,0,255,0.6);
+      padding-left: 3px;
+    }
+    .case-item:hover .video-play-btn {
+      background: rgba(0,0,0,0.35);
+    }
+    /* 卡片信息区 */
+    .case-info {
+      padding: 0.6rem 0.75rem 0.75rem;
+      background: rgba(10,10,20,0.85);
+    }
+    .case-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.35;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    /* 手机端再缩小一点 */
+    @media (max-width: 639px) {
+      .case-info {
+        padding: 0.45rem 0.5rem 0.5rem;
+      }
+      .case-title {
+        font-size: 0.7rem;
+      }
+      .video-thumb-icon {
+        font-size: 1.5rem;
+      }
+      .video-thumb-label {
+        font-size: 0.6rem;
+      }
+      .video-play-btn i {
+        width: 2.2rem;
+        height: 2.2rem;
+        font-size: 0.8rem;
+      }
+    }
+    
+    /* 滚动触发效果 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===================================================
+       手机端（≤768px）全面禁用特效动画，保持整洁观感
+       =================================================== */
+    @media (max-width: 768px) {
+      /* 1. 禁用reveal滚动动画 — 防止卡片错位/消失 */
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+
+      /* 2. 禁用card-hover的位移 — 防止卡片"乱飘" */
+      .card-hover:hover {
+        transform: none !important;
+      }
+
+      /* 3. 禁用shimmer光晕扫描动画 */
+      .card-hover::before {
+        display: none !important;
+      }
+
+      /* 4. 禁用tech-border动态彩色边框动画 */
+      .tech-border:hover::before {
+        opacity: 0 !important;
+        animation: none !important;
+      }
+
+      /* 5. 禁用service-icon圆圈pulse光晕 */
+      .service-icon::after {
+        display: none !important;
+      }
+
+      /* 6. 禁用btn-tech所有伪元素（防止文字被遮盖） */
+      .btn-tech::before,
+      .btn-tech::after {
+        display: none !important;
+      }
+      .btn-tech:hover,
+      .btn-tech:active,
+      .btn-tech:focus {
+        transform: none !important;
+        box-shadow: none !important;
+        background: rgba(255,255,255,0.1) !important;
+        color: #fff !important;
+      }
+      /* 确保按钮文字始终可见 */
+      .btn-tech {
+        position: relative !important;
+        color: #fff !important;
+        -webkit-text-fill-color: #fff !important;
+      }
+
+      /* 7. 禁用弥散光模糊球 — 减少GPU压力 */
+      .absolute.rounded-full.blur-3xl {
+        display: none !important;
+      }
+
+      /* 8. 禁用流程卡片图片的scale动画 */
+      .group-hover\:scale-110 {
+        transition: none !important;
+        transform: none !important;
+      }
+
+      /* 9. hero区域的pulse呼吸动画关掉 */
+      .hero-gradient::before {
+        animation: none !important;
+        opacity: 0.4;
+      }
+
+      /* 10. 粒子画布在手机上隐藏，节省性能 */
+      #particles-canvas {
+        display: none !important;
+      }
+    }
+
+    /* 多行文字截断 */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* =============================================
+       手机端全站整洁化 (≤640px) - 小红书风格
+       ============================================= */
+    @media (max-width: 640px) {
+
+      /* --- 1. 案例分类标签：小红书频道栏风格 --- */
+      .case-tab {
+        font-size: 0.7rem;
+        padding: 0.28rem 0.6rem;
+        border-radius: 999px;
+        letter-spacing: 0;
+      }
+      .case-tab i {
+        display: none;
+      }
+
+      /* --- 2. Section 标题收紧 --- */
+      section h2 {
+        font-size: 1.3rem !important;
+        margin-bottom: 0.4rem !important;
+      }
+      section .text-center > p {
+        font-size: 0.72rem;
+      }
+      section.py-20 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+      section .mb-16 {
+        margin-bottom: 1.2rem !important;
+      }
+      section .mb-10 {
+        margin-bottom: 0.6rem !important;
+      }
+
+      /* --- 3. 服务卡片：手机端双列紧凑 --- */
+      #services .grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+      }
+      #services .grid > div {
+        padding: 0.7rem !important;
+        /* 去掉hover位移，手机端纯静态 */
+        transition: none !important;
+      }
+      #services .service-icon .w-16 {
+        width: 2rem !important;
+        height: 2rem !important;
+      }
+      #services .service-icon i {
+        font-size: 0.85rem;
+      }
+      #services .service-icon {
+        margin-bottom: 0.4rem !important;
+      }
+      #services h3 {
+        font-size: 0.78rem !important;
+        margin-bottom: 0.25rem !important;
+        line-height: 1.3;
+      }
+      #services p {
+        font-size: 0.65rem;
+        line-height: 1.4;
+        color: rgba(209,213,219,0.8);
+        /* 最多显示3行，超出省略 */
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* --- 4. 案例卡片：去掉hover位移，纯静态 --- */
+      .case-item:hover {
+        transform: none !important;
+        box-shadow: none !important;
+      }
+      /* 案例网格间距 */
+      #cases-grid {
+        gap: 0.5rem !important;
+      }
+
+      /* --- 5. 首页Hero收紧 --- */
+      #home h1 {
+        font-size: 1.55rem !important;
+        line-height: 1.2;
+        margin-bottom: 0.5rem !important;
+      }
+      #home > div > div > div > p {
+        font-size: 0.78rem;
+        margin-bottom: 0.9rem !important;
+      }
+      #home .flex.flex-row a {
+        padding: 0.55rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      /* --- 6. 导航栏紧凑 --- */
+      nav .text-lg.md\:text-3xl {
+        font-size: 0.95rem !important;
+      }
+      nav .text-sm.md\:text-base {
+        font-size: 0.62rem;
+      }
+
+      /* --- 7. 容器内边距收紧 --- */
+      .container {
+        padding-left: 0.6rem;
+        padding-right: 0.6rem;
+      }
+
+      /* --- 8. 服务流程区：手机端简化snap --- */
+      #process-scroll {
+        scroll-snap-type: x mandatory;
+        padding-bottom: 0.5rem;
+      }
+      #process-scroll > div {
+        /* 禁用图片scale动画 */
+        transition: none !important;
+      }
+      #process-scroll img {
+        transition: none !important;
+        transform: none !important;
+      }
+
+      /* --- 9. 客户评价区：手机端单列 --- */
+      #testimonials .grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+      }
+      #testimonials p {
+        font-size: 0.72rem;
+      }
+
+      /* --- 10. 服务套餐：手机端单列 --- */
+      #pricing .grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.75rem !important;
+      }
+    }
+
+    /* Tab 激活状态 */
+    .active-tab {
+      border-color: rgba(167, 139, 250, 0.6) !important;
+      background: rgba(120, 0, 255, 0.25) !important;
+      color: #fff !important;
+      box-shadow: 0 0 12px rgba(120, 0, 255, 0.4);
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3b82f6',
+            secondary: '#6366f1',
+            accent: '#10b981',
+            dark: '#0f172a',
+            light: '#f8fafc',
+          },
+        },
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="glass-effect sticky top-0 z-50 border-b border-purple-500/30">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <span class="text-lg md:text-3xl font-black text-white tech-font glow-text">雄安与你同行</span>
+        <span class="text-sm md:text-base text-gray-300">| AI视觉实验室</span>
+      </div>
+      
+      <!-- 桌面导航 -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#home" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">首页</a>
+        <a href="#services" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">服务内容</a>
+        <a href="#cases" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">案例展示</a>
+        <a href="#pricing" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">服务套餐</a>
+        <a href="#about" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">关于我们</a>
+        <a href="#contact" class="text-lg text-gray-200 hover:text-purple-400 font-semibold nav-link">联系方式</a>
+      </div>
+      
+      <!-- 移动端菜单按钮 -->
+      <div class="md:hidden">
+        <button id="menu-toggle" class="text-gray-200 focus:outline-none">
+          <i class="fa fa-bars text-3xl"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="md:hidden glass-effect border-t border-purple-500/30 hidden">
+      <div class="container mx-auto px-6 py-3 flex flex-col space-y-4">
+        <a href="#home" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">首页</a>
+        <a href="#services" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">服务内容</a>
+        <a href="#cases" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">案例展示</a>
+        <a href="#process" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">服务流程</a>
+        <a href="#pricing" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">服务套餐</a>
+        <a href="#faq" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">常见问题</a>
+        <a href="#about" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">关于我们</a>
+        <a href="#contact" class="text-lg text-gray-200 hover:text-purple-400 font-semibold py-3 nav-link">联系方式</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 首页英雄区 -->
+  <section id="home" class="hero-gradient text-white min-h-screen flex items-center relative overflow-hidden">
+    <!-- 高质量AI生成背景图 -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cyberpunk%20robot%20hand%20touching%20glowing%20particles%20with%20neon%20lights%20and%20dark%20background&image_size=landscape_16_9" 
+        class="w-full h-full object-cover"
+        alt="AI Technology Background"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30"></div>
+    </div>
+    
+    <!-- 粒子效果画布 -->
+    <canvas id="particles-canvas" class="absolute inset-0 z-10"></canvas>
+    
+    <div class="container mx-auto px-4 relative z-20">
+      <div class="max-w-2xl">
+        <h1 class="text-3xl md:text-6xl font-black mb-4 leading-tight" style="font-family: 'Orbitron', 'Microsoft YaHei Black', 'Alibaba PuHuiTi Heavy', sans-serif; letter-spacing: 1px;">
+          让AI为你的<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">品牌讲故事</span>
+        </h1>
+        <p class="text-sm md:text-xl mb-8 text-gray-300">
+          AI广告视频 · AI漫剧制作 · 低成本打造爆款内容
+        </p>
+        <!-- 按钮组：手机端横向并排 -->
+        <div class="flex flex-row gap-3 flex-wrap">
+          <a href="#services" class="glass-effect text-white font-bold py-3 px-6 rounded-lg hover:bg-white/10 transition btn-tech text-sm border border-white/20 shadow-lg shadow-white/10 text-center">
+            了解服务
+          </a>
+          <a href="#contact" class="glass-effect text-white font-bold py-3 px-6 rounded-lg hover:bg-white/10 transition btn-tech text-sm border border-white/20 shadow-lg shadow-white/10 text-center">
+            联系我们
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 服务内容展示 -->
+  <section id="services" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-2xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">我们的服务</h2>
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">
+          利用人工智能技术，为您提供高质量、高效率的创意解决方案
+        </p>
+      </div>
+      
+      <!-- 服务卡片网格 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 服务卡片 2 -->
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-video-camera text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">AI广告视频/漫剧制作</h3>
+          <p class="text-gray-300 relative z-10">AI漫剧制作、品牌宣传片、产品广告、数字人口播、AI创意短片，运用AI技术快速生成高质量视频，成本大幅降低</p>
+        </div>
+        
+        <!-- 服务卡片 3 -->
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-shopping-bag text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">AI电商视觉服务</h3>
+          <p class="text-gray-300 relative z-10">带货短视频、产品主图、详情页设计、AI模特换装，生成高质量电商视觉内容，提升产品转化率与销售业绩</p>
+        </div>
+        
+        <!-- 服务卡片 4 -->
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-comments text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">AI智能客服系统</h3>
+          <p class="text-gray-300 relative z-10">24小时自动回复、多平台接入、智能问答训练、数据分析，提高客户满意度和服务效率</p>
+        </div>
+        
+        <!-- 服务卡片 5 -->
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-users text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">AI内容代运营</h3>
+          <p class="text-gray-300 relative z-10">公众号/小红书/抖音运营、AI文案创作、数据分析、涨粉策略，打造品牌影响力</p>
+        </div>
+        
+        <!-- 服务卡片 6 -->
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-globe text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">网站小程序开发</h3>
+          <p class="text-gray-300 relative z-10">企业官网、营销落地页、微信小程序、响应式设计，从设计到开发，打造专业展示平台</p>
+        </div>
+        
+        <!-- 服务卡片 7 -->
+        <div class="rounded-xl p-4 md:p-8 card-hover tech-border high-glass reveal relative overflow-hidden group glass-effect z-10">
+          <!-- 弥散光背景 -->
+          <div class="absolute -top-20 -right-20 w-60 h-60 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+          <div class="absolute -bottom-20 -left-20 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl group-hover:bg-cyan-500/40 transition-all duration-700"></div>
+          
+          <!-- 图标 -->
+          <div class="service-icon text-5xl mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500/20 to-cyan-400/20 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <i class="fa fa-graduation-cap text-white"></i>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <h3 class="text-xl font-bold mb-4 text-white relative z-10" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">企业AI赋能培训</h3>
+          <p class="text-gray-300 relative z-10">AI工具实操、AIGC应用、定制化内训、线上线下结合，帮助企业和个人快速掌握AI技术</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 案例展示 -->
+  <section id="cases" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-6xl font-bold text-white mb-4" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">案例展示</h2>
+        <p class="text-sm text-gray-300 max-w-2xl mx-auto">
+          查看我们的成功案例，了解我们如何为客户创造价值
+        </p>
+      </div>
+      
+      <!-- 案例分类标签（横向可滚动，手机端左右滑动，类小红书频道栏） -->
+      <div class="mb-10 reveal">
+        <div class="flex overflow-x-auto py-3 gap-2 scrollbar-hide justify-start md:justify-center px-1 md:px-0" style="-webkit-overflow-scrolling: touch; scrollbar-width: none;">
+          <button class="case-tab active-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-white hover:bg-gray-900/50 tech-button border-purple-400/60 bg-purple-500/20 whitespace-nowrap" data-tab="广告">
+            <i class="fa fa-video-camera mr-1"></i>AI广告视频
+          </button>
+          <button class="case-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 tech-button whitespace-nowrap" data-tab="漫剧">
+            <i class="fa fa-film mr-1"></i> AI漫剧制作
+          </button>
+          <button class="case-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 tech-button whitespace-nowrap" data-tab="电商">
+            <i class="fa fa-shopping-bag mr-1"></i> AI电商视觉
+          </button>
+          <button class="case-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 tech-button whitespace-nowrap" data-tab="自媒体">
+            <i class="fa fa-users mr-1"></i> AI内容代运营
+          </button>
+          <button class="case-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 tech-button whitespace-nowrap" data-tab="网站">
+            <i class="fa fa-globe mr-1"></i> 网站小程序
+          </button>
+          <button class="case-tab flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition glass-effect text-gray-300 hover:bg-gray-900/50 tech-button whitespace-nowrap" data-tab="培训">
+            <i class="fa fa-graduation-cap mr-1"></i> 企业AI赋能培训
+          </button>
+        </div>
+      </div>
+      
+      <!-- 案例卡片网格：手机2列，桌面3列 -->
+      <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6" id="cases-grid">
+
+        <!-- 广告案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1gFQRBYE4u&autoplay=1','实验室·AI数字人简介视频')">
+          <div class="video-thumb">
+            <img src="https://i2.hdslb.com/bfs/archive/f8421da1001c644095027424033c45f5d38db438.jpg" alt="AI数字人" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a0533 0%,#2d0a5c 50%,#0a1a40 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-robot"></i></div>
+              <div class="video-thumb-label">AI数字人</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">实验室·AI数字人简介视频</h3>
+          </div>
+        </div>
+
+        <!-- 广告案例2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV17mwkzMEQk&autoplay=1','广府古城·水韵太极白酒推广视频')">
+          <div class="video-thumb">
+            <img src="https://i0.hdslb.com/bfs/archive/3566aac0c55232258f0d86996bb35fbcd40ff53d.jpg" alt="白酒推广" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#2d1200 0%,#6b2f00 50%,#1a0d00 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-glass"></i></div>
+              <div class="video-thumb-label">白酒推广</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">广府古城·水韵太极白酒推广</h3>
+          </div>
+        </div>
+
+        <!-- 广告案例3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV17mwkzME79&autoplay=1','地产品牌·创意形象广告')">
+          <div class="video-thumb">
+            <img src="https://i2.hdslb.com/bfs/archive/bfc9a62e30038260f91e75f05e7435b84e6b87c5.jpg" alt="地产广告" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a2d 0%,#003d6b 50%,#001020 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-building"></i></div>
+              <div class="video-thumb-label">地产广告</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">地产品牌·创意形象广告</h3>
+          </div>
+        </div>
+
+        <!-- 广告案例4 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1yZA7z7ELP&autoplay=1','少儿编程·AI招生宣传片')">
+          <div class="video-thumb">
+            <img src="https://i0.hdslb.com/bfs/archive/561ee7b1ee25786da16eec723e654562d81e26b5.jpg" alt="少儿编程" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#0a2d00 0%,#1a6b00 50%,#051500 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-code"></i></div>
+              <div class="video-thumb-label">少儿编程</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">少儿编程·AI招生宣传片</h3>
+          </div>
+        </div>
+
+        <!-- 广告案例5 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1TXA7zQEeH&autoplay=1','雄安新区·数字人AI导游宣传')">
+          <div class="video-thumb">
+            <img src="https://i1.hdslb.com/bfs/archive/f24f1721a24ff55ec6e67a740c72b50165fa2ba1.jpg" alt="城市宣传" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a33 0%,#004080 50%,#001a33 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-map-marker"></i></div>
+              <div class="video-thumb-label">城市宣传</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">雄安新区·数字人AI导游宣传</h3>
+          </div>
+        </div>
+
+        <!-- 广告案例6 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1yZA7z7EV2&autoplay=1','城市交通·AI数字人科普视频')">
+          <div class="video-thumb">
+            <img src="https://i2.hdslb.com/bfs/archive/8f0faa89521e8b1b5cd49e0f3add2b1e4aa5bd6b.jpg" alt="交通科普" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a1a00 0%,#4d4d00 50%,#1a1a00 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-car"></i></div>
+              <div class="video-thumb-label">交通科普</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">城市交通·AI数字人科普视频</h3>
+          </div>
+        </div>
+
+        <!-- 广告案例7 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1UJAczuEwQ&autoplay=1','知名品牌·AIGC创意广告片')">
+          <div class="video-thumb">
+            <img src="https://i0.hdslb.com/bfs/archive/ce4d61e4bdb3a002c1f826221343264648371282.jpg" alt="品牌广告" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#2d0033 0%,#6b0080 50%,#1a0020 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-star"></i></div>
+              <div class="video-thumb-label">品牌广告</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">知名品牌·AIGC创意广告片</h3>
+          </div>
+        </div>
+
+        <!-- 广告案例8 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1id9LBBEBE&autoplay=1','雄安9周年·AI宣传片')">
+          <div class="video-thumb">
+            <img src="http://i0.hdslb.com/bfs/archive/8d8232092db535a207ce43d72e3e6a937efcd7a9.jpg" alt="雄安9周年" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a33 0%,#004080 50%,#001a33 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-flag"></i></div>
+              <div class="video-thumb-label">城市宣传</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">雄安9周年·AI宣传片</h3>
+          </div>
+        </div>
+
+        <!-- 广告案例9 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="广告" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1A5wuzQEhN&autoplay=1','红酒品牌·AI系列广告片')">
+          <div class="video-thumb">
+            <img src="https://i0.hdslb.com/bfs/archive/8edfea945a33621d096130317004f684d46f6446.jpg" alt="红酒广告" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a0005 0%,#500015 50%,#1a0005 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-glass"></i></div>
+              <div class="video-thumb-label">红酒广告</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">红酒品牌·AI系列广告片</h3>
+          </div>
+        </div>
+
+        <!-- 漫剧案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="漫剧" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1xxxxxxxxx&autoplay=1','重生后我嫁给了前任的死对头·第1集')">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1518834107812-67b0b7c58434?w=400&h=600&fit=crop" alt="AI漫剧" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:100%;height:100%;object-fit:cover;">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a002d 0%,#4d0080 50%,#1a002d 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-film"></i></div>
+              <div class="video-thumb-label">AI漫剧</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">重生后我嫁给了前任的死对头·E01</h3>
+          </div>
+        </div>
+
+        <!-- 漫剧案例2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="漫剧" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1xPdpB5EGx&autoplay=1','藏锋之沈财神重出江湖')">
+          <div class="video-thumb">
+            <img src="http://i1.hdslb.com/bfs/archive/3e0e83ecb49956edcd0e445229377bbe91c72a3b.jpg" alt="藏锋之沈财神重出江湖" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:100%;height:100%;object-fit:cover;">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#2d001a 0%,#800050 50%,#2d001a 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-film"></i></div>
+              <div class="video-thumb-label">AI漫剧</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">藏锋之沈财神重出江湖</h3>
+          </div>
+        </div>
+
+        <!-- 漫剧案例3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="漫剧" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1xxxxxxxxx&autoplay=1','重生后我嫁给了前任的死对头·第3集')">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=600&fit=crop" alt="AI漫剧" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:100%;height:100%;object-fit:cover;">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a33 0%,#004080 50%,#001a33 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-film"></i></div>
+              <div class="video-thumb-label">AI漫剧</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">重生后我嫁给了前任的死对头·E03</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1jUwkzqEvK&autoplay=1','饰品类目·AI数字人带货视频')">
+          <div class="video-thumb">
+            <img src="https://i2.hdslb.com/bfs/archive/afcd7c42c7f450001a5dfda30a1bfbbd959154c6.jpg" alt="饰品带货" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a002d 0%,#4d0080 50%,#1a002d 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-diamond"></i></div>
+              <div class="video-thumb-label">饰品带货</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">饰品类目·AI数字人带货</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1uPwCz4ESG&autoplay=1','时尚品牌·AI换装带货视频')">
+          <div class="video-thumb">
+            <img src="https://i0.hdslb.com/bfs/archive/2f2d8181346f5dbd28613fb3f2dd991fe9895fdd.jpg" alt="时尚带货" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#00151a 0%,#004d5e 50%,#00151a 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-shopping-bag"></i></div>
+              <div class="video-thumb-label">时尚带货</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">时尚品牌·AI换装带货视频</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商" onclick="openVideoModal('https://player.bilibili.com/player.html?isOutside=true&bvid=BV1k4AgzxEQn&autoplay=1','美妆品牌·TikTok爆款带货内容')">
+          <div class="video-thumb">
+            <img src="https://i2.hdslb.com/bfs/archive/cc812553bd55ad1ccfd8a1e8ef00cfff7c77b397.jpg" alt="美妆带货" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#2d001a 0%,#800050 50%,#2d001a 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-heart"></i></div>
+              <div class="video-thumb-label">美妆带货</div>
+            </div>
+            <div class="video-play-btn"><i class="fa fa-play"></i></div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">美妆品牌·TikTok爆款带货</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例4：产品图 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商">
+          <div class="video-thumb">
+            <img src="./images/product1.jpg" alt="美妆AI产品图" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#1a0010 0%,#4d003a 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-image"></i></div>
+              <div class="video-thumb-label">AI产品图</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">美妆品牌·AI产品对比图</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例5：产品图 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商">
+          <div class="video-thumb">
+            <img src="./images/product2.jpg" alt="手表AI场景图" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a1a 0%,#00504d 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-clock-o"></i></div>
+              <div class="video-thumb-label">场景产品图</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">智能手表·AI场景产品图</h3>
+          </div>
+        </div>
+
+        <!-- 电商案例6：产品图 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="电商">
+          <div class="video-thumb">
+            <img src="./images/product3.jpg" alt="运动品牌主图" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a00 0%,#004d00 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-trophy"></i></div>
+              <div class="video-thumb-label">AI主图</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">运动品牌·AI创意主图设计</h3>
+          </div>
+        </div>
+
+        <!-- 自媒体案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="自媒体">
+          <div class="video-thumb">
+            <div class="video-thumb-bg" style="background: linear-gradient(135deg,#001533 0%,#003d80 50%,#001533 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-users"></i></div>
+              <div class="video-thumb-label">自媒体运营</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">品牌自媒体·AI全案代运营</h3>
+          </div>
+        </div>
+
+        <!-- 网站案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="网站">
+          <div class="video-thumb">
+            <img src="./images/product4.jpg" alt="企业官网" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#001a0d 0%,#004d26 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-globe"></i></div>
+              <div class="video-thumb-label">企业官网</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">企业官网·响应式全栈开发</h3>
+          </div>
+        </div>
+
+        <!-- 网站案例2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="网站">
+          <div class="video-thumb">
+            <img src="./images/product5.jpg" alt="作品集网站" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#0d0033 0%,#280080 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-briefcase"></i></div>
+              <div class="video-thumb-label">作品集网站</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">个人作品集·创意求职网站</h3>
+          </div>
+        </div>
+
+        <!-- 网站案例3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="网站">
+          <div class="video-thumb">
+            <img src="./images/product6.jpg" alt="赛博朋克官网" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="video-thumb-bg" style="display:none;background:linear-gradient(135deg,#0d001a 0%,#330050 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-desktop"></i></div>
+              <div class="video-thumb-label">赛博朋克官网</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">雄安与你同行·赛博朋克官网</h3>
+          </div>
+        </div>
+
+        <!-- 培训案例1 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="培训" onclick="showTrainingDetail('雄安某科技公司', '50人', 'AI工具实操培训', '员工AI工具使用效率提升300%，文案产出速度提高5倍')">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=600&fit=crop" alt="企业培训" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:100%;height:100%;object-fit:cover;">
+            <div class="video-thumb-bg" style="display:none;background: linear-gradient(135deg,#001a2d 0%,#005a8f 50%,#001a2d 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-graduation-cap"></i></div>
+              <div class="video-thumb-label">AI入门培训</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">雄安某科技公司·全员AI赋能</h3>
+            <p class="text-xs text-gray-400 mt-1">50人团队 | 效率提升300%</p>
+          </div>
+        </div>
+
+        <!-- 培训案例2 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="培训" onclick="showTrainingDetail('某设计工作室', '15人', 'AIGC创意实战工作坊', '设计师掌握Midjourney/SD，出图效率提升10倍，客户满意度提升40%')">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=600&fit=crop" alt="创意培训" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:100%;height:100%;object-fit:cover;">
+            <div class="video-thumb-bg" style="display:none;background: linear-gradient(135deg,#1a0d00 0%,#5e3000 50%,#1a0d00 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-paint-brush"></i></div>
+              <div class="video-thumb-label">AIGC实战</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">某设计工作室·AIGC创意实战</h3>
+            <p class="text-xs text-gray-400 mt-1">15人设计师 | 出图效率提升10倍</p>
+          </div>
+        </div>
+
+        <!-- 培训案例3 -->
+        <div class="case-item rounded-lg overflow-hidden card-hover tech-border high-glass z-10" data-category="培训" onclick="showTrainingDetail('某制造企业', '8位高管', 'AI战略决策培训', '制定AI转型路线图，预计年度运营成本降低20%，生产效率提升35%')">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=600&fit=crop" alt="高管培训" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:100%;height:100%;object-fit:cover;">
+            <div class="video-thumb-bg" style="display:none;background: linear-gradient(135deg,#0a001a 0%,#33005c 50%,#0a001a 100%);">
+              <div class="video-thumb-icon"><i class="fa fa-bar-chart"></i></div>
+              <div class="video-thumb-label">高管AI战略</div>
+            </div>
+          </div>
+          <div class="case-info">
+            <h3 class="case-title">某制造企业·高管AI战略培训</h3>
+            <p class="text-xs text-gray-400 mt-1">8位高管 | 预计降本20%</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 视频播放弹窗 -->
+  <div id="video-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;" onclick="closeVideoModal(event)">
+    <div style="position:relative;width:90vw;max-width:400px;aspect-ratio:9/16;" onclick="event.stopPropagation()">
+      <button onclick="closeVideoModal()" style="position:absolute;top:-2.5rem;right:0;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;z-index:2;line-height:1;padding:0 0.3rem;">&#215;</button>
+      <iframe id="video-modal-iframe" src="" frameborder="0" allow="fullscreen;autoplay" style="width:100%;height:100%;border-radius:10px;" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- 培训案例详情弹窗 -->
+  <div id="training-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;" onclick="closeTrainingModal(event)">
+    <div style="position:relative;width:90vw;max-width:500px;background:linear-gradient(135deg,rgba(26,5,51,0.95),rgba(10,26,64,0.95));border:1px solid rgba(120,0,255,0.3);border-radius:16px;padding:2rem;" onclick="event.stopPropagation()">
+      <button onclick="closeTrainingModal()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;z-index:2;line-height:1;">&#215;</button>
+      <div id="training-content">
+        <h3 id="training-client" style="font-size:1.25rem;font-weight:bold;color:#fff;margin-bottom:0.5rem;"></h3>
+        <p id="training-scale" style="color:#a855f7;font-size:0.875rem;margin-bottom:1rem;"></p>
+        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:1rem;margin-bottom:1rem;">
+          <p style="color:#94a3b8;font-size:0.75rem;margin-bottom:0.25rem;">培训内容</p>
+          <p id="training-type" style="color:#fff;font-size:0.9375rem;"></p>
+        </div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:8px;padding:1rem;">
+          <p style="color:#94a3b8;font-size:0.75rem;margin-bottom:0.25rem;">培训成果</p>
+          <p id="training-result" style="color:#22d3ee;font-size:0.9375rem;"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 服务流程 -->
+  <section id="process" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-6xl font-bold text-white mb-4" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">服务流程</h2>
+        <p class="text-sm text-gray-300 max-w-2xl mx-auto">
+          从沟通到交付，我们为您提供专业、高效的服务流程
+        </p>
+      </div>
+      
+      <!-- 横向流程卡片（手机端横向滑动，桌面端5列网格） -->
+      <div class="flex md:grid md:grid-cols-5 gap-4 md:gap-8 overflow-x-auto pb-4 md:pb-0 snap-x snap-mandatory md:overflow-visible" style="-webkit-overflow-scrolling: touch; scrollbar-width: none;"
+           id="process-scroll">
+        <!-- 流程步骤 1 -->
+        <div class="flex-shrink-0 w-64 md:w-auto snap-start rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
+          <!-- 背景数字 -->
+          <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">01</div>
+          
+          <!-- 图片 -->
+          <div class="h-40 md:h-64 overflow-visible relative">
+            <div class="w-full h-full rounded-t-2xl overflow-hidden">
+              <img 
+                src="images/step1.jpg" 
+                alt="需求沟通" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style="border-radius: 16px 16px 0 0;"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <div class="p-6 relative z-10">
+            <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">需求沟通</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">了解客户需求，制定详细的项目计划和方案。</p>
+          </div>
+        </div>
+        
+        <!-- 流程步骤 2 -->
+        <div class="flex-shrink-0 w-64 md:w-auto snap-start rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
+          <!-- 背景数字 -->
+          <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">02</div>
+          
+          <!-- 图片 -->
+          <div class="h-40 md:h-64 overflow-visible relative">
+            <div class="w-full h-full rounded-t-2xl overflow-hidden">
+              <img 
+                src="images/step2.jpg" 
+                alt="创意设计" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style="border-radius: 16px 16px 0 0;"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <div class="p-6 relative z-10">
+            <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">创意设计</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">根据需求进行创意设计，提供初步方案和概念。</p>
+          </div>
+        </div>
+        
+        <!-- 流程步骤 3 -->
+        <div class="flex-shrink-0 w-64 md:w-auto snap-start rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
+          <!-- 背景数字 -->
+          <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">03</div>
+          
+          <!-- 图片 -->
+          <div class="h-40 md:h-64 overflow-visible relative">
+            <div class="w-full h-full rounded-t-2xl overflow-hidden">
+              <img 
+                src="images/step3.jpg" 
+                alt="制作执行" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style="border-radius: 16px 16px 0 0;"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <div class="p-6 relative z-10">
+            <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">制作执行</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">专业团队进行制作，确保质量和效率。</p>
+          </div>
+        </div>
+        
+        <!-- 流程步骤 4 -->
+        <div class="flex-shrink-0 w-64 md:w-auto snap-start rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
+          <!-- 背景数字 -->
+          <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">04</div>
+          
+          <!-- 图片 -->
+          <div class="h-40 md:h-64 overflow-visible relative">
+            <div class="w-full h-full rounded-t-2xl overflow-hidden">
+              <img 
+                src="images/step4.jpg" 
+                alt="质量检查" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style="border-radius: 16px 16px 0 0;"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <div class="p-6 relative z-10">
+            <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">质量检查</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">严格的质量控制，确保最终产品符合要求。</p>
+          </div>
+        </div>
+        
+        <!-- 流程步骤 5 -->
+        <div class="flex-shrink-0 w-64 md:w-auto snap-start rounded-2xl overflow-hidden card-hover tech-border high-glass reveal relative group glass-effect z-10">
+          <!-- 背景数字 -->
+          <div class="absolute -top-10 -right-10 text-9xl font-bold text-white/10 tech-font">05</div>
+          
+          <!-- 图片 -->
+          <div class="h-40 md:h-64 overflow-visible relative">
+            <div class="w-full h-full rounded-t-2xl overflow-hidden">
+              <img 
+                src="images/step5.jpg" 
+                alt="交付验收" 
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                style="border-radius: 16px 16px 0 0;"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- 内容 -->
+          <div class="p-6 relative z-10">
+            <h3 class="text-base font-bold mb-3 text-white" style="font-family: 'Microsoft YaHei', 'Alibaba PuHuiTi', sans-serif;">交付验收</h3>
+            <p class="text-xs text-gray-300 line-clamp-2 case-desc-text">按时交付成果，确保客户满意。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 客户评价 -->
+  <section id="testimonials" class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">客户口碑</h2>
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">真实客户的声音，是我们最好的名片</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- 评价1 -->
+        <div class="glass-effect p-6 rounded-xl tech-border high-glass reveal">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-cyan-400 flex items-center justify-center text-white font-bold text-lg mr-4 flex-shrink-0">张</div>
+            <div>
+              <div class="text-white font-bold">张总 · 某餐饮品牌主理人</div>
+              <div class="text-yellow-400 text-sm mt-1">
+                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">"以前拍一条广告要花好几千，现在用AI制作不仅成本低了很多，效果还更好！数字人探店视频发出去之后，门店咨询量明显增加，强烈推荐！"</p>
+        </div>
+        <!-- 评价2 -->
+        <div class="glass-effect p-6 rounded-xl tech-border high-glass reveal">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg mr-4 flex-shrink-0">李</div>
+            <div>
+              <div class="text-white font-bold">李经理 · 某电商运营负责人</div>
+              <div class="text-yellow-400 text-sm mt-1">
+                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">"电商带货视频交付很快，48小时就拿到成片了，质量超出预期。AI生成的产品图也很有创意，和之前的传统摄影棚拍摄完全不同的感觉，客户都说好看。"</p>
+        </div>
+        <!-- 评价3 -->
+        <div class="glass-effect p-6 rounded-xl tech-border high-glass reveal">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white font-bold text-lg mr-4 flex-shrink-0">王</div>
+            <div>
+              <div class="text-white font-bold">王老师 · 某培训机构负责人</div>
+              <div class="text-yellow-400 text-sm mt-1">
+                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-300 text-sm leading-relaxed">"给我们机构拍了招生宣传视频，孩子们看了都很喜欢那种科技感风格。今年招生季用上这个视频，效果比去年好很多，以后还会继续合作！"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 价格套餐 -->
+  <section id="pricing" class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">服务套餐</h2>
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">灵活的套餐方案，满足不同规模需求，所有套餐均支持定制</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        <!-- 基础套餐 -->
+        <div class="glass-effect p-8 rounded-2xl tech-border high-glass reveal flex flex-col">
+          <div class="text-center mb-6">
+            <div class="text-gray-400 text-sm font-medium mb-2 tech-font">单次项目</div>
+            <div class="text-4xl font-black text-white tech-font">¥<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">1299</span></div>
+            <div class="text-gray-400 text-xs mt-1">起 / 项目</div>
+          </div>
+          <ul class="space-y-3 mb-8 flex-grow">
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>1条AI广告视频（60s内）</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>5款AI产品图/主图设计</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>48小时极速交付</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>2次免费修改</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>商业授权文件</li>
+            <li class="flex items-center text-gray-400 text-sm"><i class="fa fa-times-circle text-gray-600 mr-3 flex-shrink-0"></i>数字人定制</li>
+          </ul>
+          <a href="#contact" class="block text-center py-3 px-6 rounded-lg border border-purple-500/50 text-purple-300 font-semibold hover:bg-purple-500/20 transition text-sm">立即咨询</a>
+        </div>
+        <!-- 进阶套餐（推荐） -->
+        <div class="relative p-8 rounded-2xl flex flex-col reveal" style="background: linear-gradient(135deg, rgba(120,0,255,0.2), rgba(0,200,255,0.1)); border: 1px solid rgba(120,0,255,0.5); box-shadow: 0 0 30px rgba(120,0,255,0.2);">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-cyan-500 text-white text-xs font-bold px-4 py-1 rounded-full tech-font">最受欢迎</div>
+          <div class="text-center mb-6">
+            <div class="text-cyan-300 text-sm font-medium mb-2 tech-font">月度托管</div>
+            <div class="text-4xl font-black text-white tech-font">¥<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">4999</span></div>
+            <div class="text-gray-400 text-xs mt-1">起 / 月</div>
+          </div>
+          <ul class="space-y-3 mb-8 flex-grow">
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>4条AI视频（含1条数字人）</li>
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>15款AI产品图/营销海报</li>
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>双平台自媒体代运营</li>
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>每周数据分析报告</li>
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>专属1对1对接服务</li>
+            <li class="flex items-center text-gray-200 text-sm"><i class="fa fa-check-circle text-cyan-400 mr-3 flex-shrink-0"></i>月度内容策略规划</li>
+          </ul>
+          <a href="#contact" class="block text-center py-3 px-6 rounded-lg gradient-btn text-white font-bold transition text-sm">立即咨询</a>
+        </div>
+        <!-- 企业套餐 -->
+        <div class="glass-effect p-8 rounded-2xl tech-border high-glass reveal flex flex-col">
+          <div class="text-center mb-6">
+            <div class="text-gray-400 text-sm font-medium mb-2 tech-font">企业定制</div>
+            <div class="flex items-baseline justify-center gap-1 mt-1">
+              <span class="text-2xl font-black text-white tech-font">¥<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">9999</span></span>
+              <span class="text-gray-400 text-xs">起</span>
+            </div>
+            <div class="text-gray-400 text-xs mt-1">/ 月 · 联系获取专属方案</div>
+          </div>
+          <ul class="space-y-3 mb-8 flex-grow">
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>不限量AI视频制作</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>专属数字人IP形象定制</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>全平台多账号矩阵运营</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>AI客服系统部署</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>企业AI工具培训赋能</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>专属商务合同保障</li>
+          </ul>
+          <a href="#contact" class="block text-center py-3 px-6 rounded-lg border border-cyan-500/50 text-cyan-300 font-semibold hover:bg-cyan-500/20 transition text-sm">联系我们</a>
+        </div>
+        <!-- AI漫剧套餐 -->
+        <div class="glass-effect p-8 rounded-2xl tech-border high-glass reveal flex flex-col">
+          <div class="text-center mb-6">
+            <div class="text-gray-400 text-sm font-medium mb-2 tech-font">AI漫剧专项</div>
+            <div class="flex items-baseline justify-center gap-1 mt-1">
+              <span class="text-2xl font-black text-white tech-font">¥<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">1999</span></span>
+              <span class="text-gray-400 text-xs">起</span>
+            </div>
+            <div class="text-gray-400 text-xs mt-1">/ 10集起订 · 50秒/集</div>
+          </div>
+          <ul class="space-y-3 mb-8 flex-grow">
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>剧本改编与分镜设计</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>角色形象AI生成</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>AI视频生成与后期</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>字幕、配音、BGM</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>多平台发布格式</li>
+            <li class="flex items-center text-gray-300 text-sm"><i class="fa fa-check-circle text-purple-400 mr-3 flex-shrink-0"></i>角色一致性保障</li>
+          </ul>
+          <a href="#contact" class="block text-center py-3 px-6 rounded-lg border border-purple-500/50 text-purple-300 font-semibold hover:bg-purple-500/20 transition text-sm">立即咨询</a>
+        </div>
+      </div>
+      <p class="text-center text-gray-500 text-xs mt-8 reveal">* 以上价格仅供参考，实际以项目需求为准，欢迎咨询获取精准报价</p>
+    </div>
+  </section>
+
+  <!-- 关于我们 -->
+  <section id="about" class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">关于我们</h2>
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">
+          专注AI内容创作，让技术为品牌赋能，用故事打动人心
+        </p>
+      </div>
+      
+      <div class="flex flex-col md:flex-row items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0 reveal">
+          <div class="tech-border rounded-lg overflow-hidden high-glass">
+            <img 
+              src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cyberpunk%20AI%20technology%20team%20working%20in%20futuristic%20office%20with%20neon%20lights&image_size=square_hd" 
+              alt="关于我们" 
+              class="w-full"
+            />
+          </div>
+        </div>
+        <div class="md:w-1/2 md:pl-12 reveal">
+          <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">公司简介</h3>
+          <p class="text-gray-400 mb-6 text-base">
+            <strong class="text-white">雄安与你同行AI视觉实验室</strong>是雄安新区领先的AI内容创作服务商。我们专注用AI技术为企业打造<span class="text-cyan-400">低成本、高效率</span>的营销解决方案，让每一家企业都能享受AI带来的创意红利。
+          </p>
+          <p class="text-gray-400 mb-6 text-base">
+            核心业务覆盖<strong class="text-white">AI广告视频/漫剧制作、AI电商视觉、AI智能客服、AI内容代运营、网站小程序开发、企业AI培训</strong>六大板块。从创意策划到成品交付，我们提供全流程AI赋能服务，帮助客户降低80%制作成本，实现48小时极速交付。
+          </p>
+          <p class="text-gray-400 mb-6 text-base">
+            我们已成功服务<span class="text-purple-400">50+企业客户</span>，制作<span class="text-purple-400">100+AI视频作品</span>，累计播放量突破<span class="text-purple-400">500万次</span>。在AI漫剧领域，我们打造的《重生后我嫁给了前任的死对头》系列作品，正在抖音、B站等平台热播。
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">成本↓80%</div>
+              <div class="text-sm text-gray-400">对比传统制作</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">48h</div>
+              <div class="text-sm text-gray-400">极速出片交付</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">10+</div>
+              <div class="text-sm text-gray-400">AI工具矩阵</div>
+            </div>
+            <div class="glass-effect p-4 rounded-lg shadow-sm tech-border high-glass">
+              <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">50+</div>
+              <div class="text-sm text-gray-400">服务企业客户</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ 常见问题 -->
+  <section id="faq" class="py-20 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">常见问题</h2>
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">解答您最关心的问题</p>
+      </div>
+      <div class="max-w-3xl mx-auto space-y-4">
+        <!-- FAQ 1 -->
+        <div class="glass-effect rounded-xl tech-border high-glass overflow-hidden reveal">
+          <button class="faq-btn w-full flex justify-between items-center p-6 text-left" onclick="toggleFaq(this)">
+            <span class="text-white font-semibold text-sm md:text-base">AI广告视频大概多少钱？需要多久出片？</span>
+            <i class="fa fa-chevron-down text-purple-400 transition-transform duration-300 flex-shrink-0 ml-4"></i>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6">
+            <p class="text-gray-300 text-sm leading-relaxed">单次项目套餐（含1条60秒AI广告视频+5款产品图）从 <strong class="text-purple-300">1299元</strong> 起，包含数字人定制的版本另议。正常情况下 <strong class="text-cyan-300">48小时</strong> 内交付，加急项目可协商。具体价格根据视频时长、特效复杂度、配音方案等因素定制报价，欢迎咨询。</p>
+          </div>
+        </div>
+        <!-- FAQ 2 -->
+        <div class="glass-effect rounded-xl tech-border high-glass overflow-hidden reveal">
+          <button class="faq-btn w-full flex justify-between items-center p-6 text-left" onclick="toggleFaq(this)">
+            <span class="text-white font-semibold text-sm md:text-base">制作出来的AI视频效果能保证质量吗？</span>
+            <i class="fa fa-chevron-down text-purple-400 transition-transform duration-300 flex-shrink-0 ml-4"></i>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6">
+            <p class="text-gray-300 text-sm leading-relaxed">可以查看我们案例展示区的真实作品，均为已上线投放的项目。我们使用国内外顶级AI工具矩阵（Sora、可灵、即梦等10+工具），结合专业后期制作，所有作品在交付前经过严格质量审核，不满意可免费修改。</p>
+          </div>
+        </div>
+        <!-- FAQ 3 -->
+        <div class="glass-effect rounded-xl tech-border high-glass overflow-hidden reveal">
+          <button class="faq-btn w-full flex justify-between items-center p-6 text-left" onclick="toggleFaq(this)">
+            <span class="text-white font-semibold text-sm md:text-base">可以制作哪些平台的内容？</span>
+            <i class="fa fa-chevron-down text-purple-400 transition-transform duration-300 flex-shrink-0 ml-4"></i>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6">
+            <p class="text-gray-300 text-sm leading-relaxed">支持抖音、快手、小红书、微信视频号、微博、B站、TikTok（海外）、淘宝/拼多多/京东电商平台等主流渠道，针对不同平台的尺寸、时长、风格进行专项优化。</p>
+          </div>
+        </div>
+        <!-- FAQ 4 -->
+        <div class="glass-effect rounded-xl tech-border high-glass overflow-hidden reveal">
+          <button class="faq-btn w-full flex justify-between items-center p-6 text-left" onclick="toggleFaq(this)">
+            <span class="text-white font-semibold text-sm md:text-base">网站建设需要多久？能做小程序吗？</span>
+            <i class="fa fa-chevron-down text-purple-400 transition-transform duration-300 flex-shrink-0 ml-4"></i>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6">
+            <p class="text-gray-300 text-sm leading-relaxed">普通展示型网站通常 <strong class="text-cyan-300">3-7天</strong> 完成，功能复杂的项目根据需求另议。我们也承接微信小程序开发，欢迎与我们详细沟通需求。</p>
+          </div>
+        </div>
+        <!-- FAQ 5 -->
+        <div class="glass-effect rounded-xl tech-border high-glass overflow-hidden reveal">
+          <button class="faq-btn w-full flex justify-between items-center p-6 text-left" onclick="toggleFaq(this)">
+            <span class="text-white font-semibold text-sm md:text-base">如何开始合作？需要提供哪些材料？</span>
+            <i class="fa fa-chevron-down text-purple-400 transition-transform duration-300 flex-shrink-0 ml-4"></i>
+          </button>
+          <div class="faq-answer hidden px-6 pb-6">
+            <p class="text-gray-300 text-sm leading-relaxed">添加微信或拨打电话，告诉我们您的需求（产品/服务介绍、目标受众、参考风格）即可开始。我们会在沟通后免费出一版方案供您参考，确认后再正式签约制作，零门槛启动。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 联系方式 -->
+  <section id="contact" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font mb-4 glow-text">联系方式</h2>
+        <p class="text-sm text-gray-400 max-w-2xl mx-auto">
+          如有任何疑问或合作意向，请随时与我们联系
+        </p>
+      </div>
+      
+      <div class="flex flex-col md:flex-row items-center justify-center">
+        <div class="w-full md:w-1/2 max-w-md mb-10 md:mb-0 reveal">
+          <div class="glass-effect p-8 rounded-lg shadow-md tech-border high-glass h-full">
+            <h3 class="text-xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">联系我们</h3>
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 text-xl mr-4"><i class="fa fa-map-marker"></i></div>
+                <div>
+                  <h4 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-1">公司地址</h4>
+                  <p class="text-gray-400">河北省雄安新区</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 text-xl mr-4"><i class="fa fa-phone"></i></div>
+                <div>
+                  <h4 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-1">联系电话</h4>
+                  <p class="text-gray-400">198-3360-9806</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 text-xl mr-4"><i class="fa fa-envelope"></i></div>
+                <div>
+                  <h4 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-1">电子邮箱</h4>
+                  <p class="text-gray-400">xayntxai@outlook.com</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 text-xl mr-4"><i class="fa fa-clock-o"></i></div>
+                <div>
+                  <h4 class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 mb-1">服务时间</h4>
+                  <p class="text-gray-400">周一至周六 9:00 - 18:00</p>
+                  <p class="text-gray-500 text-xs mt-1">节假日可微信留言，24h内回复</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/2 max-w-md md:ml-8 reveal">
+          <div class="glass-effect p-8 rounded-lg shadow-md tech-border high-glass h-full flex flex-col items-center justify-center">
+            <h3 class="text-xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font text-center">微信客服</h3>
+            <div class="tech-border rounded-lg p-4 inline-block">
+              <img 
+                src="images/wechat-qr-code.png" 
+                alt="微信二维码" 
+                class="w-52 h-52"
+              />
+              <p class="text-gray-400 mt-4 text-center">扫码添加微信<br>获取更多服务信息</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="glass-effect py-12 relative overflow-hidden">
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-lg font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font glow-text">雄安与你同行| AI视觉实验室</h3>
+          <p class="text-gray-400">
+            专业的AI创意解决方案提供商
+          </p>
+        </div>
+        <div>
+          <h3 class="text-base font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">服务内容</h3>
+          <ul class="space-y-2 text-gray-400">
+            
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">AI广告视频/漫剧制作</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">AI电商视觉服务</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">AI智能客服系统</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">AI内容代运营</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">网站小程序开发</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">企业AI赋能培训</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-base font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">快速链接</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#home" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">首页</a></li>
+            <li><a href="#services" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">服务内容</a></li>
+            <li><a href="#cases" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">案例展示</a></li>
+            <li><a href="#pricing" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">服务套餐</a></li>
+            <li><a href="#faq" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">常见问题</a></li>
+            <li><a href="#about" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">关于我们</a></li>
+            <li><a href="#contact" class="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-cyan-400 transition nav-link">联系方式</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-base font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 tech-font">联系方式</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><i class="fa fa-map-marker mr-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400"></i> 河北省雄安新区</li>
+            <li><i class="fa fa-phone mr-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400"></i> 198-3360-9806</li>
+            <li><i class="fa fa-envelope mr-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400"></i> xayntxai@outlook.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-purple-500/20 mt-8 pt-8 text-center text-gray-400">
+        <p class="tech-font">© <span id="copyright-year">2024</span> 雄安与你同行| AI视觉实验室. 保留所有权利.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 悬浮联系按钮 + 返回顶部 -->
+  <div class="fixed bottom-6 right-4 z-50 flex flex-col items-center gap-3">
+    <!-- 返回顶部 -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+      class="w-11 h-11 rounded-full glass-effect border border-white/20 flex items-center justify-center text-gray-300 hover:text-white hover:border-purple-400 transition-all duration-300 opacity-0 pointer-events-none shadow-lg"
+      title="返回顶部">
+      <i class="fa fa-chevron-up text-sm"></i>
+    </button>
+    <!-- 微信快速联系 -->
+    <a href="#contact" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;"
+      class="w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110"
+      style="background: linear-gradient(135deg, #7800ff, #00c8ff); box-shadow: 0 0 20px rgba(120,0,255,0.5);"
+      title="联系我们">
+      <i class="fa fa-wechat text-white text-xl"></i>
+    </a>
+  </div>
+
+  <script>
+    // 检测是否为移动设备
+    function isMobile() {
+      return window.innerWidth <= 768;
+    }
+    
+    // 移动端菜单切换
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 移动端菜单点击链接后自动关闭
+    document.querySelectorAll('#mobile-menu a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.getElementById('mobile-menu').classList.add('hidden');
+      });
+    });
+
+    // 案例分类切换
+    document.querySelectorAll('.case-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // 移除所有标签的active状态
+        document.querySelectorAll('.case-tab').forEach(t => {
+          t.classList.remove('active-tab');
+          t.classList.add('text-gray-300');
+          t.classList.remove('text-white');
+        });
+        
+        // 添加当前标签的active状态
+        this.classList.add('active-tab');
+        this.classList.remove('text-gray-300');
+        this.classList.add('text-white');
+        
+        const tabId = this.getAttribute('data-tab');
+        
+        // 显示或隐藏案例
+        document.querySelectorAll('.case-item').forEach(item => {
+          if (item.getAttribute('data-category') === tabId) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 默认显示第一个分类的案例
+    function showFirstCategory() {
+      const firstTab = document.querySelector('.case-tab');
+      if (firstTab) {
+        const firstTabId = firstTab.getAttribute('data-tab');
+        document.querySelectorAll('.case-item').forEach(item => {
+          if (item.getAttribute('data-category') === firstTabId) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      }
+    }
+    
+    // 在DOM加载完成时执行
+    document.addEventListener('DOMContentLoaded', showFirstCategory);
+    
+    // 在窗口大小改变时重新执行，确保在移动设备上也能正确显示
+    window.addEventListener('resize', showFirstCategory);
+
+    // ===== 视频弹窗播放 =====
+    function openVideoModal(src, title) {
+      var modal = document.getElementById('video-modal');
+      var iframe = document.getElementById('video-modal-iframe');
+      if (!modal || !iframe) return;
+      iframe.src = src;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeVideoModal(e) {
+      // 如果传入了事件对象，只有点击遮罩层本身才关闭
+      if (e && e.target && e.target !== document.getElementById('video-modal')) return;
+      var modal = document.getElementById('video-modal');
+      var iframe = document.getElementById('video-modal-iframe');
+      if (!modal || !iframe) return;
+      iframe.src = '';
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    // ===== 培训案例详情弹窗 =====
+    function showTrainingDetail(client, scale, type, result) {
+      var modal = document.getElementById('training-modal');
+      document.getElementById('training-client').textContent = client;
+      document.getElementById('training-scale').textContent = '培训规模：' + scale;
+      document.getElementById('training-type').textContent = type;
+      document.getElementById('training-result').textContent = result;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeTrainingModal(e) {
+      if (e && e.target && e.target !== document.getElementById('training-modal')) return;
+      var modal = document.getElementById('training-modal');
+      if (!modal) return;
+      modal.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+    // ESC键关闭弹窗
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeVideoModal();
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // 粒子效果 - 随鼠标互动 (仅在非移动设备上运行)
+    if (!isMobile()) {
+      document.addEventListener('DOMContentLoaded', function() {
+        const canvas = document.getElementById('particles-canvas');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const particles = [];
+        const particleCount = 120; // 增加粒子数量，保持效果可见
+        let mouseX = canvas.width / 2;
+        let mouseY = canvas.height / 2;
+        
+        // 鼠标移动事件 - 使用节流优化
+        let lastMouseMove = 0;
+        window.addEventListener('mousemove', function(e) {
+          const now = Date.now();
+          if (now - lastMouseMove > 50) { // 每50ms更新一次
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            lastMouseMove = now;
+          }
+        });
+        
+        // 创建粒子
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 0.5, // 减小粒子大小
+            speedX: Math.random() * 0.6 - 0.3, // 减小速度
+            speedY: Math.random() * 0.6 - 0.3,
+            color: `rgba(255, 255, 255, ${Math.random() * 0.6 + 0.2})` // 改为白色
+          });
+        }
+        
+        // 动画循环
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            
+            // 鼠标互动效果
+            const dx = mouseX - p.x;
+            const dy = mouseY - p.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 120) { // 减小互动距离
+              const forceDirectionX = dx / distance;
+              const forceDirectionY = dy / distance;
+              const force = (120 - distance) / 120;
+              p.x -= forceDirectionX * force * 0.3; // 减小力的影响
+              p.y -= forceDirectionY * force * 0.3;
+            }
+            
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+            
+            p.x += p.speedX;
+            p.y += p.speedY;
+            
+            if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+            
+            // 连接粒子
+            for (let j = i; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dx = p.x - p2.x;
+              const dy = p.y - p2.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              
+              if (distance < 80) { // 减小连线距离
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 * (1 - distance / 80)})`;
+                ctx.lineWidth = 0.3; // 减小线宽
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+              }
+            }
+          }
+          
+          requestAnimationFrame(animate);
+        }
+        
+        // 延迟启动粒子效果，优先加载其他内容
+        setTimeout(animate, 1000);
+        
+        // 响应窗口大小 - 使用节流优化
+        let lastResize = 0;
+        window.addEventListener('resize', function() {
+          const now = Date.now();
+          if (now - lastResize > 200) { // 每200ms更新一次
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            lastResize = now;
+          }
+        });
+      });
+    }
+    
+
+    
+    // 视频悬停播放
+    document.addEventListener('DOMContentLoaded', function() {
+      const caseItems = document.querySelectorAll('.case-item');
+      caseItems.forEach(item => {
+        const video = item.querySelector('video');
+        if (video) {
+          item.addEventListener('mouseenter', function() {
+            video.play();
+          });
+          item.addEventListener('mouseleave', function() {
+            video.pause();
+            video.currentTime = 0;
+          });
+        }
+      });
+    });
+    
+    // 滚动触发效果 (仅在非移动设备上运行)
+    if (!isMobile()) {
+      window.addEventListener('scroll', function() {
+        const reveals = document.querySelectorAll('.reveal');
+        const windowHeight = window.innerHeight;
+        
+        reveals.forEach(reveal => {
+          const revealTop = reveal.getBoundingClientRect().top;
+          const revealPoint = 150;
+          
+          if (revealTop < windowHeight - revealPoint) {
+            reveal.classList.add('active');
+          }
+        });
+      });
+      
+      // 页面加载时检查
+      window.addEventListener('load', function() {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(reveal => {
+          const revealTop = reveal.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          const revealPoint = 150;
+          
+          if (revealTop < windowHeight - revealPoint) {
+            reveal.classList.add('active');
+          }
+        });
+      });
+    } else {
+      // 移动设备上直接添加active类，避免性能问题
+      window.addEventListener('load', function() {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(reveal => {
+          reveal.classList.add('active');
+        });
+      });
+    }
+
+    // 轮播视频 (仅在非移动设备上运行)
+    if (!isMobile()) {
+      document.addEventListener('DOMContentLoaded', function() {
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        
+        // 只有当轮播项存在时才执行
+        if (carouselItems.length > 0 && indicators.length > 0) {
+          let currentIndex = 0;
+          const totalItems = carouselItems.length;
+
+          // 自动轮播
+          function startCarousel() {
+            setInterval(() => {
+              goToNextSlide();
+            }, 5000); // 每5秒切换一次
+          }
+
+          // 切换到下一张
+          function goToNextSlide() {
+            if (currentIndex < carouselItems.length && currentIndex < indicators.length) {
+              carouselItems[currentIndex].classList.remove('opacity-100');
+              carouselItems[currentIndex].classList.add('opacity-0');
+              indicators[currentIndex].classList.remove('bg-white/50');
+              indicators[currentIndex].classList.add('bg-white/30');
+
+              currentIndex = (currentIndex + 1) % totalItems;
+
+              if (currentIndex < carouselItems.length && currentIndex < indicators.length) {
+                carouselItems[currentIndex].classList.remove('opacity-0');
+                carouselItems[currentIndex].classList.add('opacity-100');
+                indicators[currentIndex].classList.remove('bg-white/30');
+                indicators[currentIndex].classList.add('bg-white/50');
+              }
+            }
+          }
+
+          // 点击指示器切换
+          indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+              if (currentIndex < carouselItems.length && currentIndex < indicators.length) {
+                carouselItems[currentIndex].classList.remove('opacity-100');
+                carouselItems[currentIndex].classList.add('opacity-0');
+                indicators[currentIndex].classList.remove('bg-white/50');
+                indicators[currentIndex].classList.add('bg-white/30');
+              }
+
+              currentIndex = index;
+
+              if (currentIndex < carouselItems.length && currentIndex < indicators.length) {
+                carouselItems[currentIndex].classList.remove('opacity-0');
+                carouselItems[currentIndex].classList.add('opacity-100');
+                indicators[currentIndex].classList.remove('bg-white/30');
+                indicators[currentIndex].classList.add('bg-white/50');
+              }
+            });
+          });
+
+          // 开始轮播
+          startCarousel();
+        }
+      });
+    }
+
+    // 动态版权年份
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+    // 返回顶部按钮显示/隐藏
+    var backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) {
+        backToTop.classList.remove('opacity-0', 'pointer-events-none');
+        backToTop.classList.add('opacity-100');
+      } else {
+        backToTop.classList.add('opacity-0', 'pointer-events-none');
+        backToTop.classList.remove('opacity-100');
+      }
+    });
+
+    // FAQ 折叠展开
+    function toggleFaq(btn) {
+      var answer = btn.nextElementSibling;
+      var icon = btn.querySelector('.fa-chevron-down');
+      if (answer.classList.contains('hidden')) {
+        answer.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        answer.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+  </script>
+</body>
+</html>
